@@ -7,3 +7,4 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="ArmSegment" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(0, -50)

@@ -21,18 +21,10 @@ func grow_new_segment() -> void:
 	# 1. Neues Segment instanziieren
 	var new_segment: Node2D = segment_scene.instantiate()
 	
-	# 2. Zufällige Rotation bestimmen
-	var angle_offset: float = randf_range(deg_to_rad(-10), deg_to_rad(10))
-	
-	# 3. Die globale Transformation des Ankerpunkts holen
-	var new_transform: Transform2D = attachment_point.global_transform
-	
-	# 4. Zufällige Transformation zur aktuellen Transformation hinzufügen
-	# Marker definiert Grundrichtung, offset die Abweichung
-	new_transform = new_transform.rotated(angle_offset)
-	
 	# 5. Das neue Segment als Kind zum obersten Root-Node hinzufügen
 	get_parent().add_child(new_segment)
 	
+	new_segment.global_position = attachment_point.global_position
+	
 	# 6. Transformation zuweisen -> Platzierung am Ankerpunkt
-	new_segment.global_transform = new_transform
+	new_segment.position += Vector2(0, -50)
