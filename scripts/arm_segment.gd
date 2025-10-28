@@ -24,8 +24,7 @@ func grow_new_segment() -> void:
 	# 5. Das neue Segment als Kind zum obersten Root-Node hinzufügen
 	get_parent().add_child(new_segment)
 	
-	new_segment.global_rotation = attachment_point.global_rotation
-	new_segment.global_position = attachment_point.global_position
+	new_segment.global_transform = attachment_point.global_transform
 	
 	# 6. Transformation zuweisen -> Platzierung am Ankerpunkt
 	new_segment.position += Vector2(0, -50)
