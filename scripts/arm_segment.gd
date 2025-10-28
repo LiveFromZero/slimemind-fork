@@ -25,6 +25,4 @@ func grow_new_segment() -> void:
 	get_parent().add_child(new_segment)
 	
 	new_segment.global_transform = attachment_point.global_transform
-	
-	# 6. Transformation zuweisen -> Platzierung am Ankerpunkt
-	new_segment.position += Vector2(0, -50)
+	new_segment.global_position += new_segment.global_transform.y * -50
