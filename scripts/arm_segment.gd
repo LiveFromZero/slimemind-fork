@@ -36,7 +36,9 @@ func grow_new_segment(splitOrNot: int) -> void:
 		
 	if splitOrNot == 0:
 		new_segment.global_transform = attachment_point.global_transform
+		new_segment.rotation_degrees += rng.randf_range(1,-1)
 		new_segment.global_position += new_segment.global_transform.y * length_of_arm
+		
 	if splitOrNot == 1:
 		new_segment.global_transform = attachment_point.global_transform
 		new_segment.rotation_degrees += randomRotationOutOfOptions
