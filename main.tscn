@@ -6,6 +6,9 @@
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
 [node name="Blob" parent="." instance=ExtResource("1_0xm2m")]
 
@@ -20,3 +23,7 @@ rotation = 0.85346603
 position = Vector2(42.999996, 9.536743e-07)
 rotation = 1.5865043
 scale = Vector2(0.99999994, 0.99999994)
+
+[node name="ArmSegment4" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(0, 29)
+rotation = 3.1415927
