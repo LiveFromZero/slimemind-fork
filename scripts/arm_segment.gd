@@ -20,13 +20,13 @@ func _process(delta: float) -> void:
 	time_since_growth += delta
 	
 	if not has_grown and not hasSplit and time_since_growth >= GROWTH_INTERVAL:
-		grow_new_segment(0)
+		grow_new_segment()
 		if rng.randf_range(0,1) <= random_arm_split_chance:
-			grow_new_segment(1)
+			grow_new_segment()
 			hasSplit = true
 		has_grown = true
 		
-func grow_new_segment(splitOrNot: int) -> void:
+func grow_new_segment() -> void:
 	
 	# 1. Neues Segment instanziieren
 	var new_segment: Node2D = segment_scene.instantiate()
@@ -34,12 +34,7 @@ func grow_new_segment(splitOrNot: int) -> void:
 	# 5. Das neue Segment als Kind zum obersten Root-Node hinzufügen
 	get_parent().add_child(new_segment)
 		
-	if splitOrNot == 0:
-		new_segment.global_transform = attachment_point.global_transform
-		new_segment.rotation_degrees += rng.randf_range(1,-1)
-		new_segment.global_position += new_segment.global_transform.y * length_of_arm
+	new_segment.global_transform = attachment_point.global_transform
+	new_segment.rotation_degrees += randomRotationOutOfOptions
+	new_segment.global_position += new_segment.global_transform.y * length_of_arm
 		
-	if splitOrNot == 1:
-		new_segment.global_transform = attachment_point.global_transform
-		new_segment.rotation_degrees += randomRotationOutOfOptions
-		new_segment.global_position += new_segment.global_transform.y 
