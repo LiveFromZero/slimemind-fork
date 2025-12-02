@@ -21,7 +21,8 @@ position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_0510x")
 
 [node name="RayCast2D" type="RayCast2D" parent="Area2D"]
-target_position = Vector2(0, -33)
+position = Vector2(0, 14)
+target_position = Vector2(0, -52)
 collide_with_areas = true
 
 [node name="Marker2D" type="Marker2D" parent="."]

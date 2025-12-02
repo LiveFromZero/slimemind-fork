@@ -5,8 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://ojlxgt03ouxb" path="res://scenes/world.tscn" id="2_h2yge"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h2yge"]
-normal = Vector2(4.5654623e-08, -1)
-distance = -5.0
 
 [node name="Main" type="Node2D"]
 
@@ -20,34 +18,34 @@ script = ExtResource("1_h2yge")
 [node name="World" parent="." instance=ExtResource("2_h2yge")]
 
 [node name="Blob" parent="." instance=ExtResource("1_0xm2m")]
+scale = Vector2(0.5, 0.5)
 
-[node name="WorldBorders" type="Node" parent="."]
-
-[node name="WorldBorderDown" type="StaticBody2D" parent="WorldBorders"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderDown"]
-position = Vector2(-1, 644)
-shape = SubResource("WorldBoundaryShape2D_h2yge")
-
-[node name="WorldBorderUp" type="StaticBody2D" parent="WorldBorders"]
-rotation = -3.1415925
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderUp"]
-position = Vector2(-1, 644)
-shape = SubResource("WorldBoundaryShape2D_h2yge")
-
-[node name="WorldBorderRight" type="StaticBody2D" parent="WorldBorders"]
-position = Vector2(3, 1)
-rotation = -1.5707964
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderRight"]
-position = Vector2(-2.00005, 1144)
-shape = SubResource("WorldBoundaryShape2D_h2yge")
-
-[node name="WorldBorderLeft" type="StaticBody2D" parent="WorldBorders"]
-position = Vector2(3, 1)
+[node name="BorderUp" type="Area2D" parent="."]
+position = Vector2(0, -494)
 rotation = 1.5707964
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderLeft"]
-position = Vector2(-2.00005, 1144)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderUp"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_h2yge")
+
+[node name="BorderRight" type="Area2D" parent="."]
+position = Vector2(1039, 0)
+rotation = -0.7853982
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderRight"]
+rotation = -0.7853982
+shape = SubResource("WorldBoundaryShape2D_h2yge")
+
+[node name="BorderDown" type="Area2D" parent="."]
+position = Vector2(0, 547)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BorderDown"]
+shape = SubResource("WorldBoundaryShape2D_h2yge")
+
+[node name="BorderLeft" type="Area2D" parent="."]
+position = Vector2(-990, 0)
+rotation = 0.7853982
+
+[node name="BorderLeft" type="CollisionShape2D" parent="BorderLeft"]
+rotation = 0.7853982
 shape = SubResource("WorldBoundaryShape2D_h2yge")
