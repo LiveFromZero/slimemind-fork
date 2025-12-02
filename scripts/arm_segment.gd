@@ -20,12 +20,14 @@ func _process(delta: float) -> void:
 	time_since_growth += delta
 	
 	if not has_grown and not hasSplit and time_since_growth >= GROWTH_INTERVAL:
-		grow_new_segment()
-		if rng.randf_range(0,1) <= random_arm_split_chance:
+		if not $Area2D/RayCast2D.is_colliding():
 			grow_new_segment()
-			hasSplit = true
-		has_grown = true
-		
+			if rng.randf_range(0,1) <= random_arm_split_chance:
+				grow_new_segment()
+				hasSplit = true
+			has_grown = true
+		else:
+			has_grown = true
 func grow_new_segment() -> void:
 	
 	# 1. Neues Segment instanziieren
