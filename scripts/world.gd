@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 			1:
 				get_parent().add_child(arm_segment)
 				allplaced = true
-			2:
+			2: # nor working
 				get_parent().add_child(arm_segment)
 				get_parent().add_child(arm_segment)
 				allplaced = true
