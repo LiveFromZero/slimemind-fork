@@ -6,6 +6,7 @@
 size = Vector2(6, 50)
 
 [node name="ArmSegment" type="Node2D"]
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_0510x")
 
 [node name="Area2D" type="Area2D" parent="."]
