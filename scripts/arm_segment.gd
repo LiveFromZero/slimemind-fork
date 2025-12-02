@@ -7,8 +7,8 @@ extends Node2D
 @onready var attachment_point: Marker2D = $Marker2D
 
 var has_grown: bool = false
-const GROWTH_INTERVAL: float = 0.2
-var time_since_growth: float = 0.0
+const GROWTH_INTERVAL: float = 0.3
+var time_since_growth: float = 0.0 # Wird von Delta gesetzt
 var length_of_arm: int = -50
 var random_arm_split_chance: float = 0.3
 var rng = RandomNumberGenerator.new()

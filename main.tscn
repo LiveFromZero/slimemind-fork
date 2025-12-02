@@ -1,29 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1pq12byr341f"]
+[gd_scene load_steps=4 format=3 uid="uid://b1pq12byr341f"]
 
 [ext_resource type="PackedScene" uid="uid://dqtkwvjw8hvx3" path="res://scenes/blob.tscn" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://blye2vud5fbgq" path="res://scenes/arm_segment.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cknedy84b7fxr" path="res://scripts/world.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://ojlxgt03ouxb" path="res://scenes/world.tscn" id="2_h2yge"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
+limit_enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
+script = ExtResource("1_h2yge")
+
+[node name="World" parent="." instance=ExtResource("2_h2yge")]
 
 [node name="Blob" parent="." instance=ExtResource("1_0xm2m")]
-
-[node name="ArmSegment" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(0, -44)
-
-[node name="ArmSegment2" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(33.999996, -31)
-rotation = 0.85346603
-
-[node name="ArmSegment3" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(42.999996, 9.536743e-07)
-rotation = 1.5865043
-scale = Vector2(0.99999994, 0.99999994)
-
-[node name="ArmSegment4" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(0, 29)
-rotation = 3.1415927
+scale = Vector2(1.2, 1.2)
