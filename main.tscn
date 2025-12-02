@@ -21,16 +21,33 @@ script = ExtResource("1_h2yge")
 
 [node name="Blob" parent="." instance=ExtResource("1_0xm2m")]
 
-[node name="WorldBorderDown" type="StaticBody2D" parent="."]
+[node name="WorldBorders" type="Node" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorderDown"]
+[node name="WorldBorderDown" type="StaticBody2D" parent="WorldBorders"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderDown"]
 position = Vector2(-1, 644)
 shape = SubResource("WorldBoundaryShape2D_h2yge")
 
-[node name="WorldBorderRight" type="StaticBody2D" parent="."]
+[node name="WorldBorderUp" type="StaticBody2D" parent="WorldBorders"]
+rotation = -3.1415925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderUp"]
+position = Vector2(-1, 644)
+shape = SubResource("WorldBoundaryShape2D_h2yge")
+
+[node name="WorldBorderRight" type="StaticBody2D" parent="WorldBorders"]
 position = Vector2(3, 1)
 rotation = -1.5707964
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorderRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderRight"]
+position = Vector2(-2.00005, 1144)
+shape = SubResource("WorldBoundaryShape2D_h2yge")
+
+[node name="WorldBorderLeft" type="StaticBody2D" parent="WorldBorders"]
+position = Vector2(3, 1)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorders/WorldBorderLeft"]
 position = Vector2(-2.00005, 1144)
 shape = SubResource("WorldBoundaryShape2D_h2yge")
