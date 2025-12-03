@@ -20,24 +20,11 @@ func _ready():
 	# Damit die Kamera tatsächlich vom Script steuerbar ist
 	zoom = Vector2.ONE
 
-
 func _process(delta: float):
 	var viewport_size = get_viewport().get_visible_rect().size
 	var mouse = get_viewport().get_mouse_position()
 
 	# ---------------------------------
-	# EDGE SCROLLING (Maus am Rand)
-	# ---------------------------------
-	if mouse.x < edge_size:
-		global_position.x -= scroll_speed * delta
-	elif mouse.x > viewport_size.x - edge_size:
-		global_position.x += scroll_speed * delta
-
-	if mouse.y < edge_size:
-		global_position.y -= scroll_speed * delta
-	elif mouse.y > viewport_size.y - edge_size:
-		global_position.y += scroll_speed * delta
-	
 	# Begrenzung
 	global_position.x = clamp(global_position.x, limit_left, limit_right)
 	global_position.y = clamp(global_position.y, limit_top, limit_bottom)
