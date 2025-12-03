@@ -13,25 +13,29 @@ limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("1_h2yge")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
+[node name="Menu" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="Menu"]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 384.0
-offset_top = -300.0
-offset_right = 550.0
-offset_bottom = -260.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -166.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Control"]
+[node name="Button" type="Button" parent="Menu/Control"]
 layout_mode = 0
 offset_right = 162.0
 offset_bottom = 25.0
 theme_override_font_sizes/font_size = 12
 text = "Play"
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer/Control"]
+[node name="HSlider" type="HSlider" parent="Menu/Control"]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 26.0
@@ -76,5 +80,5 @@ rotation = 0.7853982
 rotation = 0.7853982
 shape = SubResource("WorldBoundaryShape2D_h2yge")
 
-[connection signal="pressed" from="CanvasLayer/Control/Button" to="World" method="_on_button_pressed"]
-[connection signal="value_changed" from="CanvasLayer/Control/HSlider" to="World" method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="Menu/Control/Button" to="World" method="_on_button_pressed"]
+[connection signal="value_changed" from="Menu/Control/HSlider" to="World" method="_on_h_slider_value_changed"]
