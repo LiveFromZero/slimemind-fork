@@ -6,8 +6,14 @@ extends Node2D
 # Referenz auf den Marker
 @onready var attachment_point: Marker2D = $Marker2D
 
+var game_controller
+
+func _ready():
+	game_controller = get_node("/root/Main/World")   # oder wo er halt liegt
+
+
 var has_grown: bool = false
-const GROWTH_INTERVAL: float = 0.3
+const GROWTH_INTERVAL: float = 0.2
 var time_since_growth: float = 0.0 # Wird von Delta gesetzt
 var length_of_arm: int = -50
 var random_arm_split_chance: float = 0.3
@@ -17,6 +23,9 @@ var randomRotationOutOfOptions = randomRotationOptions.pick_random()
 var hasSplit: bool = false
 
 func _process(delta: float) -> void:
+	if not game_controller.simulation_active:
+			return
+	
 	time_since_growth += delta
 	
 	if not has_grown and not hasSplit and time_since_growth >= GROWTH_INTERVAL:
