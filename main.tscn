@@ -47,7 +47,7 @@ value = 1.0
 scale = Vector2(0.5, 0.5)
 
 [node name="BorderUp" type="Area2D" parent="."]
-position = Vector2(0, -277)
+position = Vector2(0, -1000)
 rotation = 1.5707964
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BorderUp"]
@@ -55,7 +55,7 @@ rotation = 1.5707964
 shape = SubResource("WorldBoundaryShape2D_h2yge")
 
 [node name="BorderRight" type="Area2D" parent="."]
-position = Vector2(450.00012, 1)
+position = Vector2(1000, 0)
 rotation = -0.7853982
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BorderRight"]
@@ -63,13 +63,13 @@ rotation = -0.7853982
 shape = SubResource("WorldBoundaryShape2D_h2yge")
 
 [node name="BorderDown" type="Area2D" parent="."]
-position = Vector2(0, 247)
+position = Vector2(0, 1000)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BorderDown"]
 shape = SubResource("WorldBoundaryShape2D_h2yge")
 
 [node name="BorderLeft" type="Area2D" parent="."]
-position = Vector2(-474.00006, 0)
+position = Vector2(-1000, 0)
 rotation = 0.7853982
 
 [node name="BorderLeft" type="CollisionShape2D" parent="BorderLeft"]
