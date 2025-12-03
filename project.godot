@@ -14,3 +14,7 @@ config/name="SlimeMind"
 run/main_scene="uid://b1pq12byr341f"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/mode=2

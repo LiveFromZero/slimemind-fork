@@ -1,14 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://c18nvaethbl3s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b2eal"]
-size = Vector2(45, 176)
+size = Vector2(42, 171)
 
 [node name="CollisionObjekt" type="Node2D"]
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(24.5, 90)
+position = Vector2(24, 90.5)
 shape = SubResource("RectangleShape2D_b2eal")
 
 [node name="ColorRect" type="ColorRect" parent="Area2D"]
