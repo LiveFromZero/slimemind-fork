@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1pq12byr341f"]
 
 [ext_resource type="PackedScene" uid="uid://dqtkwvjw8hvx3" path="res://scenes/blob.tscn" id="1_0xm2m"]
-[ext_resource type="Script" uid="uid://cknedy84b7fxr" path="res://scripts/world.gd" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://bvlt7ptj8nwwv" path="res://scripts/camera_2d.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://ojlxgt03ouxb" path="res://scenes/world.tscn" id="2_h2yge"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h2yge"]
@@ -9,9 +9,8 @@
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_enabled = false
+limit_smoothed = true
 position_smoothing_enabled = true
-position_smoothing_speed = 2.0
 script = ExtResource("1_h2yge")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
