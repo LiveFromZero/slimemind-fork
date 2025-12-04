@@ -4,6 +4,7 @@ var arm_segment_scene: PackedScene = preload("res://scenes/arm_segment.tscn")
 
 var count_of_Arms = 0
 var simulation_active := false
+signal s_arm_can_grow_
 
 func _ready() -> void:
 	recreate_arms()
@@ -46,3 +47,4 @@ func _on_h_slider_value_changed(value: float) -> void:
 
 func _on_button_pressed() -> void:
 	simulation_active = not simulation_active
+	s_arm_can_grow_.emit()
