@@ -24,7 +24,11 @@ func recreate_arms() -> void:
 		{ "pos": Vector2(0, -20), "rot": 0 },
 		{ "pos": Vector2(20, 0), "rot": 90 },
 		{ "pos": Vector2(0, 20), "rot": 180 },
-		{ "pos": Vector2(-20, 0), "rot": 270 }
+		{ "pos": Vector2(-20, 0), "rot": 270 },
+		{"pos": Vector2(20,-20), "rot": 45},
+		{"pos": Vector2(20,20), "rot": 135},
+		{"pos": Vector2(-20,20), "rot": 225},
+		{"pos": Vector2(-20,-20), "rot": 315},
 	]
 
 	# Für count_of_Arms die passenden Arme erzeugen
