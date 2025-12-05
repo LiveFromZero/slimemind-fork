@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cgpwphoc0xh44"]
+
+[node name="ArmSegment" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 20.0
+offset_bottom = 100.0

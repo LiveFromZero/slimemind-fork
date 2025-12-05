@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="SlimeMind"
-run/main_scene="uid://b1pq12byr341f"
+run/main_scene="uid://e5eb72coh0xu"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/sprites/icon.svg"
 
 [display]
 
