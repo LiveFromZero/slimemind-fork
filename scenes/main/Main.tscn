@@ -40,3 +40,5 @@ script = ExtResource("8_qkm1d")
 
 [node name="CameraRig" parent="." instance=ExtResource("9_p5fgu")]
 script = ExtResource("10_2tpxt")
+
+[connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
