@@ -28,7 +28,7 @@ offset_bottom = 40.0
 [node name="ArmRoot" parent="World" instance=ExtResource("3_ko0rf")]
 
 [node name="ArmSegment" parent="World/ArmRoot" instance=ExtResource("5_qkm1d")]
-position = Vector2(-130, -73)
+position = Vector2(-111, -60)
 
 [node name="ArmGrowth" type="Node2D" parent="."]
 
