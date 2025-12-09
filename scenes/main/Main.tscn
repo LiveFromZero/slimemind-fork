@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=10 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_1rhdn"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/PathfindingSystem.gd" id="6_qkm1d"]
 [ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="7_3km4f"]
 [ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="8_qkm1d"]
-[ext_resource type="PackedScene" uid="uid://d26hupouxkd5n" path="res://scenes/camera/CameraRig.tscn" id="9_p5fgu"]
 [ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
 
 [node name="Main" type="Node2D"]
@@ -38,7 +37,9 @@ script = ExtResource("6_qkm1d")
 [node name="Ui" parent="." instance=ExtResource("7_3km4f")]
 script = ExtResource("8_qkm1d")
 
-[node name="CameraRig" parent="." instance=ExtResource("9_p5fgu")]
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 script = ExtResource("10_2tpxt")
 
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
