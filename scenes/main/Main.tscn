@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=11 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_1rhdn"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
 [ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
 [ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="4_ostsq"]
 [ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="5_3km4f"]
+[ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="5_qkm1d"]
 [ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/PathfindingSystem.gd" id="6_qkm1d"]
 [ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="7_3km4f"]
 [ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="8_qkm1d"]
@@ -25,6 +26,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ArmRoot" parent="World" instance=ExtResource("3_ko0rf")]
+
+[node name="ArmSegment" parent="World/ArmRoot" instance=ExtResource("5_qkm1d")]
+position = Vector2(-130, -73)
 
 [node name="ArmGrowth" type="Node2D" parent="."]
 
