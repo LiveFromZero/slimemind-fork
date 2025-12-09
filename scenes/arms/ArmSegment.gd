@@ -2,7 +2,7 @@ extends Node
 
 var ID
 var Vorgaenger
-var position = self.global_position
+var position_information = self.global_position
 
 signal color_changed(new_color: Color)
 
