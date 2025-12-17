@@ -73,3 +73,4 @@ grow_vertical = 2
 text = "Spawn segment"
 
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
+[connection signal="spawn_arm" from="Ui" to="World/WorldController" method="_on_ui_spawn_arm"]

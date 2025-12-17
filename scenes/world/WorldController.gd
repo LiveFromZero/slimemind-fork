@@ -9,5 +9,9 @@ func spawn_segment() -> void:
 	var instance: Node = packed.instantiate()
 	
 	# Füge sie im Baum hinzu
-	var parent_node: Node = get_node("Main/World/ArmRoot")
+	var parent_node: Node = get_node("/root/Main/World/ArmRoot")
 	parent_node.add_child(instance)
+
+
+func _on_ui_spawn_arm() -> void:
+	spawn_segment()
