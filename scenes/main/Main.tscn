@@ -1,23 +1,25 @@
-[gd_scene load_steps=11 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=13 format=3 uid="uid://e5eb72coh0xu"]
 
-[ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_1rhdn"]
+[ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
 [ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
-[ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="4_ostsq"]
-[ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="5_3km4f"]
+[ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="3_qkm1d"]
+[ext_resource type="Script" uid="uid://b36bifoww0c7b" path="res://scenes/arms/ArmSegment.gd" id="4_1rhdn"]
 [ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="5_qkm1d"]
-[ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/PathfindingSystem.gd" id="6_qkm1d"]
-[ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="7_3km4f"]
-[ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="8_qkm1d"]
+[ext_resource type="Script" uid="uid://damr7bd31a0p0" path="res://scenes/arms/color_rect.gd" id="5_sjxhf"]
+[ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="8_p5fgu"]
+[ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/PathfindingSystem.gd" id="9_2tpxt"]
 [ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
+[ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="11_p5fgu"]
+[ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="12_2tpxt"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_1rhdn")
+script = ExtResource("1_3km4f")
 
 [node name="World" parent="." instance=ExtResource("2_sjxhf")]
 
 [node name="WorldController" type="Node2D" parent="World"]
-script = ExtResource("4_ostsq")
+script = ExtResource("3_qkm1d")
 
 [node name="Blob" type="Node2D" parent="World"]
 
@@ -29,21 +31,48 @@ offset_bottom = 40.0
 
 [node name="ArmSegment" parent="World/ArmRoot" instance=ExtResource("5_qkm1d")]
 position = Vector2(-124, -52)
+script = ExtResource("4_1rhdn")
+
+[node name="ColorRect2" type="ColorRect" parent="World/ArmRoot/ArmSegment"]
+offset_right = 5.0
+offset_bottom = 30.0
+script = ExtResource("5_sjxhf")
 
 [node name="ArmGrowth" type="Node2D" parent="."]
 
 [node name="GrowthSystem" type="Node2D" parent="ArmGrowth"]
-script = ExtResource("5_3km4f")
+script = ExtResource("8_p5fgu")
 
 [node name="PathfindingSystem" type="Node2D" parent="ArmGrowth"]
-script = ExtResource("6_qkm1d")
-
-[node name="Ui" parent="." instance=ExtResource("7_3km4f")]
-script = ExtResource("8_qkm1d")
+script = ExtResource("9_2tpxt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 script = ExtResource("10_2tpxt")
+
+[node name="Ui" parent="." instance=ExtResource("11_p5fgu")]
+script = ExtResource("12_2tpxt")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="Ui"]
+
+[node name="Button" type="Button" parent="Ui/CanvasLayer2"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Start/Stop"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" type="Button" parent="Ui/CanvasLayer2"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Spawn segment"
 
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]

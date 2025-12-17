@@ -1,9 +1,9 @@
 extends Node
 
-var is_running = false
+var is_running: bool = false
 
-func _ready():
-	$Ui.simulation_toggled.connect(_on_ui_simulation_toggled)
+func _ready() -> void:
+	pass
 
 func _on_ui_simulation_toggled() -> void:
 	is_running = !is_running

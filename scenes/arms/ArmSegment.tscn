@@ -1,12 +1,3 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgpwphoc0xh44"]
-
-[ext_resource type="Script" uid="uid://damr7bd31a0p0" path="res://scenes/arms/color_rect.gd" id="1_27oy7"]
-[ext_resource type="Script" uid="uid://b36bifoww0c7b" path="res://scenes/arms/ArmSegment.gd" id="1_wrtiu"]
+[gd_scene format=3 uid="uid://cgpwphoc0xh44"]
 
 [node name="ArmSegment" type="Node2D"]
-script = ExtResource("1_wrtiu")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 5.0
-offset_bottom = 30.0
-script = ExtResource("1_27oy7")
