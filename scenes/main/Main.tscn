@@ -62,21 +62,22 @@ grow_vertical = 2
 text = "Start/Stop"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button2" type="Button" parent="Ui/CanvasLayer2"]
+[node name="HSlider" type="HSlider" parent="Ui/CanvasLayer2"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -132.0
-offset_top = 26.0
-offset_right = -1.0
-offset_bottom = 57.0
+offset_left = -86.0
+offset_top = 20.0
+offset_bottom = 36.0
 grow_horizontal = 0
 grow_vertical = 2
-text = "Spawn segment"
+max_value = 8.0
+value = 1.0
 
 [connection signal="arm_grew" from="World/ArmRoot" to="World/WorldController" method="_on_arm_root_arm_grew"]
 [connection signal="child_entered_tree" from="World/ArmRoot" to="World/ArmRoot" method="_on_child_entered_tree"]
+[connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
-[connection signal="spawn_arm" from="Ui" to="World/WorldController" method="_on_ui_spawn_arm"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/HSlider" to="Ui" method="_on_h_slider_value_changed"]
