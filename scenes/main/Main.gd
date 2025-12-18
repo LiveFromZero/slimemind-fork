@@ -1,6 +1,6 @@
 extends Node
 
-var is_running: bool = false
+var is_running: bool = true
 
 func _on_ui_simulation_toggled() -> void:
 	is_running = !is_running
