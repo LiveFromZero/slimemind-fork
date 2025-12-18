@@ -69,3 +69,8 @@ func _process(delta: float) -> void:
 
 func _on_growth_system_arm_grew(arm: Node2D) -> void:
 	arm_segments.erase(arm)
+
+func _ready() -> void:
+	# Alle bereits existierenden Arme ins Tracking aufnehmen
+	for arm in arm_root.get_children():
+		arm_segments.append(arm)
