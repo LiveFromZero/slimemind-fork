@@ -1,7 +1,7 @@
 extends Node
 
 var segment_scene := load("res://scenes/arms/ArmSegment.tscn") as PackedScene
-var length: float = 100.0
+var length: float = 30.0
 signal arm_grew(arm : Node2D)
 
 func _on_world_controller_grow_arm(arm_node: Node) -> void:

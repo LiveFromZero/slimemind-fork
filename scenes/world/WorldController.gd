@@ -4,7 +4,7 @@ extends Node
 
 var arm_scene := load("res://scenes/arms/ArmSegment.tscn") as PackedScene
 var arm_segments: Array[Node] = []
-@export var grow_interval: float = 1.0       # Sekunden zwischen Wachstumsschüben
+@export var grow_interval: float = 0.3       # Sekunden zwischen Wachstumsschüben
 var grow_timer: float = 0.0
 signal grow_arm(arm_node: Node)  # Signal, das den ausgewählten Arm mitgibt
 
@@ -66,7 +66,6 @@ func _process(delta: float) -> void:
 		
 		# Timer zurücksetzen (hier konstant, kann auch zufällig sein)
 		grow_timer = grow_interval
-
 
 func _on_growth_system_arm_grew(arm: Node2D) -> void:
 	arm_segments.erase(arm)

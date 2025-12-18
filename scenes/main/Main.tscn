@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="12_2tpxt"]
 
 [node name="Main" type="Node2D"]
-process_mode = 3
 script = ExtResource("1_3km4f")
 
 [node name="World" parent="." instance=ExtResource("2_sjxhf")]
