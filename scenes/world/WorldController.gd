@@ -8,7 +8,6 @@ var arm_segments = []
 func _on_arm_root_arm_grew(arm: Node) -> void:
 	arm_segments.append(arm)
 
-
 func _spawn_arms(amount: int) -> void:
 	for i in amount:
 		var arm = arm_scene.instantiate()
@@ -18,6 +17,7 @@ func _remove_arms(amount: int) -> void:
 	for i in amount:
 		var arm = arm_root.get_child(-1)
 		arm.queue_free()
+		arm_segments.erase(arm)
 
 func _reposition_arms() -> void:
 	var count = arm_root.get_child_count()
@@ -34,7 +34,6 @@ func _reposition_arms() -> void:
 
 		# Arm zeigt nach außen
 		arm.rotation = angle
-
 
 func _on_ui_arms_count_changed(count: int) -> void:
 	var current_count := arm_root.get_child_count()
