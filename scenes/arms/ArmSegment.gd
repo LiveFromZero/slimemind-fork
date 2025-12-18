@@ -6,7 +6,7 @@ var position_information = self.global_position
 
 signal color_changed(new_color: Color)
 
-var segment_color: Color = Color.RED
+var segment_color: Color = Color.WHITE
 
 func set_color(new_color: Color) -> void:
 	segment_color = new_color

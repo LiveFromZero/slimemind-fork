@@ -20,22 +20,28 @@ func _remove_arms(amount: int) -> void:
 		arm.queue_free()
 
 func _reposition_arms() -> void:
-	var count := arm_root.get_child_count()
+	var count = arm_root.get_child_count()
 	if count == 0:
 		return
-
-	var radius := 200.0
+	
+	var radius = 100.0  # Länge der Arme
 	for i in count:
-		var angle := TAU * i / count
-		var arm := arm_root.get_child(i)
-		arm.position = Vector2(cos(angle), sin(angle)) * radius
+		var arm = arm_root.get_child(i)
+		var angle = TAU * i / count  # gleichmäßig verteilen
+
+		# Arm bleibt am Ursprung
+		arm.position = Vector2.ZERO
+
+		# Arm zeigt nach außen
+		arm.rotation = angle
 
 
 func _on_ui_arms_count_changed(count: int) -> void:
 	var current_count := arm_root.get_child_count()
 	if count > current_count:
 		_spawn_arms(count - current_count)
-		_reposition_arms()
+		
 	elif count < current_count:
 		_remove_arms(current_count - count)
-		_reposition_arms()
+	
+	_reposition_arms()
