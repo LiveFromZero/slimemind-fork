@@ -54,7 +54,7 @@ func _on_ui_arms_count_changed(count: int) -> void:
 func _process(delta: float) -> void:
 	if arm_segments.size() == 0:
 		return  # nichts zu tun
-
+	
 	# Timer runterzählen
 	grow_timer -= delta
 	if grow_timer <= 0:

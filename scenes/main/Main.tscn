@@ -12,9 +12,11 @@
 [ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="12_2tpxt"]
 
 [node name="Main" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_3km4f")
 
 [node name="World" parent="." instance=ExtResource("2_sjxhf")]
+process_mode = 1
 
 [node name="WorldController" type="Node2D" parent="World"]
 script = ExtResource("3_qkm1d")
@@ -31,6 +33,7 @@ offset_bottom = 20.0
 script = ExtResource("5_3km4f")
 
 [node name="ArmGrowth" type="Node2D" parent="."]
+process_mode = 1
 
 [node name="GrowthSystem" type="Node2D" parent="ArmGrowth"]
 script = ExtResource("8_p5fgu")
@@ -39,6 +42,7 @@ script = ExtResource("8_p5fgu")
 script = ExtResource("9_2tpxt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 script = ExtResource("10_2tpxt")
@@ -83,4 +87,5 @@ value = 1.0
 [connection signal="arm_grew" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_grew"]
 [connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
+[connection signal="pressed" from="Ui/CanvasLayer2/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/HSlider" to="Ui" method="_on_h_slider_value_changed"]
