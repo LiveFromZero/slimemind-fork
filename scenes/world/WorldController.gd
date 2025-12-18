@@ -1,5 +1,7 @@
 extends Node
 
+var arm_segments = []
+
 # Methode zum Spawnen eines Segments
 func spawn_segment() -> void:
 	# Lade die Szene als PackedScene
@@ -15,3 +17,6 @@ func spawn_segment() -> void:
 
 func _on_ui_spawn_arm() -> void:
 	spawn_segment()
+
+func _on_arm_root_arm_grew(arm: Node) -> void:
+	arm_segments.append(arm)
