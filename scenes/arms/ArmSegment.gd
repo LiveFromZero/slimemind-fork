@@ -3,7 +3,7 @@ extends Node
 var id
 var vorgaenger
 var position_information = self.global_position
-var life_points = 100
+var life_points = (randf() * 10) + 75
 var damage_per_second: float = 1.0  # 1 Punkt pro Sekunde
 
 signal color_changed(new_color: Color)
@@ -20,7 +20,6 @@ func _process(delta: float):
 	if life_points < 1:
 		set_color("brown")
 		segment_died.emit()
-		queue_free()
 
 
 func set_color(new_color: Color) -> void:

@@ -50,7 +50,6 @@ func _on_ui_arms_count_changed(count: int) -> void:
 	_reposition_arms()
 
 # Zufälliger Arm wird ausgewählt, der wachsen darf
-
 func _process(delta: float) -> void:
 	if arm_segments.size() == 0:
 		return  # nichts zu tun
@@ -74,7 +73,6 @@ func _ready() -> void:
 	# Alle bereits existierenden Arme ins Tracking aufnehmen
 	for arm in arm_root.get_children():
 		arm_segments.append(arm)
-
 
 func _on_ui_reset_simulation() -> void:
 	var allChildren = arm_root.get_children()
