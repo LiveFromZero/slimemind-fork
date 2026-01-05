@@ -8,7 +8,7 @@ var arm_segments: Array[Node] = []
 var grow_timer: float = 0.0
 signal grow_arm(arm_node: Node)  # Signal, das den ausgewählten Arm mitgibt
 
-func _on_arm_root_arm_grew(arm: Node) -> void:
+func _on_arm_root_new_arm_grew(arm: Node) -> void:
 	arm_segments.append(arm)
 
 func _spawn_arms(amount: int) -> void:
@@ -67,7 +67,7 @@ func _process(delta: float) -> void:
 		# Timer zurücksetzen (hier konstant, kann auch zufällig sein)
 		grow_timer = grow_interval
 
-func _on_growth_system_arm_grew(arm: Node2D) -> void:
+func _on_growth_system_arm_has_grown_new_segment(arm: Node2D) -> void:
 	arm_segments.erase(arm)
 
 func _ready() -> void:

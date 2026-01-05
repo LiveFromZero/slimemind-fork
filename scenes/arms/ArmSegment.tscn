@@ -10,3 +10,6 @@ script = ExtResource("1_wrtiu")
 offset_right = 5.0
 offset_bottom = 30.0
 script = ExtResource("1_27oy7")
+
+[connection signal="color_changed" from="." to="ColorRect2" method="_on_arm_segment_color_changed"]
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

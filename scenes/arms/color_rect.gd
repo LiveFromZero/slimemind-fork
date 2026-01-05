@@ -1,8 +1,7 @@
 extends ColorRect
 
 func _ready() -> void:
-	get_parent().color_changed.connect(_on_color_changed)
-	color = get_parent().segment_color
+	color = "Yellow"
 
-func _on_color_changed(new_color: Color) -> void:
+func _on_arm_segment_color_changed(new_color: Color) -> void:
 	color = new_color

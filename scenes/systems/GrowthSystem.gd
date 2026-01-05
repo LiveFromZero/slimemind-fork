@@ -6,7 +6,7 @@ var length: float = 30.0
 @export var split_chance: float = 0.1  # 20% Chance pro Wachstum
 @export var split_angle: float = 15.0  # max Winkelabweichung links/rechts beim Split
 
-signal arm_grew(arm : Node2D)
+signal arm_has_grown_new_segment(arm : Node2D)
 
 func _on_world_controller_grow_arm(arm_node: Node) -> void:
 	spawn_segment_at_node(arm_node)
@@ -30,7 +30,7 @@ func _spawn_single(reference_node: Node2D) -> void:
 	new_segment.rotation = reference_node.rotation + random_offset
 
 	reference_node.get_parent().add_child(new_segment)
-	arm_grew.emit(reference_node)
+	arm_has_grown_new_segment.emit(reference_node)
 
 func _spawn_split(reference_node: Node2D) -> void:
 	var parent = reference_node.get_parent()
@@ -46,4 +46,4 @@ func _spawn_split(reference_node: Node2D) -> void:
 		new_segment.rotation = reference_node.rotation + angle_offset + drift
 		
 		parent.add_child(new_segment)
-		arm_grew.emit(reference_node)
+		arm_has_grown_new_segment.emit(reference_node)
