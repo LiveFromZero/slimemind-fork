@@ -12,3 +12,6 @@ func _on_button_pressed() -> void:
 
 func _on_reset_button_pressed() -> void:
 	reset_simulation.emit()
+
+func _on_menu_button_pressed() -> void:
+	$CanvasLayer2/VBoxContainer.visible = !$CanvasLayer2/VBoxContainer.visible
