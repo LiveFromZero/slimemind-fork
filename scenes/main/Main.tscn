@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=12 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="11_p5fgu"]
 [ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="12_2tpxt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3km4f"]
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -53,15 +55,31 @@ script = ExtResource("12_2tpxt")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="Ui"]
 
-[node name="Button" type="Button" parent="Ui/CanvasLayer2"]
+[node name="ResetButton" type="Button" parent="Ui/CanvasLayer2"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -4.0
-offset_bottom = 4.0
+offset_left = -102.0
+offset_top = 46.0
+offset_right = -2.0
+offset_bottom = 77.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Reset"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="Ui/CanvasLayer2"]
+anchors_preset = -1
+anchor_left = 0.998
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -99.696045
+offset_top = -17.0
+offset_right = -2.0
+offset_bottom = 14.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "Start/Stop"
@@ -73,19 +91,39 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -86.0
-offset_top = 20.0
-offset_bottom = 36.0
+offset_left = -101.0
+offset_top = -40.0
+offset_right = -1.0
+offset_bottom = -24.0
 grow_horizontal = 0
 grow_vertical = 2
 max_value = 8.0
-value = 1.0
+tick_count = 9
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="Label" type="Label" parent="Ui/CanvasLayer2"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -66.0
+offset_right = -2.0
+offset_bottom = -43.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Starter-Arme"
+label_settings = SubResource("LabelSettings_3km4f")
 
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="arm_grew" from="World/ArmRoot" to="World/WorldController" method="_on_arm_root_arm_grew"]
 [connection signal="child_entered_tree" from="World/ArmRoot" to="World/ArmRoot" method="_on_child_entered_tree"]
 [connection signal="arm_grew" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_grew"]
 [connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
+[connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
+[connection signal="pressed" from="Ui/CanvasLayer2/ResetButton" to="Ui" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/HSlider" to="Ui" method="_on_h_slider_value_changed"]
