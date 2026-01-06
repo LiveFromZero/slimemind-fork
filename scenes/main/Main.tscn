@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=15 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
 [ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
 [ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="3_qkm1d"]
 [ext_resource type="Script" uid="uid://bastr0lbnque8" path="res://scenes/world/arm_root.gd" id="5_3km4f"]
+[ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="6_p5fgu"]
 [ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="8_p5fgu"]
 [ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/Life_and_Death_System.gd" id="9_2tpxt"]
 [ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
@@ -37,6 +38,11 @@ color = Color(0.58883995, 0.84, 0.18480001, 1)
 
 [node name="ArmRoot" parent="World" instance=ExtResource("3_ko0rf")]
 script = ExtResource("5_3km4f")
+
+[node name="ArmSegment" parent="World" instance=ExtResource("6_p5fgu")]
+process_mode = 4
+visible = false
+position = Vector2(781, -275)
 
 [node name="ArmGrowth" type="Node2D" parent="."]
 process_mode = 1
@@ -110,7 +116,8 @@ text = "Reset"
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="child_entered_tree" from="World/ArmRoot" to="World/ArmRoot" method="_on_child_entered_tree"]
 [connection signal="new_arm_grew" from="World/ArmRoot" to="World/WorldController" method="_on_arm_root_new_arm_grew"]
-[connection signal="new_arm_grew" from="World/ArmRoot" to="ArmGrowth/Life_and_Death_System" method="_on_arm_root_new_arm_grew"]
+[connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
+[connection signal="segment_died" from="World/ArmSegment" to="ArmGrowth/Life_and_Death_System" method="_on_arm_segment_segment_died"]
 [connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
 [connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
 [connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]

@@ -38,7 +38,6 @@ func _reposition_arms() -> void:
 
 		# Arm zeigt nach außen
 		arm.rotation = angle
-		
 
 func _on_ui_arms_count_changed(count: int) -> void:
 	
@@ -81,3 +80,7 @@ func _on_ui_reset_simulation() -> void:
 	for child in allChildren:
 		child.queue_free()
 	arm_segments = []
+
+func _on_arm_segment_segment_died(arm_that_died: ArmSegment) -> void:
+	if arm_segments.has(arm_that_died):
+		arm_segments.erase(arm_that_died)
