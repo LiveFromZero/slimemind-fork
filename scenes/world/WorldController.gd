@@ -37,6 +37,7 @@ func _reposition_arms() -> void:
 
 		# Arm zeigt nach außen
 		arm.rotation = angle
+		
 
 func _on_ui_arms_count_changed(count: int) -> void:
 	
@@ -72,6 +73,7 @@ func _on_growth_system_arm_has_grown_new_segment(arm: Node2D) -> void:
 func _ready() -> void:
 	# Alle bereits existierenden Arme ins Tracking aufnehmen
 	for arm in arm_root.get_children():
+		arm.depth = 1
 		arm_segments.append(arm)
 
 func _on_ui_reset_simulation() -> void:

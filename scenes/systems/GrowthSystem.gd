@@ -22,6 +22,10 @@ func spawn_segment_at_node(reference_node: Node2D) -> void:
 
 func _spawn_single(reference_node: Node2D) -> void:
 	var new_segment = segment_scene.instantiate() as Node2D
+	
+	new_segment.predecessor = reference_node
+	reference_node.children.append(new_segment)
+	new_segment.depth = reference_node.depth + 1
 
 	# kleine Zufallsabweichung
 	var random_offset = deg_to_rad(randf_range(-10, 10))
@@ -36,6 +40,10 @@ func _spawn_split(reference_node: Node2D) -> void:
 	var parent = reference_node.get_parent()
 	for i in [-1, 1]:  # 2 Segmente: links und rechts
 		var new_segment = segment_scene.instantiate() as Node2D
+		
+		new_segment.predecessor = reference_node
+		reference_node.children.append(new_segment)
+		new_segment.depth = reference_node.depth + 1
 		
 		var angle_offset = deg_to_rad(split_angle) * i
 		var drift = deg_to_rad(randf_range(-5, 5))  # optional kleine Zufallsabweichung

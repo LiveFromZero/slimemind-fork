@@ -1,10 +1,11 @@
 extends Node
 
-var id
-var vorgaenger
+var predecessor: Node2D
+var children: Array [Node2D]
 var position_information = self.global_position
 var life_points = (randf() * 10) + 75
 var damage_per_second: float = 1.0  # 1 Punkt pro Sekunde
+var depth: int
 
 signal color_changed(new_color: Color)
 signal segment_died
