@@ -1,19 +1,20 @@
-extends Node
+extends Node2D
 
 @onready var arm_root := $"../ArmRoot"
 
 var arm_scene := load("res://scenes/arms/ArmSegment.tscn") as PackedScene
-var arm_segments: Array[Node] = []
-@export var grow_interval: float = 0.01       # Sekunden zwischen Wachstumsschüben
+var arm_segments: Array[ArmSegment] = []
+var grow_interval: float = 0.01       # Sekunden zwischen Wachstumsschüben
 var grow_timer: float = 0.0
-signal grow_arm(arm_node: Node)  # Signal, das den ausgewählten Arm mitgibt
+signal grow_arm(arm_node: ArmSegment)  # Signal, das den ausgewählten Arm mitgibt
 
-func _on_arm_root_new_arm_grew(arm: Node) -> void:
+func _on_arm_root_new_arm_grew(arm: ArmSegment) -> void:
 	arm_segments.append(arm)
 
 func _spawn_arms(amount: int) -> void:
 	for i in amount:
-		var arm = arm_scene.instantiate()
+		var arm = arm_scene.instantiate() as ArmSegment
+		arm.depth = 1
 		arm_root.add_child(arm)
 
 func _remove_arms(amount: int) -> void:
@@ -67,13 +68,12 @@ func _process(delta: float) -> void:
 		# Timer zurücksetzen (hier konstant, kann auch zufällig sein)
 		grow_timer = grow_interval
 
-func _on_growth_system_arm_has_grown_new_segment(arm: Node2D) -> void:
+func _on_growth_system_arm_has_grown_new_segment(arm: ArmSegment) -> void:
 	arm_segments.erase(arm)
 
 func _ready() -> void:
 	# Alle bereits existierenden Arme ins Tracking aufnehmen
 	for arm in arm_root.get_children():
-		arm.depth = 1
 		arm_segments.append(arm)
 
 func _on_ui_reset_simulation() -> void:
