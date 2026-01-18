@@ -1,4 +1,5 @@
 extends Node2D
+class_name WorldController
 
 @onready var arm_root := $"../ArmRoot"
 
