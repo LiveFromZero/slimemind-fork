@@ -4,7 +4,7 @@ extends Node2D
 
 var arm_scene := load("res://scenes/arms/ArmSegment.tscn") as PackedScene
 var arm_segments: Array[ArmSegment] = []
-var grow_interval: float = 0.01       # Sekunden zwischen Wachstumsschüben
+@export var grow_interval: float = 0.01       # Sekunden zwischen Wachstumsschüben
 var grow_timer: float = 0.0
 signal grow_arm(arm_node: ArmSegment)  # Signal, das den ausgewählten Arm mitgibt
 
@@ -84,3 +84,6 @@ func _on_ui_reset_simulation() -> void:
 func _on_arm_segment_segment_died(arm_that_died: ArmSegment) -> void:
 	if arm_segments.has(arm_that_died):
 		arm_segments.erase(arm_that_died)
+		
+func _on_arm_segment_eating(segment : ArmSegment) -> void:
+	arm_segments.erase(segment)

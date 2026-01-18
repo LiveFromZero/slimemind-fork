@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbh2ghiqgwxfm"]
+
+[ext_resource type="Script" uid="uid://bunsuqcqgfoft" path="res://scenes/world/Food_source.gd" id="1_to103"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_y3wb3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_to103"]
+size = Vector2(60, 61)
+
+[node name="FoodSource" type="Area2D"]
+script = ExtResource("1_to103")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.1525574e-07, 7.1525574e-07)
+scale = Vector2(50, 50)
+texture = SubResource("CanvasTexture_y3wb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_to103")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

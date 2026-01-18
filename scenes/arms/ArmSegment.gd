@@ -3,13 +3,15 @@ extends Node2D
 
 var predecessor: ArmSegment
 var children: Array [ArmSegment] = []
-var life_points = 200
+@export var max_life_points = 500
+var life_points = max_life_points
 @export var depth: int
 var base_damage = 0.2
 var damage_per_second
 
 signal color_changed(new_color: Color)
 signal segment_died(arm_that_died: ArmSegment)
+signal eating(amr_that_eats : ArmSegment)
 
 func _process(delta: float):
 	life_points -= damage_per_second * delta
@@ -30,6 +32,13 @@ func _ready() -> void:
 
 func _set_color(new_color: Color) -> void:
 	color_changed.emit(new_color)
+
+func eat(food_amout : int) -> void:
+	life_points = max_life_points
+	if predecessor != null:
+		predecessor.eat(food_amout)
+	eating.emit(self)
+	
 
 func _die() -> void:
 	# Verhindere Mehrfach-Auslösung

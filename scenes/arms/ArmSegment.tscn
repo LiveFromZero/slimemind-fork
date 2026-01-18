@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgpwphoc0xh44"]
+[gd_scene load_steps=4 format=3 uid="uid://cgpwphoc0xh44"]
 
 [ext_resource type="Script" uid="uid://damr7bd31a0p0" path="res://scenes/arms/color_rect.gd" id="1_27oy7"]
 [ext_resource type="Script" uid="uid://b36bifoww0c7b" path="res://scenes/arms/ArmSegment.gd" id="1_wrtiu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrtiu"]
+size = Vector2(5, 30)
 
 [node name="ArmSegment" type="Node2D"]
 script = ExtResource("1_wrtiu")
@@ -11,5 +14,10 @@ offset_right = 5.0
 offset_bottom = 30.0
 script = ExtResource("1_27oy7")
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.5, 15)
+shape = SubResource("RectangleShape2D_wrtiu")
+
 [connection signal="color_changed" from="." to="ColorRect2" method="_on_arm_segment_color_changed"]
-[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
