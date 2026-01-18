@@ -33,11 +33,12 @@ func _ready() -> void:
 func _set_color(new_color: Color) -> void:
 	color_changed.emit(new_color)
 
-func eat(food_amout : int) -> void:
+func eat(food_amount: float) -> void:
 	life_points = max_life_points
 	if predecessor != null:
-		predecessor.eat(food_amout)
+		predecessor.eat(food_amount)
 	eating.emit(self)
+
 	
 
 func _die() -> void:
