@@ -16,6 +16,7 @@ func _spawn_arms(amount: int) -> void:
 		var arm = arm_scene.instantiate() as ArmSegment
 		arm.depth = 1
 		arm_root.add_child(arm)
+		arm_segments.append(arm)
 
 func _remove_arms(amount: int) -> void:
 	for i in amount:
@@ -87,3 +88,6 @@ func _on_arm_segment_segment_died(arm_that_died: ArmSegment) -> void:
 		
 func _on_arm_segment_eating(segment : ArmSegment) -> void:
 	arm_segments.erase(segment)
+
+func _on_growth_system_new_segment_alive(segment: ArmSegment) -> void:
+	arm_segments.append(segment)
