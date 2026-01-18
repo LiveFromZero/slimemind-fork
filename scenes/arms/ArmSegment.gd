@@ -3,7 +3,7 @@ extends Node2D
 
 var predecessor: ArmSegment
 var children: Array [ArmSegment] = []
-@export var max_life_points = 500
+@export var max_life_points = 50
 var life_points = max_life_points
 @export var depth: int
 var base_damage = 0.2

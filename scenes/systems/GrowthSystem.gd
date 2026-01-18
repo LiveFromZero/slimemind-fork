@@ -18,6 +18,8 @@ const SPLIT_DRIFT_DEG: float = 5.0
 
 signal arm_has_grown_new_segment(arm: ArmSegment)
 signal new_segment_alive(segment: ArmSegment)
+signal segments_spawned(parent: ArmSegment, new_segments: Array[ArmSegment])
+
 
 func _ready() -> void:
 	assert(_life_system != null, "Life system not found or wrong type at: %s" % [life_system_path])
@@ -34,12 +36,18 @@ func spawn_segment_at_node(reference_node: ArmSegment) -> void:
 
 func _spawn_single(reference_node: ArmSegment) -> void:
 	var random_offset: float = deg_to_rad(randf_range(-SINGLE_RANDOM_DEG, SINGLE_RANDOM_DEG))
+
 	var segment := _create_child_segment(reference_node)
-	_place_segment(segment, reference_node, random_offset, random_offset) # same as before
-	_finalize_new_segment(reference_node, segment)
+	_place_segment(segment, reference_node, random_offset, random_offset)
+	_finalize_new_segment(reference_node, segment) # emits old signals
+
+	# NEW: once-per-growth event
+	segments_spawned.emit(reference_node, [segment])
+
 
 func _spawn_split(reference_node: ArmSegment) -> void:
 	var parent: Node = reference_node.get_parent()
+	var spawned: Array[ArmSegment] = []
 
 	for i: int in [-1, 1]:
 		var angle_offset: float = deg_to_rad(split_angle) * float(i)
@@ -52,6 +60,12 @@ func _spawn_split(reference_node: ArmSegment) -> void:
 		_connect_death_handlers(segment)
 		arm_has_grown_new_segment.emit(reference_node)
 		new_segment_alive.emit(segment)
+
+		spawned.append(segment)
+
+	# NEW: once-per-growth event
+	segments_spawned.emit(reference_node, spawned)
+
 
 func _create_child_segment(reference_node: ArmSegment) -> ArmSegment:
 	var seg: ArmSegment = segment_scene.instantiate()
