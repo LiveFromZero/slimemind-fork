@@ -12,11 +12,14 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if current_nutrients <= 0.0:
+		# aktiv alle beenden
+		for c in _consumers:
+			if is_instance_valid(c):
+				c.stop_eating()
+		_consumers.clear()
 		queue_free()
 		return
 
-	if _consumers.is_empty():
-		return
 
 	# Drain per consumer, per second.
 	var drain_per_consumer := absorption_rate * delta
@@ -36,8 +39,6 @@ func _process(delta: float) -> void:
 
 		consumer.eat(drained)
 
-
-
 func _on_area_entered(area: Area2D) -> void:
 	var consumer := area.get_parent() as ArmSegment
 	if consumer == null:
@@ -45,6 +46,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 	if !_consumers.has(consumer):
 		_consumers.append(consumer)
+		consumer.start_eating()
 
 func _on_area_exited(area: Area2D) -> void:
 	var consumer := area.get_parent() as ArmSegment
@@ -52,3 +54,4 @@ func _on_area_exited(area: Area2D) -> void:
 		return
 
 	_consumers.erase(consumer)
+	consumer.stop_eating()

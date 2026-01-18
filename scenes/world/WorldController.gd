@@ -9,14 +9,12 @@ var arm_segments: Array[ArmSegment] = []
 var grow_timer: float = 0.0
 signal grow_arm(arm_node: ArmSegment)  # Signal, das den ausgewählten Arm mitgibt
 
-func _on_arm_root_new_arm_grew(arm: ArmSegment) -> void:
-	arm_segments.append(arm)
-
 func _spawn_arms(amount: int) -> void:
 	for i in amount:
 		var arm = arm_scene.instantiate() as ArmSegment
 		arm.depth = 1
 		arm_root.add_child(arm)
+		_register_segment(arm)
 		arm_segments.append(arm)
 
 func _remove_arms(amount: int) -> void:
@@ -75,7 +73,10 @@ func _on_growth_system_arm_has_grown_new_segment(arm: ArmSegment) -> void:
 func _ready() -> void:
 	# Alle bereits existierenden Arme ins Tracking aufnehmen
 	for arm in arm_root.get_children():
-		arm_segments.append(arm)
+		var seg := arm as ArmSegment
+		if seg:
+			_register_segment(seg)
+			arm_segments.append(seg)
 
 func _on_ui_reset_simulation() -> void:
 	var allChildren = arm_root.get_children()
@@ -93,5 +94,27 @@ func _on_arm_segment_segment_died(arm_that_died: ArmSegment) -> void:
 func _on_arm_segment_eating(segment : ArmSegment) -> void:
 	arm_segments.erase(segment)
 
-func _on_growth_system_new_segment_alive(segment: ArmSegment) -> void:
+func _on_arm_segment_stopped_eating(segment: ArmSegment) -> void:
+	if !is_instance_valid(segment):
+		return
+	if arm_segments.has(segment):
+		return
 	arm_segments.append(segment)
+
+func _on_growth_system_new_segment_alive(segment: ArmSegment) -> void:
+	_register_segment(segment)
+	arm_segments.append(segment)
+
+func _register_segment(seg: ArmSegment) -> void:
+	if seg == null:
+		return
+
+	# Doppelt verbinden vermeiden
+	if !seg.eating.is_connected(_on_arm_segment_eating):
+		seg.eating.connect(_on_arm_segment_eating)
+
+	if !seg.stopped_eating.is_connected(_on_arm_segment_stopped_eating):
+		seg.stopped_eating.connect(_on_arm_segment_stopped_eating)
+
+	if !seg.segment_died.is_connected(handle_segment_died):
+		seg.segment_died.connect(handle_segment_died)
