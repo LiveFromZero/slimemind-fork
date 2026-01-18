@@ -19,6 +19,8 @@ func _process(delta: float) -> void:
 		_consumers.clear()
 		queue_free()
 		return
+	_consumers = _consumers.filter(func(c): return is_instance_valid(c))
+
 
 
 	# Drain per consumer, per second.
