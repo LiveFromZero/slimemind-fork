@@ -13,11 +13,15 @@ const SPLIT_DRIFT_DEG: float = 5.0
 @export var life_system_path: NodePath = ^"/root/Main/ArmGrowth/Life_and_Death_System"
 @export var world_controller_path: NodePath = ^"/root/Main/World/WorldController"
 
-@onready var _life_system: Node = get_node(life_system_path)
-@onready var _world_controller: Node = get_node(world_controller_path)
+@onready var _life_system: LifeAndDeathSystem = get_node(life_system_path) as LifeAndDeathSystem
+@onready var _world_controller: WorldController = get_node(world_controller_path) as WorldController
 
 signal arm_has_grown_new_segment(arm: ArmSegment)
 signal new_segment_alive(segment: ArmSegment)
+
+func _ready() -> void:
+	assert(_life_system != null, "Life system not found or wrong type at: %s" % [life_system_path])
+	assert(_world_controller != null, "WorldController not found or wrong type at: %s" % [world_controller_path])
 
 func _on_world_controller_grow_arm(arm_node: ArmSegment) -> void:
 	spawn_segment_at_node(arm_node)
