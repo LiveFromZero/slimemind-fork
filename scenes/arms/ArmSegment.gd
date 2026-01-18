@@ -25,17 +25,9 @@ signal segment_died(arm_that_died: ArmSegment)
 signal eating(arm_that_eats: ArmSegment) # wird: started eating
 signal stopped_eating(arm_that_stops: ArmSegment)
 
-
 func _process(delta: float):
 	life_points -= damage_per_second * delta
-	if life_points < 350:
-		_set_color(Color("yellow"))
-	if life_points < 250:
-		_set_color(Color("olive-drab"))
-	if life_points < 150:
-		_set_color(Color("olive"))
 	if life_points <= 0:
-		_set_color(Color("brown"))
 		_die()
 
 func _ready() -> void:
@@ -47,7 +39,6 @@ func _ready() -> void:
 func _set_color(new_color: Color) -> void:
 	color_changed.emit(new_color)
 	
-
 func _die() -> void:
 	# Verhindere Mehrfach-Auslösung
 	set_process(false)
