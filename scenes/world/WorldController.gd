@@ -83,6 +83,9 @@ func _on_ui_reset_simulation() -> void:
 		child.queue_free()
 	arm_segments = []
 
+func handle_segment_died(dead_segment: ArmSegment) -> void:
+	_on_arm_segment_segment_died(dead_segment)
+
 func _on_arm_segment_segment_died(arm_that_died: ArmSegment) -> void:
 	if arm_segments.has(arm_that_died):
 		arm_segments.erase(arm_that_died)

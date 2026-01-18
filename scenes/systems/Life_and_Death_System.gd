@@ -1,6 +1,9 @@
 extends Node
 class_name LifeAndDeathSystem
 
+func handle_segment_died(dead_segment: ArmSegment) -> void:
+	_on_arm_segment_segment_died(dead_segment)
+
 func _on_arm_segment_segment_died(dead_segment: ArmSegment) -> void:
 	_kill_subtree_recursive(dead_segment)
 

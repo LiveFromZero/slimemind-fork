@@ -80,5 +80,5 @@ func _finalize_new_segment(reference_node: ArmSegment, segment: ArmSegment) -> v
 	new_segment_alive.emit(segment)
 
 func _connect_death_handlers(segment: ArmSegment) -> void:
-	segment.segment_died.connect(_life_system._on_arm_segment_segment_died)
-	segment.segment_died.connect(_world_controller._on_arm_segment_segment_died)
+	segment.segment_died.connect(_life_system.handle_segment_died)
+	segment.segment_died.connect(_world_controller.handle_segment_died)
