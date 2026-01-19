@@ -76,6 +76,7 @@ func _on_growth_system_arm_has_grown_new_segment(arm: ArmSegment) -> void:
 	arm_segments.erase(arm)
 
 func _ready() -> void:
+	add_to_group("SliderUpdate")
 	# Alle bereits existierenden Arme ins Tracking aufnehmen
 	for arm in arm_root.get_children():
 		var seg := arm as ArmSegment

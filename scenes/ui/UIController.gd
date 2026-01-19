@@ -26,7 +26,7 @@ func _on_robustheit_arme_lebenspunkte_value_changed(value: float) -> void:
 	get_tree().call_group("SliderUpdate", "slider_update_maxlifepoints", value)
 
 func _on_sonnenlicht_value_changed(value: float) -> void:
-	get_tree().call_group("SliderUpdate", "slider_update_sunlights", value)
+	get_tree().call_group("SliderUpdate", "slider_update_sunlight", value)
 
 func _on_temperatur_value_changed(value: float) -> void:
 		get_tree().call_group("SliderUpdate", "slider_update_temperature", value)

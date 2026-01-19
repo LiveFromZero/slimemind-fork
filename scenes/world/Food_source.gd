@@ -8,6 +8,7 @@ var current_nutrients: float
 var _consumers: Array[ArmSegment] = []
 
 func _ready() -> void:
+	add_to_group("SliderUpdate")
 	current_nutrients = total_nutrients
 
 func _process(delta: float) -> void:

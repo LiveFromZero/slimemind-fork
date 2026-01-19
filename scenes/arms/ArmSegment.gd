@@ -28,16 +28,17 @@ signal stopped_eating(arm_that_stops: ArmSegment)
 func _process(delta: float):
 	life_points -= damage_per_second * delta
 	if life_points > 500:
-		_set_color("Green")
+		_set_color(Color.GREEN)
 	if life_points <= 500:
-		_set_color("Blue")
+		_set_color(Color.BLUE)
 	if life_points <= 50:
-		_set_color("Yellow")
+		_set_color(Color.YELLOW)
 	if life_points <= 0:
-		_set_color("Brown")
+		_set_color(Color.BROWN)
 		_die()
 
 func _ready() -> void:
+	add_to_group("SliderUpdate")
 	if depth == 0:  # Falls irgendwie vergessen wurde
 		depth = 1
 	damage_per_second = base_damage * depth
