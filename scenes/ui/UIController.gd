@@ -20,16 +20,16 @@ func _on_futtermenge_value_changed(value: float) -> void:
 	pass # Replace with function body.
 
 func _on_futtergröße_value_changed(value: float) -> void:
-	get_tree().call_group("SliderUpdate", "update_total_nutrients")
+	get_tree().call_group("SliderUpdate", "update_total_nutrients", value)
 
 func _on_robustheit_arme_lebenspunkte_value_changed(value: float) -> void:
-	get_tree().call_group("SliderUpdate", "slider_update_maxlifepoints")
+	get_tree().call_group("SliderUpdate", "slider_update_maxlifepoints", value)
 
 func _on_sonnenlicht_value_changed(value: float) -> void:
-	pass # Replace with function body.
+	get_tree().call_group("SliderUpdate", "slider_update_sunlights", value)
 
 func _on_temperatur_value_changed(value: float) -> void:
-	pass # Replace with function body.
+		get_tree().call_group("SliderUpdate", "slider_update_temperature", value)
 
 func _on_luftfeuchtigkeit_value_changed(value: float) -> void:
-	pass # Replace with function body.
+	get_tree().call_group("SliderUpdate", "slider_update_humidity", value)

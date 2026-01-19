@@ -5,7 +5,7 @@ extends Node2D
 
 var predecessor: ArmSegment
 var children: Array [ArmSegment] = []
-@export var max_life_points = 500
+@export var max_life_points : float = 500
 var life_points
 var depth: int
 var base_damage = 0.2
@@ -133,7 +133,7 @@ func _feed_descendants(life_amount: float, depth: int) -> void:
 
 # Visuals
 
-func slider_update_maxlifepoints(slider_max_life_points) -> void:
+func slider_update_maxlifepoints(slider_max_life_points : float) -> void:
 	max_life_points = slider_max_life_points
 
 func _pulse(color: Color, strength: float = 0.6, duration: float = 0.18) -> void:
