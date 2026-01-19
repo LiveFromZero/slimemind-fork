@@ -5,11 +5,11 @@ class_name WorldController
 
 var arm_scene := load("res://scenes/arms/ArmSegment.tscn") as PackedScene
 var arm_segments: Array[ArmSegment] = []
-@export var grow_interval: float = 0.01       # Sekunden zwischen Wachstumsschüben
+@export var grow_interval: float     # Sekunden zwischen Wachstumsschüben
 var grow_timer: float = 0.0
-var sunlightamountInWorld = 1
-var humidityInWorld = 1
-var temperatureInWorld = 1
+var sunlightamountInWorld 
+var humidityInWorld 
+var temperatureInWorld 
 var BASE_Growth := 0.01
 var Max_Food_Arm_Segment
 
@@ -80,13 +80,13 @@ func _on_growth_system_arm_has_grown_new_segment(arm: ArmSegment) -> void:
 	arm_segments.erase(arm)
 
 func _ready() -> void:
+	read_defaults_from_UI()
 	# Alle bereits existierenden Arme ins Tracking aufnehmen
 	for arm in arm_root.get_children():
 		var seg := arm as ArmSegment
 		if seg:
 			_register_segment(seg)
 			arm_segments.append(seg)
-	slider_update_growthinterval()
 
 func _on_ui_reset_simulation() -> void:
 	var allChildren = arm_root.get_children()
@@ -145,17 +145,26 @@ func humidity_factor() -> float:
 func light_factor() -> float:
 	return sunlightamountInWorld
 	#return bell(sunlightamountInWorld, 15.0, 20.0)
-
-func slider_update_sunlight(sunlightamountFromSlider:float) -> void:
-	sunlightamountInWorld = sunlightamountFromSlider
-
-func slider_update_humidity(humidityFromSlider:float) -> void:
-	humidityInWorld = humidityFromSlider
-
-func slider_update_temperature(temperatureFromSlider:float) -> void:
-	temperatureInWorld = temperatureFromSlider
+	
 
 # UI-Handler
+func read_defaults_from_UI() -> void:
+	Max_Food_Arm_Segment = 50
+	sunlightamountInWorld = 1
+	temperatureInWorld = 1
+	humidityInWorld = 1
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
 	Max_Food_Arm_Segment = slider_lifepoints * 10
+
+func _on_ui_update_lightamount(slider_lightamount: float) -> void:
+	sunlightamountInWorld = slider_lightamount
+	slider_update_growthinterval()
+
+func _on_ui_update_temperature(slider_temperature: float) -> void:
+	temperatureInWorld = slider_temperature
+	slider_update_growthinterval()
+
+func _on_ui_update_humidity(slider_humidity: float) -> void:
+	humidityInWorld = slider_humidity
+	slider_update_growthinterval()
