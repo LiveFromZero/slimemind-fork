@@ -107,8 +107,10 @@ layout_mode = 2
 layout_mode = 2
 text = "Widerstandsfähigkeit"
 
-[node name="Robustheit Arme (Lebenspunkte)" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Lebenspunkte" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
+min_value = 1.0
+value = 50.0
 
 [node name="Label5" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -127,6 +129,7 @@ text = "Temperatur"
 [node name="Temperatur" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = -50.0
+value = 1.0
 
 [node name="Label7" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -134,6 +137,8 @@ text = "Luftfeuchtigkeit"
 
 [node name="Luftfeuchtigkeit" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
+min_value = 1.0
+value = 1.0
 
 [node name="Label" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -192,7 +197,7 @@ position = Vector2(893, -2)
 [connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futtermenge" to="Ui" method="_on_futtermenge_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futtergröße" to="Ui" method="_on_futtergröße_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Robustheit Arme (Lebenspunkte)" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Lebenspunkte" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Sonnenlicht" to="Ui" method="_on_sonnenlicht_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Temperatur" to="Ui" method="_on_temperatur_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit" to="Ui" method="_on_luftfeuchtigkeit_value_changed"]

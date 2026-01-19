@@ -149,10 +149,14 @@ func light_factor() -> float:
 
 # UI-Handler
 func read_defaults_from_UI() -> void:
-	Max_Food_Arm_Segment = 50
-	sunlightamountInWorld = 1
-	temperatureInWorld = 1
-	humidityInWorld = 1
+	var slider_humidity := get_node("../../Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit") as HSlider
+	humidityInWorld = slider_humidity.value
+	var slider_lifepoints := get_node("../../Ui/CanvasLayer2/VBoxContainer/Lebenspunkte") as HSlider
+	Max_Food_Arm_Segment = slider_lifepoints.value
+	var slider_sunlight := get_node("../../Ui/CanvasLayer2/VBoxContainer/Sonnenlicht") as HSlider
+	sunlightamountInWorld = slider_sunlight.value
+	var slider_temperature := get_node("../../Ui/CanvasLayer2/VBoxContainer/Temperatur") as HSlider
+	temperatureInWorld = slider_temperature.value
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
 	Max_Food_Arm_Segment = slider_lifepoints * 10
@@ -165,6 +169,6 @@ func _on_ui_update_temperature(slider_temperature: float) -> void:
 	temperatureInWorld = slider_temperature
 	slider_update_growthinterval()
 
-func _on_ui_update_humidity(slider_humidity: float) -> void:
-	humidityInWorld = slider_humidity
+func _on_ui_update_humidity(slider_humidity_updated_from_ui: float) -> void:
+	humidityInWorld = slider_humidity_updated_from_ui
 	slider_update_growthinterval()
