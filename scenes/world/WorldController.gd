@@ -132,20 +132,42 @@ func _register_segment(seg: ArmSegment) -> void:
 # Wetter
 
 func slider_update_growthinterval() -> void:
-	grow_interval = BASE_Growth * temp_factor() * humidity_factor() * light_factor()
+	var rate := BASE_Growth * temp_factor() * humidity_factor() * light_factor()
+	rate = max(rate, 0.0001) # nie 0, sonst hängt alles
+	grow_interval = 1.0 / rate
 
 func temp_factor() -> float:
-	return temperatureInWorld
-	#return bell(temperatureInWorld, 24.0, 8.0)
+	var t : float = temperatureInWorld
+	var optimum := 22.0
+	var sigma := 12.0 # Breite der Wohlfühlzone (größer = toleranter)
+
+	# Gauß-Kurve: 1.0 am Optimum, fällt zu beiden Seiten ab
+	var x := (t - optimum) / sigma
+	var f := exp(-0.5 * x * x)
+
+	# Boden setzen, damit Wachstum nicht komplett stoppt
+	return lerp(0.05, 1.5, f)  # 0.05..1.5
+
 
 func humidity_factor() -> float:
-	return humidityInWorld
-	#return bell(humidityInWorld, 90.0, 15)
+	var h := clampf(humidityInWorld, 1.0, 100.0)
+
+	# Normieren 0..1
+	var x := (h - 1.0) / 99.0
+
+	# Smoothstep: langsam am Anfang, dann schnell, dann Sättigung
+	var f := x * x * (3.0 - 2.0 * x)
+
+	return lerp(0.1, 1.6, f)  # 0.1..1.6
+
 
 func light_factor() -> float:
-	return sunlightamountInWorld
-	#return bell(sunlightamountInWorld, 15.0, 20.0)
-	
+	var l := clampf(sunlightamountInWorld, 1.0, 100.0)
+	var optimum := 15.0
+	var sigma := 18.0
+	var x := (l - optimum) / sigma
+	var f := exp(-0.5 * x * x)
+	return lerp(0.2, 1.4, f)
 
 # UI-Handler
 func read_defaults_from_UI() -> void:

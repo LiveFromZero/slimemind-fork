@@ -118,9 +118,7 @@ text = "Sonnenmenge"
 
 [node name="Sonnenlicht" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-min_value = 1.0
-step = 5.0
-value = 1.0
+value = 15.0
 
 [node name="Label6" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -129,7 +127,7 @@ text = "Temperatur"
 [node name="Temperatur" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = -50.0
-value = 1.0
+value = 22.0
 
 [node name="Label7" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -137,8 +135,7 @@ text = "Luftfeuchtigkeit"
 
 [node name="Luftfeuchtigkeit" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-min_value = 1.0
-value = 1.0
+value = 70.0
 
 [node name="Label" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
