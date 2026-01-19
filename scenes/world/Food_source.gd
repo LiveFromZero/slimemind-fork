@@ -8,7 +8,6 @@ var current_nutrients: float
 var _consumers: Array[ArmSegment] = []
 
 func _ready() -> void:
-	add_to_group("SliderUpdate")
 	current_nutrients = total_nutrients
 
 func _process(delta: float) -> void:
@@ -58,6 +57,3 @@ func _on_area_exited(area: Area2D) -> void:
 
 	_consumers.erase(consumer)
 	consumer.stop_eating()
-
-func update_total_nutrients(nutrients_from_Slider : float) -> void:
-	total_nutrients = nutrients_from_Slider
