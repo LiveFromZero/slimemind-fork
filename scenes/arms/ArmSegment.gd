@@ -15,7 +15,7 @@ var _pulse_tween: Tween
 var _base_color: Color
 
 const FOOD_TO_LIFE := 0.08 # Balancing-Wert
-const UP_SHARE := 0.6
+const UP_SHARE := 1
 const SIB_SHARE := 0.2 # Anteil vom eigenen Life-Gewinn an Geschwister
 const EATING_COLOR := Color(1.0, 0.85, 0.3) # warm/gelb
 const FED_COLOR := Color(0.4, 1.0, 0.6)     # grünlich
@@ -66,7 +66,7 @@ func eat(food_amount: float) -> void:
 	var gained := food_amount * FOOD_TO_LIFE
 
 	# eigenes Segment
-	life_points = min(max_life_points, life_points + gained)
+	life_points = max_life_points
 
 	# nach oben (Strang)
 	if predecessor != null:
