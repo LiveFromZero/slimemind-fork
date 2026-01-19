@@ -59,6 +59,7 @@ script = ExtResource("9_2tpxt")
 
 [node name="FoodManager" type="Node2D" parent="Food"]
 script = ExtResource("9_jsdfw")
+food_scene = ExtResource("13_2tpxt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3
@@ -101,6 +102,10 @@ text = "Futtermenge"
 
 [node name="Futteranzahl" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
+min_value = 1.0
+max_value = 15.0
+value = 8.0
+tick_count = 14
 
 [node name="Label3" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -108,6 +113,9 @@ text = "Futtergröße"
 
 [node name="Futtergröße" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer" groups=["SliderUpdate"]]
 layout_mode = 2
+min_value = 100.0
+max_value = 100000.0
+value = 10000.0
 
 [node name="FoodSpawnButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -171,21 +179,6 @@ color = Color(0.21, 0.21, 0.21, 1)
 [node name="ResetButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Reset"
-
-[node name="FoodSource" parent="." instance=ExtResource("13_2tpxt")]
-position = Vector2(3, -591)
-
-[node name="FoodSource2" parent="." instance=ExtResource("13_2tpxt")]
-position = Vector2(-870, -2)
-
-[node name="FoodSource3" parent="." instance=ExtResource("13_2tpxt")]
-position = Vector2(-26, -119)
-
-[node name="FoodSource4" parent="." instance=ExtResource("13_2tpxt")]
-position = Vector2(3, 603)
-
-[node name="FoodSource5" parent="." instance=ExtResource("13_2tpxt")]
-position = Vector2(893, -2)
 
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
