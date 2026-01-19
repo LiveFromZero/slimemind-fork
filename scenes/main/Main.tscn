@@ -182,6 +182,7 @@ position = Vector2(893, -2)
 [connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
 [connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
+[connection signal="update_life_points_for_arms" from="Ui" to="World/WorldController" method="_on_ui_update_life_points_for_arms"]
 [connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futtermenge" to="Ui" method="_on_futtermenge_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futtergröße" to="Ui" method="_on_futtergröße_value_changed"]

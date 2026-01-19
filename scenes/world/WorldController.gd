@@ -11,16 +11,20 @@ var sunlightamountInWorld = 1
 var humidityInWorld = 1
 var temperatureInWorld = 1
 var BASE_Growth := 0.01
+var Max_Food_Arm_Segment
 
-signal grow_arm(arm_node: ArmSegment)  # Signal, das den ausgewählten Arm mitgibt
+signal grow_arm(arm_node: ArmSegment, MaxFood : float)  # Signal, das den ausgewählten Arm mitgibt
 
 func _spawn_arms(amount: int) -> void:
 	for i in amount:
 		var arm = arm_scene.instantiate() as ArmSegment
 		arm.depth = 1
+		arm.max_life_points = Max_Food_Arm_Segment
+		arm.life_points = arm.max_life_points
 		arm_root.add_child(arm)
 		_register_segment(arm)
 		arm_segments.append(arm)
+		
 
 func _remove_arms(amount: int) -> void:
 	for i in amount:
@@ -67,7 +71,7 @@ func _process(delta: float) -> void:
 		var arm = arm_segments[randi() % arm_segments.size()]
 		
 		# Signal senden mit dem Arm als Parameter
-		emit_signal("grow_arm", arm)
+		grow_arm.emit(arm, Max_Food_Arm_Segment)
 		
 		# Timer zurücksetzen (hier konstant, kann auch zufällig sein)
 		grow_timer = grow_interval
@@ -76,7 +80,6 @@ func _on_growth_system_arm_has_grown_new_segment(arm: ArmSegment) -> void:
 	arm_segments.erase(arm)
 
 func _ready() -> void:
-	add_to_group("SliderUpdate")
 	# Alle bereits existierenden Arme ins Tracking aufnehmen
 	for arm in arm_root.get_children():
 		var seg := arm as ArmSegment
@@ -151,3 +154,8 @@ func slider_update_humidity(humidityFromSlider:float) -> void:
 
 func slider_update_temperature(temperatureFromSlider:float) -> void:
 	temperatureInWorld = temperatureFromSlider
+
+# UI-Handler
+
+func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
+	Max_Food_Arm_Segment = slider_lifepoints * 10

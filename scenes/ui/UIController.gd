@@ -4,6 +4,8 @@ signal simulation_toggled
 signal arms_count_changed(count: int)
 signal reset_simulation
 
+signal update_life_points_for_arms(slider_lifepoints:float)
+
 func _on_h_slider_value_changed(value: float) -> void:
 	arms_count_changed.emit(value)
 
@@ -23,7 +25,7 @@ func _on_futtergröße_value_changed(value: float) -> void:
 	get_tree().call_group("SliderUpdate", "update_total_nutrients", value)
 
 func _on_robustheit_arme_lebenspunkte_value_changed(value: float) -> void:
-	get_tree().call_group("SliderUpdate", "slider_update_maxlifepoints", value)
+	update_life_points_for_arms.emit(value)
 
 func _on_sonnenlicht_value_changed(value: float) -> void:
 	get_tree().call_group("SliderUpdate", "slider_update_sunlight", value)

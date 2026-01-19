@@ -5,7 +5,7 @@ extends Node2D
 
 var predecessor: ArmSegment
 var children: Array [ArmSegment] = []
-@export var max_life_points : float = 500
+@export var max_life_points : float
 var life_points
 var depth: int
 var base_damage = 0.2
@@ -38,7 +38,6 @@ func _process(delta: float):
 		_die()
 
 func _ready() -> void:
-	add_to_group("SliderUpdate")
 	if depth == 0:  # Falls irgendwie vergessen wurde
 		depth = 1
 	damage_per_second = base_damage * depth
@@ -85,7 +84,7 @@ func stop_eating() -> void:
 	_pulse(_base_color, 0.0, 0.12)
 	stopped_eating.emit(self)
 
-func feed_tick(amount: float) -> void:
+func feed_tick() -> void:
 	# Minimal: "arm gets energy and doesn't die"
 	# You said "complete arm", so we refresh the whole connected subtree.
 	_refresh_life_whole_arm()
@@ -140,9 +139,6 @@ func _feed_descendants(life_amount: float, depth: int) -> void:
 		seg._feed_descendants(life_amount * 0.6, depth - 1)
 
 # Visuals
-
-func slider_update_maxlifepoints(slider_max_life_points : float) -> void:
-	max_life_points = slider_max_life_points * 10
 
 func _pulse(color: Color, strength: float = 0.6, duration: float = 0.18) -> void:
 	if visual == null:

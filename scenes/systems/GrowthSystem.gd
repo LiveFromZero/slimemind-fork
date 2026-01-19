@@ -35,19 +35,19 @@ func _emit_spawn_events(parent_segment: ArmSegment, spawned: Array[ArmSegment]) 
 	segments_spawned.emit(parent_segment, spawned)
 
 
-func _on_world_controller_grow_arm(arm_node: ArmSegment) -> void:
-	spawn_segment_at_node(arm_node)
+func _on_world_controller_grow_arm(arm_node: ArmSegment, maxFood : float) -> void:
+	spawn_segment_at_node(arm_node, maxFood)
 
-func spawn_segment_at_node(reference_node: ArmSegment) -> void:
+func spawn_segment_at_node(reference_node: ArmSegment, maxFood:float) -> void:
 	if randf() < split_chance:
-		_spawn_split(reference_node)
+		_spawn_split(reference_node, maxFood)
 	else:
-		_spawn_single(reference_node)
+		_spawn_single(reference_node, maxFood)
 
-func _spawn_single(reference_node: ArmSegment) -> void:
+func _spawn_single(reference_node: ArmSegment, maxFood : float) -> void:
 	var random_offset: float = deg_to_rad(randf_range(-SINGLE_RANDOM_DEG, SINGLE_RANDOM_DEG))
 
-	var segment := _create_child_segment(reference_node)
+	var segment := _create_child_segment(reference_node, maxFood)
 	_place_segment(segment, reference_node, random_offset, random_offset)
 
 	_finalize_new_segment(reference_node, segment, reference_node.get_parent())
@@ -55,7 +55,7 @@ func _spawn_single(reference_node: ArmSegment) -> void:
 	_emit_spawn_events(reference_node, [segment])
 
 
-func _spawn_split(reference_node: ArmSegment) -> void:
+func _spawn_split(reference_node: ArmSegment, maxFood:float) -> void:
 	var parent: Node = reference_node.get_parent()
 	var spawned: Array[ArmSegment] = []
 
@@ -63,7 +63,7 @@ func _spawn_split(reference_node: ArmSegment) -> void:
 		var angle_offset: float = deg_to_rad(split_angle) * float(i)
 		var drift: float = deg_to_rad(randf_range(-SPLIT_DRIFT_DEG, SPLIT_DRIFT_DEG))
 
-		var segment := _create_child_segment(reference_node)
+		var segment := _create_child_segment(reference_node, maxFood)
 		_place_segment(segment, reference_node, angle_offset + drift, angle_offset + drift)
 
 		_finalize_new_segment(reference_node, segment, parent)
@@ -72,10 +72,12 @@ func _spawn_split(reference_node: ArmSegment) -> void:
 	_emit_spawn_events(reference_node, spawned)
 
 
-func _create_child_segment(reference_node: ArmSegment) -> ArmSegment:
+func _create_child_segment(reference_node: ArmSegment, maxFood:float) -> ArmSegment:
 	var seg: ArmSegment = segment_scene.instantiate()
+	seg.max_life_points = maxFood
+	seg.life_points = seg.max_life_points
 	seg.predecessor = reference_node
-	seg.depth = reference_node.depth + 0.5
+	seg.depth = reference_node.depth + 1
 	reference_node.children.append(seg)
 	return seg
 
