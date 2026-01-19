@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=17 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="6_p5fgu"]
 [ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="8_p5fgu"]
 [ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/Life_and_Death_System.gd" id="9_2tpxt"]
+[ext_resource type="Script" uid="uid://chw5l8qqevlrn" path="res://scenes/systems/food_manager.gd" id="9_jsdfw"]
 [ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="11_p5fgu"]
 [ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="11_qkm1d"]
@@ -53,6 +54,11 @@ script = ExtResource("8_p5fgu")
 
 [node name="Life_and_Death_System" type="Node2D" parent="ArmGrowth"]
 script = ExtResource("9_2tpxt")
+
+[node name="Food" type="Node2D" parent="."]
+
+[node name="FoodManager" type="Node2D" parent="Food"]
+script = ExtResource("9_jsdfw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3
@@ -178,6 +184,7 @@ position = Vector2(3, 603)
 position = Vector2(893, -2)
 
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
+[connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
 [connection signal="eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_eating"]
 [connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
 [connection signal="segment_died" from="World/ArmSegment" to="ArmGrowth/Life_and_Death_System" method="_on_arm_segment_segment_died"]
@@ -187,6 +194,7 @@ position = Vector2(893, -2)
 [connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
 [connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
+[connection signal="spawn_food" from="Ui" to="World/WorldController" method="_on_ui_spawn_food"]
 [connection signal="update_food_amount" from="Ui" to="World/WorldController" method="_on_ui_update_food_amount"]
 [connection signal="update_food_count" from="Ui" to="World/WorldController" method="_on_ui_update_food_count"]
 [connection signal="update_humidity" from="Ui" to="World/WorldController" method="_on_ui_update_humidity"]

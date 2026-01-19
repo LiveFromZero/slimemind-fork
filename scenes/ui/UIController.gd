@@ -10,13 +10,15 @@ signal update_temperature(slider_temperature:float)
 signal update_humidity(slider_humidity:float)
 signal update_food_amount(slider_foodamount:float)
 signal update_food_count(slider_foodcount:float)
+signal spawn_food
 
 func _on_h_slider_value_changed(value: float) -> void:
 	arms_count_changed.emit(value)
 
 func _on_button_pressed() -> void:
 	simulation_toggled.emit()
-
+	spawn_food.emit()
+	
 func _on_reset_button_pressed() -> void:
 	reset_simulation.emit()
 

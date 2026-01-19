@@ -171,7 +171,7 @@ func light_factor() -> float:
 
 # Food
 
-func placeRandomFood() -> void:
+func _on_ui_spawn_food() -> void:
 	spawnFood.emit(MaxFoodAmount, MaxFoodCount)
 
 # UI-Handler
@@ -184,9 +184,9 @@ func read_defaults_from_UI() -> void:
 	sunlightamountInWorld = slider_sunlight.value
 	var slider_temperature := get_node("../../Ui/CanvasLayer2/VBoxContainer/Temperatur") as HSlider
 	temperatureInWorld = slider_temperature.value
-	var slider_foodamount := get_node("Ui/CanvasLayer2/VBoxContainer/Futtergröße") as HSlider
+	var slider_foodamount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futtergröße") as HSlider
 	MaxFoodAmount = slider_foodamount.value
-	var slider_foodcount := get_node("Ui/CanvasLayer2/VBoxContainer/Futteranzahl") as HSlider
+	var slider_foodcount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futteranzahl") as HSlider
 	MaxFoodCount = slider_foodcount.value
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
