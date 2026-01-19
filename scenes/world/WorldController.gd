@@ -12,8 +12,10 @@ var humidityInWorld
 var temperatureInWorld 
 var BASE_Growth := 0.01
 var Max_Food_Arm_Segment
+var MaxFoodAmount
 
 signal grow_arm(arm_node: ArmSegment, MaxFood : float)  # Signal, das den ausgewählten Arm mitgibt
+signal spawnFood(Food_Amount : float)
 
 func _spawn_arms(amount: int) -> void:
 	for i in amount:
@@ -165,6 +167,11 @@ func light_factor() -> float:
 	var x := (l - optimum) / sigma
 	var f := exp(-0.5 * x * x)
 	return lerp(0.2, 1.4, f)
+
+# Food
+
+func placeRandomFood() -> void:
+	spawnFood.emit(MaxFoodAmount)
 
 # UI-Handler
 func read_defaults_from_UI() -> void:
