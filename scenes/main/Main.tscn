@@ -188,6 +188,7 @@ position = Vector2(893, -2)
 [connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
 [connection signal="update_food_amount" from="Ui" to="World/WorldController" method="_on_ui_update_food_amount"]
+[connection signal="update_food_count" from="Ui" to="World/WorldController" method="_on_ui_update_food_count"]
 [connection signal="update_humidity" from="Ui" to="World/WorldController" method="_on_ui_update_humidity"]
 [connection signal="update_life_points_for_arms" from="Ui" to="World/WorldController" method="_on_ui_update_life_points_for_arms"]
 [connection signal="update_lightamount" from="Ui" to="World/WorldController" method="_on_ui_update_lightamount"]

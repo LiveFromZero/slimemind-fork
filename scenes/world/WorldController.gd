@@ -13,9 +13,10 @@ var temperatureInWorld
 var BASE_Growth := 0.01
 var Max_Food_Arm_Segment
 var MaxFoodAmount
+var MaxFoodCount
 
 signal grow_arm(arm_node: ArmSegment, MaxFood : float)  # Signal, das den ausgewählten Arm mitgibt
-signal spawnFood(Food_Amount : float)
+signal spawnFood(Food_Amount : float, Food_Count : int)
 
 func _spawn_arms(amount: int) -> void:
 	for i in amount:
@@ -171,7 +172,7 @@ func light_factor() -> float:
 # Food
 
 func placeRandomFood() -> void:
-	spawnFood.emit(MaxFoodAmount)
+	spawnFood.emit(MaxFoodAmount, MaxFoodCount)
 
 # UI-Handler
 func read_defaults_from_UI() -> void:
@@ -185,6 +186,8 @@ func read_defaults_from_UI() -> void:
 	temperatureInWorld = slider_temperature.value
 	var slider_foodamount := get_node("Ui/CanvasLayer2/VBoxContainer/Futtergröße") as HSlider
 	MaxFoodAmount = slider_foodamount.value
+	var slider_foodcount := get_node("Ui/CanvasLayer2/VBoxContainer/Futteranzahl") as HSlider
+	MaxFoodCount = slider_foodcount.value
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
 	Max_Food_Arm_Segment = slider_lifepoints * 10
@@ -203,3 +206,6 @@ func _on_ui_update_humidity(slider_humidity_updated_from_ui: float) -> void:
 
 func _on_ui_update_food_amount(slider_foodamount: float) -> void:
 	MaxFoodAmount = slider_foodamount
+
+func _on_ui_update_food_count(slider_foodcount: float) -> void:
+	MaxFoodCount = slider_foodcount
