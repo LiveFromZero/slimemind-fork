@@ -7,7 +7,7 @@ var predecessor: ArmSegment
 var children: Array [ArmSegment] = []
 @export var max_life_points = 500
 var life_points = max_life_points
-@export var depth: int
+var depth: int
 var base_damage = 0.2
 var damage_per_second
 var is_eating: bool = false

@@ -75,7 +75,7 @@ func _spawn_split(reference_node: ArmSegment) -> void:
 func _create_child_segment(reference_node: ArmSegment) -> ArmSegment:
 	var seg: ArmSegment = segment_scene.instantiate()
 	seg.predecessor = reference_node
-	seg.depth = reference_node.depth + 1
+	seg.depth = reference_node.depth + 0.5
 	reference_node.children.append(seg)
 	return seg
 

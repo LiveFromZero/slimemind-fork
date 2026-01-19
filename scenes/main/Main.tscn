@@ -89,6 +89,48 @@ offset_bottom = 298.0
 grow_horizontal = 0
 alignment = 1
 
+[node name="Label2" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Futtermenge"
+
+[node name="Futtermenge" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Futtergröße"
+
+[node name="Futtergröße" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Widerstandsfähigkeit"
+
+[node name="Robustheit Arme (Lebenspunkte)" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Sonnenmenge"
+
+[node name="Sonnenlicht" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label6" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Temperatur"
+
+[node name="Temperatur" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label7" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Luftfeuchtigkeit"
+
+[node name="Luftfeuchtigkeit" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+
 [node name="Label" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Starter-Arme"
