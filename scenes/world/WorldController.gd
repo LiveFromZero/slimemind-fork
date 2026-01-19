@@ -37,7 +37,6 @@ func _reposition_arms() -> void:
 	if count == 0:
 		return
 	
-	var radius = 100.0  # Länge der Arme
 	for i in count:
 		var arm = arm_root.get_child(i)
 		var angle = TAU * i / count  # gleichmäßig verteilen
@@ -148,7 +147,6 @@ func temp_factor() -> float:
 	# Boden setzen, damit Wachstum nicht komplett stoppt
 	return lerp(0.05, 1.5, f)  # 0.05..1.5
 
-
 func humidity_factor() -> float:
 	var h := clampf(humidityInWorld, 1.0, 100.0)
 
@@ -159,7 +157,6 @@ func humidity_factor() -> float:
 	var f := x * x * (3.0 - 2.0 * x)
 
 	return lerp(0.1, 1.6, f)  # 0.1..1.6
-
 
 func light_factor() -> float:
 	var l := clampf(sunlightamountInWorld, 1.0, 100.0)

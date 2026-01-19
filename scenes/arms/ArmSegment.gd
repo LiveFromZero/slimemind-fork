@@ -124,8 +124,8 @@ func _feed_split_partner(life_amount: float) -> void:
 		# Split-Partner + dessen Subtree versorgen
 		sibling._feed_descendants(life_amount, 2)
 
-func _feed_descendants(life_amount: float, depth: int) -> void:
-	if life_amount <= 0.0 or depth <= 0:
+func _feed_descendants(life_amount: float, depth_: int) -> void:
+	if life_amount <= 0.0 or depth_ <= 0:
 		return
 	# dieses Segment selbst
 	_add_life(life_amount)

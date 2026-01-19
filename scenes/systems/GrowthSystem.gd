@@ -50,7 +50,7 @@ func _spawn_single(reference_node: ArmSegment, maxFood : float) -> void:
 	var segment := _create_child_segment(reference_node, maxFood)
 	_place_segment(segment, reference_node, random_offset, random_offset)
 
-	_finalize_new_segment(reference_node, segment, reference_node.get_parent())
+	_finalize_new_segment(segment, reference_node.get_parent())
 
 	_emit_spawn_events(reference_node, [segment])
 
@@ -66,7 +66,7 @@ func _spawn_split(reference_node: ArmSegment, maxFood:float) -> void:
 		var segment := _create_child_segment(reference_node, maxFood)
 		_place_segment(segment, reference_node, angle_offset + drift, angle_offset + drift)
 
-		_finalize_new_segment(reference_node, segment, parent)
+		_finalize_new_segment(segment, parent)
 		spawned.append(segment)
 
 	_emit_spawn_events(reference_node, spawned)
@@ -94,7 +94,7 @@ func _place_segment(
 	segment.global_position = reference_node.global_position + direction * length
 	segment.rotation = reference_node.rotation + local_rotation_offset
 
-func _finalize_new_segment(reference_node: ArmSegment, segment: ArmSegment, parent: Node) -> void:
+func _finalize_new_segment(segment: ArmSegment, parent: Node) -> void:
 	parent.add_child(segment)
 	_connect_death_handlers(segment)
 
