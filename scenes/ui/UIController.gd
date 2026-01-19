@@ -8,6 +8,7 @@ signal update_life_points_for_arms(slider_lifepoints:float)
 signal update_lightamount(slider_lightamount:float)
 signal update_temperature(slider_temperature:float)
 signal update_humidity(slider_humidity:float)
+signal update_food_amount(slider_foodamount:float)
 
 func _on_h_slider_value_changed(value: float) -> void:
 	arms_count_changed.emit(value)
@@ -21,8 +22,8 @@ func _on_reset_button_pressed() -> void:
 func _on_menu_button_pressed() -> void:
 	$CanvasLayer2/VBoxContainer.visible = !$CanvasLayer2/VBoxContainer.visible
 
-func _on_futtermenge_value_changed(value: float) -> void:
-	pass # Replace with function body.
+func _on_futteranzahl_value_changed(value: float) -> void:
+	update_food_amount.emit(value)
 
 func _on_futtergröße_value_changed(value: float) -> void:
 	pass

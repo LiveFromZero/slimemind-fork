@@ -183,6 +183,8 @@ func read_defaults_from_UI() -> void:
 	sunlightamountInWorld = slider_sunlight.value
 	var slider_temperature := get_node("../../Ui/CanvasLayer2/VBoxContainer/Temperatur") as HSlider
 	temperatureInWorld = slider_temperature.value
+	var slider_foodamount := get_node("Ui/CanvasLayer2/VBoxContainer/Futtergröße") as HSlider
+	MaxFoodAmount = slider_foodamount.value
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
 	Max_Food_Arm_Segment = slider_lifepoints * 10
@@ -198,3 +200,6 @@ func _on_ui_update_temperature(slider_temperature: float) -> void:
 func _on_ui_update_humidity(slider_humidity_updated_from_ui: float) -> void:
 	humidityInWorld = slider_humidity_updated_from_ui
 	slider_update_growthinterval()
+
+func _on_ui_update_food_amount(slider_foodamount: float) -> void:
+	MaxFoodAmount = slider_foodamount
