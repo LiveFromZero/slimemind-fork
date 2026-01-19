@@ -17,7 +17,6 @@ func _on_h_slider_value_changed(value: float) -> void:
 
 func _on_button_pressed() -> void:
 	simulation_toggled.emit()
-	spawn_food.emit()
 	
 func _on_reset_button_pressed() -> void:
 	reset_simulation.emit()
@@ -42,3 +41,6 @@ func _on_temperatur_value_changed(value: float) -> void:
 
 func _on_luftfeuchtigkeit_value_changed(value: float) -> void:
 	update_humidity.emit(value)
+
+func _on_food_spawn_button_pressed() -> void:
+	spawn_food.emit()

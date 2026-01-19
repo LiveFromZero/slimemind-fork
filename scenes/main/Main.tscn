@@ -109,6 +109,10 @@ text = "Futtergröße"
 [node name="Futtergröße" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer" groups=["SliderUpdate"]]
 layout_mode = 2
 
+[node name="FoodSpawnButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Food Spawnen"
+
 [node name="Label4" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Widerstandsfähigkeit"
@@ -204,6 +208,7 @@ position = Vector2(893, -2)
 [connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futteranzahl" to="Ui" method="_on_futteranzahl_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futtergröße" to="Ui" method="_on_futtergröße_value_changed"]
+[connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/FoodSpawnButton" to="Ui" method="_on_food_spawn_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Lebenspunkte" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Sonnenlicht" to="Ui" method="_on_sonnenlicht_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Temperatur" to="Ui" method="_on_temperatur_value_changed"]
