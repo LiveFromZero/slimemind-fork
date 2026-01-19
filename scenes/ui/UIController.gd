@@ -15,3 +15,21 @@ func _on_reset_button_pressed() -> void:
 
 func _on_menu_button_pressed() -> void:
 	$CanvasLayer2/VBoxContainer.visible = !$CanvasLayer2/VBoxContainer.visible
+
+func _on_futtermenge_value_changed(value: float) -> void:
+	pass # Replace with function body.
+
+func _on_futtergröße_value_changed(value: float) -> void:
+	get_tree().call_group("SliderUpdate", "update_total_nutrients")
+
+func _on_robustheit_arme_lebenspunkte_value_changed(value: float) -> void:
+	get_tree().call_group("SliderUpdate", "slider_update_maxlifepoints")
+
+func _on_sonnenlicht_value_changed(value: float) -> void:
+	pass # Replace with function body.
+
+func _on_temperatur_value_changed(value: float) -> void:
+	pass # Replace with function body.
+
+func _on_luftfeuchtigkeit_value_changed(value: float) -> void:
+	pass # Replace with function body.

@@ -1,7 +1,7 @@
 extends Area2D
 class_name FoodSource
 
-@export var total_nutrients: float = 10_000.0
+@export var total_nutrients: float = 10000.0
 @export var absorption_rate: float = 100.0 # nutrients per second per consumer
 
 var current_nutrients: float
@@ -57,3 +57,6 @@ func _on_area_exited(area: Area2D) -> void:
 
 	_consumers.erase(consumer)
 	consumer.stop_eating()
+
+func update_total_nutrients(nutrients_from_Slider) -> void:
+	total_nutrients = nutrients_from_Slider

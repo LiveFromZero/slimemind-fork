@@ -18,3 +18,7 @@ config/icon="res://assets/sprites/icon.svg"
 [display]
 
 window/size/mode=2
+
+[global_group]
+
+SliderUpdate=""

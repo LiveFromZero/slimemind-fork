@@ -27,6 +27,7 @@ process_mode = 1
 
 [node name="WorldController" type="Node2D" parent="World"]
 script = ExtResource("3_qkm1d")
+grow_interval = null
 
 [node name="Blob" type="Node2D" parent="World"]
 
@@ -172,7 +173,6 @@ position = Vector2(3, 603)
 [node name="FoodSource5" parent="." instance=ExtResource("13_2tpxt")]
 position = Vector2(893, -2)
 
-[connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_eating"]
 [connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
 [connection signal="segment_died" from="World/ArmSegment" to="ArmGrowth/Life_and_Death_System" method="_on_arm_segment_segment_died"]

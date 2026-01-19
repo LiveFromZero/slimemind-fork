@@ -7,6 +7,11 @@ var arm_scene := load("res://scenes/arms/ArmSegment.tscn") as PackedScene
 var arm_segments: Array[ArmSegment] = []
 @export var grow_interval: float = 0.01       # Sekunden zwischen Wachstumsschüben
 var grow_timer: float = 0.0
+var sunlightamountInWorld = 1
+var humidityInWorld = 1
+var temperatureInWorld = 1
+var BASE_Growth := 0.01
+
 signal grow_arm(arm_node: ArmSegment)  # Signal, das den ausgewählten Arm mitgibt
 
 func _spawn_arms(amount: int) -> void:
@@ -77,6 +82,7 @@ func _ready() -> void:
 		if seg:
 			_register_segment(seg)
 			arm_segments.append(seg)
+	slider_update_growthinterval()
 
 func _on_ui_reset_simulation() -> void:
 	var allChildren = arm_root.get_children()
@@ -118,3 +124,29 @@ func _register_segment(seg: ArmSegment) -> void:
 
 	if !seg.segment_died.is_connected(handle_segment_died):
 		seg.segment_died.connect(handle_segment_died)
+
+# Wetter
+
+func slider_update_growthinterval() -> void:
+	grow_interval = BASE_Growth * temp_factor() * humidity_factor() * light_factor()
+
+func temp_factor() -> float:
+	return temperatureInWorld/100
+	#return bell(temperatureInWorld, 24.0, 8.0)
+
+func humidity_factor() -> float:
+	return humidityInWorld/100
+	#return bell(humidityInWorld, 90.0, 15)
+
+func light_factor() -> float:
+	return sunlightamountInWorld/100
+	#return bell(sunlightamountInWorld, 15.0, 20.0)
+
+func slider_update_sunlight(sunlightamountFromSlider:float) -> void:
+	sunlightamountInWorld = sunlightamountFromSlider
+
+func slider_update_humidity(humidityFromSlider:float) -> void:
+	humidityInWorld = humidityFromSlider
+
+func slider_update_temperature(temperatureFromSlider:float) -> void:
+	temperatureInWorld = temperatureFromSlider

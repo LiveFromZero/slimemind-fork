@@ -6,7 +6,7 @@ extends Node2D
 var predecessor: ArmSegment
 var children: Array [ArmSegment] = []
 @export var max_life_points = 500
-var life_points = max_life_points
+var life_points
 var depth: int
 var base_damage = 0.2
 var damage_per_second
@@ -35,6 +35,7 @@ func _ready() -> void:
 		depth = 1
 	damage_per_second = base_damage * depth
 	_base_color = visual.modulate
+	life_points = max_life_points
 
 func _set_color(new_color: Color) -> void:
 	color_changed.emit(new_color)
@@ -131,6 +132,9 @@ func _feed_descendants(life_amount: float, depth: int) -> void:
 		seg._feed_descendants(life_amount * 0.6, depth - 1)
 
 # Visuals
+
+func slider_update_maxlifepoints(slider_max_life_points) -> void:
+	max_life_points = slider_max_life_points
 
 func _pulse(color: Color, strength: float = 0.6, duration: float = 0.18) -> void:
 	if visual == null:

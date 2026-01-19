@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_to103"]
 size = Vector2(60, 61)
 
-[node name="FoodSource" type="Area2D"]
+[node name="FoodSource" type="Area2D" groups=["SliderUpdate"]]
 script = ExtResource("1_to103")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

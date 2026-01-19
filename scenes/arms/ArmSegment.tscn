@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wrtiu"]
 size = Vector2(5, 30)
 
-[node name="ArmSegment" type="Node2D"]
+[node name="ArmSegment" type="Node2D" groups=["SliderUpdate"]]
 script = ExtResource("1_wrtiu")
 
 [node name="ColorRect2" type="ColorRect" parent="."]
