@@ -131,15 +131,15 @@ func slider_update_growthinterval() -> void:
 	grow_interval = BASE_Growth * temp_factor() * humidity_factor() * light_factor()
 
 func temp_factor() -> float:
-	return temperatureInWorld/100
+	return temperatureInWorld
 	#return bell(temperatureInWorld, 24.0, 8.0)
 
 func humidity_factor() -> float:
-	return humidityInWorld/100
+	return humidityInWorld
 	#return bell(humidityInWorld, 90.0, 15)
 
 func light_factor() -> float:
-	return sunlightamountInWorld/100
+	return sunlightamountInWorld
 	#return bell(sunlightamountInWorld, 15.0, 20.0)
 
 func slider_update_sunlight(sunlightamountFromSlider:float) -> void:

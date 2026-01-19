@@ -27,7 +27,14 @@ signal stopped_eating(arm_that_stops: ArmSegment)
 
 func _process(delta: float):
 	life_points -= damage_per_second * delta
+	if life_points > 500:
+		_set_color("Green")
+	if life_points <= 500:
+		_set_color("Blue")
+	if life_points <= 50:
+		_set_color("Yellow")
 	if life_points <= 0:
+		_set_color("Brown")
 		_die()
 
 func _ready() -> void:
@@ -134,7 +141,7 @@ func _feed_descendants(life_amount: float, depth: int) -> void:
 # Visuals
 
 func slider_update_maxlifepoints(slider_max_life_points : float) -> void:
-	max_life_points = slider_max_life_points
+	max_life_points = slider_max_life_points * 10
 
 func _pulse(color: Color, strength: float = 0.6, duration: float = 0.18) -> void:
 	if visual == null:
