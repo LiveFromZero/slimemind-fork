@@ -10,6 +10,9 @@ class_name FoodManager
 @export var min_distance: float = 32.0
 @export var max_tries_per_food: int = 30
 
+@export var spawn_center: Vector2 = Vector2.ZERO
+@export var spawn_size: Vector2 = Vector2(1000, 600) # Breite/Höhe
+
 
 func _on_world_controller_spawn_food(food_amount: float, food_count: int) -> void:
 	if food_scene == null:
@@ -28,7 +31,7 @@ func _on_world_controller_spawn_food(food_amount: float, food_count: int) -> voi
 		var food := food_scene.instantiate() as FoodSource
 		food.total_nutrients = food_amount
 		# optional: food.absorption_rate = ...
-		# optional: food.current_nutrients = food_amount  # falls du _ready umgehen willst
+		food.current_nutrients = food_amount  # falls du _ready umgehen willst
 
 		food.global_position = pos
 		add_child(food)
@@ -38,10 +41,11 @@ func _on_world_controller_spawn_food(food_amount: float, food_count: int) -> voi
 
 func _pick_position(existing: Array[Vector2]) -> Variant:
 	for i in range(max_tries_per_food):
-		var x := randf_range(spawn_rect.position.x, spawn_rect.position.x + spawn_rect.size.x)
-		var y := randf_range(spawn_rect.position.y, spawn_rect.position.y + spawn_rect.size.y)
+		var r := _get_spawn_rect_local()
+		var x := randf_range(r.position.x, r.position.x + r.size.x)
+		var y := randf_range(r.position.y, r.position.y + r.size.y)
+		var candidate := to_global(Vector2(x, y))
 
-		var candidate := to_global(Vector2(x, y))  # weil spawn_rect lokal ist
 
 		var ok := true
 		for p in existing:
@@ -53,3 +57,6 @@ func _pick_position(existing: Array[Vector2]) -> Variant:
 			return candidate
 
 	return null
+
+func _get_spawn_rect_local() -> Rect2:
+	return Rect2(spawn_center - spawn_size * 0.5, spawn_size)
