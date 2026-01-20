@@ -12,6 +12,7 @@ script = ExtResource("1_wrtiu")
 [node name="ColorRect2" type="ColorRect" parent="."]
 offset_right = 5.0
 offset_bottom = 30.0
+color = Color(0.39708334, 0.9573922, 0.048782937, 1)
 script = ExtResource("1_27oy7")
 
 [node name="Area2D" type="Area2D" parent="."]

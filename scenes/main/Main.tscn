@@ -164,8 +164,8 @@ label_settings = SubResource("LabelSettings_3km4f")
 
 [node name="HSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-max_value = 8.0
-tick_count = 9
+max_value = 4.0
+tick_count = 5
 ticks_on_borders = true
 ticks_position = 3
 
@@ -175,9 +175,8 @@ text = "Simulationsgeschwindigkeit"
 
 [node name="SimulationSpeed" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-min_value = 0.2
-max_value = 10.0
-step = 0.2
+min_value = 1.0
+max_value = 5.0
 value = 1.0
 
 [node name="Button" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
