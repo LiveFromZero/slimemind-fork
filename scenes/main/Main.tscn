@@ -169,6 +169,17 @@ tick_count = 9
 ticks_on_borders = true
 ticks_position = 3
 
+[node name="SimulationSpeedLabel" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Simulationsgeschwindigkeit"
+
+[node name="SimulationSpeed" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+min_value = 0.2
+max_value = 10.0
+step = 0.2
+value = 1.0
+
 [node name="Button" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Start/Stop"
@@ -199,6 +210,7 @@ text = "Reset"
 [connection signal="update_humidity" from="Ui" to="World/WorldController" method="_on_ui_update_humidity"]
 [connection signal="update_life_points_for_arms" from="Ui" to="World/WorldController" method="_on_ui_update_life_points_for_arms"]
 [connection signal="update_lightamount" from="Ui" to="World/WorldController" method="_on_ui_update_lightamount"]
+[connection signal="update_simulation_speed" from="Ui" to="." method="_on_ui_update_simulation_speed"]
 [connection signal="update_temperature" from="Ui" to="World/WorldController" method="_on_ui_update_temperature"]
 [connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futteranzahl" to="Ui" method="_on_futteranzahl_value_changed"]
@@ -209,5 +221,6 @@ text = "Reset"
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Temperatur" to="Ui" method="_on_temperatur_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit" to="Ui" method="_on_luftfeuchtigkeit_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/HSlider" to="Ui" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/SimulationSpeed" to="Ui" method="_on_simulation_speed_value_changed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]
