@@ -193,6 +193,11 @@ color = Color(0.21, 0.21, 0.21, 1)
 layout_mode = 2
 text = "Reset"
 
+[node name="Growtimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.009999999999999998
+
+[connection signal="startbutton_pressed" from="." to="World/WorldController" method="_on_main_startbutton_pressed"]
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
 [connection signal="eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_eating"]
@@ -224,3 +229,4 @@ text = "Reset"
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/SimulationSpeed" to="Ui" method="_on_simulation_speed_value_changed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]
+[connection signal="timeout" from="Growtimer" to="World/WorldController" method="_on_grow_timer_timeout"]

@@ -14,9 +14,17 @@ var BASE_Growth := 0.01
 var Max_Food_Arm_Segment
 var MaxFoodAmount
 var MaxFoodCount
+@onready var grow_timer_from_Timer: Timer = get_node("../../Growtimer") as Timer
 
 signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment : float)  # Signal, das den ausgewählten Arm mitgibt
 signal spawnFood(Food_Amount : float, Food_Count : int)
+
+func _on_grow_timer_timeout() -> void:
+	if arm_segments.is_empty():
+		return
+
+	var arm = arm_segments[randi() % arm_segments.size()]
+	grow_arm.emit(arm, Max_Food_Arm_Segment)
 
 func _spawn_arms(amount: int) -> void:
 	for i in amount:
@@ -27,7 +35,6 @@ func _spawn_arms(amount: int) -> void:
 		arm_root.add_child(arm)
 		_register_segment(arm)
 		arm_segments.append(arm)
-		
 
 func _remove_arms(amount: int) -> void:
 	for i in amount:
@@ -60,23 +67,6 @@ func _on_ui_arms_count_changed(count: int) -> void:
 		_remove_arms(current_count - count)
 	
 	_reposition_arms()
-
-# Zufälliger Arm wird ausgewählt, der wachsen darf
-func _process(delta: float) -> void:
-	if arm_segments.size() == 0:
-		return  # nichts zu tun
-	
-	# Timer runterzählen
-	grow_timer -= delta
-	if grow_timer <= 0:
-		# zufälligen Arm auswählen
-		var arm = arm_segments[randi() % arm_segments.size()]
-		
-		# Signal senden mit dem Arm als Parameter
-		grow_arm.emit(arm, Max_Food_Arm_Segment)
-		
-		# Timer zurücksetzen (hier konstant, kann auch zufällig sein)
-		grow_timer = grow_interval
 
 func _on_growth_system_arm_has_grown_new_segment(arm: ArmSegment) -> void:
 	arm_segments.erase(arm)
@@ -212,3 +202,10 @@ func _on_ui_update_food_amount(slider_foodamount: float) -> void:
 
 func _on_ui_update_food_count(slider_foodcount: float) -> void:
 	MaxFoodCount = slider_foodcount
+
+func _on_main_startbutton_pressed(pause_state: Variant) -> void:
+	grow_timer_from_Timer.wait_time = grow_interval
+	if pause_state == false:
+		grow_timer_from_Timer.start()
+	else :
+		grow_timer_from_Timer.stop()
