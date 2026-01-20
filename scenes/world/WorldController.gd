@@ -4,7 +4,13 @@ class_name WorldController
 # --- Nodes ---
 @onready var arm_root: Node = $"../ArmRoot"
 @onready var food_root : Node = $"../../Food/FoodManager"
-
+@onready var slider_humidity := get_node("../../Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit") as HSlider
+@onready var slider_lifepoints := get_node("../../Ui/CanvasLayer2/VBoxContainer/Lebenspunkte") as HSlider
+@onready var slider_sunlight := get_node("../../Ui/CanvasLayer2/VBoxContainer/Sonnenlicht") as HSlider
+@onready var slider_temperature := get_node("../../Ui/CanvasLayer2/VBoxContainer/Temperatur") as HSlider
+@onready var slider_foodamount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futtergröße") as HSlider
+@onready var slider_foodcount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futteranzahl") as HSlider
+@onready var slider_countarms := get_node("../../Ui/CanvasLayer2/VBoxContainer/HSlider") as HSlider
 # --- Scenes / Data ---
 var arm_scene: PackedScene = load("res://scenes/arms/ArmSegment.tscn") as PackedScene
 var arm_segments: Array[ArmSegment] = []
@@ -213,22 +219,11 @@ func _on_ui_spawn_food() -> void:
 # UI Handlers
 # =============================================================================
 func read_defaults_from_UI() -> void:
-	var slider_humidity := get_node("../../Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit") as HSlider
 	humidityInWorld = slider_humidity.value
-
-	var slider_lifepoints := get_node("../../Ui/CanvasLayer2/VBoxContainer/Lebenspunkte") as HSlider
 	Max_Food_Arm_Segment = slider_lifepoints.value
-
-	var slider_sunlight := get_node("../../Ui/CanvasLayer2/VBoxContainer/Sonnenlicht") as HSlider
 	sunlightamountInWorld = slider_sunlight.value
-
-	var slider_temperature := get_node("../../Ui/CanvasLayer2/VBoxContainer/Temperatur") as HSlider
 	temperatureInWorld = slider_temperature.value
-
-	var slider_foodamount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futtergröße") as HSlider
 	MaxFoodAmount = slider_foodamount.value
-
-	var slider_foodcount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futteranzahl") as HSlider
 	MaxFoodCount = slider_foodcount.value
 
 func _on_ui_reset_simulation() -> void:
@@ -239,6 +234,16 @@ func _on_ui_reset_simulation() -> void:
 	for food_child in all_food_children:
 		food_child.queue_free()
 	arm_segments = []
+	reset_slider()
+
+func reset_slider() -> void:
+	slider_foodcount.value = 15
+	slider_foodamount.value = 10000.0
+	slider_lifepoints.value = 50
+	slider_sunlight.value = 15.0
+	slider_temperature.value = 22.0
+	slider_humidity.value = 70.0
+	slider_countarms.value = 0
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
 	Max_Food_Arm_Segment = slider_lifepoints * 10.0
