@@ -1,15 +1,14 @@
 extends ColorRect
 
-@export var fade_duration := 3.0 # oder 5..10, wie du willst
+@export var fade_duration := 6.0
 
 var _tween: Tween
 var _target_color: Color
 
 func _ready() -> void:
-	_target_color = color  # Startwert merken, sonst "unknown state"
+	_target_color = color
 
 func _on_arm_segment_color_changed(new_color: Color) -> void:
-	# Wenn das gleiche Ziel nochmal kommt: ignorieren
 	if new_color == _target_color:
 		return
 	_target_color = new_color

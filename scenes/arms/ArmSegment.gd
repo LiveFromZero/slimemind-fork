@@ -111,7 +111,6 @@ func _update_visual(force: bool = false) -> void:
 	if is_eating:
 		final_color = _health_color.lerp(EATING_COLOR, 0.35)
 
-	visual.modulate = final_color
 	color_changed.emit(final_color)
 
 
@@ -134,7 +133,6 @@ func _die() -> void:
 	if is_instance_valid(_color_timer):
 		_color_timer.stop()
 
-	visual.modulate = Color.WEB_MAROON
 	color_changed.emit(Color.WEB_MAROON)
 	segment_died.emit(self)
 
