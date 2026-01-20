@@ -65,9 +65,12 @@ spawn_size = Vector2(5000, 5000)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3
+physics_interpolation_mode = 2
+zoom = Vector2(0.15, 0.15)
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 script = ExtResource("10_2tpxt")
+min_zoom = 0.15
 
 [node name="Ui" parent="." instance=ExtResource("11_p5fgu")]
 process_mode = 3

@@ -13,11 +13,6 @@ func _on_ui_simulation_toggled() -> void:
 	get_tree().paused = is_paused
 
 func _on_ui_update_simulation_speed(slider_simulationspeed: float) -> void:
-	var world := get_node("World/WorldController") as WorldController # Pfad ggf. anpassen
+	Engine.time_scale = slider_simulationspeed
 
-	if slider_simulationspeed <= 1.0:
-		Engine.time_scale = slider_simulationspeed
-		world.set_sim_speed(1.0)
-	else:
-		Engine.time_scale = 1.0
-		world.set_sim_speed(slider_simulationspeed)
+	
