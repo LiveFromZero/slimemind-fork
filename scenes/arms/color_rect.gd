@@ -1,22 +1,18 @@
 extends ColorRect
 
-@export var fade_duration := 6.0
+@export var fade_duration := 3.0
 
-var _tween: Tween
 var _target_color: Color
 
 func _ready() -> void:
 	_target_color = color
 
+func _process(delta: float) -> void:
+	# Exponentielles Nachziehen: stabil, weich, keine Tween-Orgie.
+	# fade_duration ~ Zeitkonstante: größer = träger.
+	var d := maxf(0.001, fade_duration)
+	var k := 1.0 - exp(-delta / d)
+	color = color.lerp(_target_color, k)
+
 func _on_arm_segment_color_changed(new_color: Color) -> void:
-	if new_color == _target_color:
-		return
 	_target_color = new_color
-
-	if _tween and _tween.is_valid():
-		_tween.kill()
-
-	_tween = create_tween()
-	_tween.set_trans(Tween.TRANS_SINE)
-	_tween.set_ease(Tween.EASE_IN_OUT)
-	_tween.tween_property(self, "color", new_color, fade_duration)

@@ -115,13 +115,59 @@ func _update_visual(force: bool = false) -> void:
 
 
 func _color_for_ratio(r: float) -> Color:
-	if r <= 0.3:
-		return Color.SANDY_BROWN
-	if r <= 0.5:
-		return Color.YELLOW
-	if r <= 0.75:
-		return Color.YELLOW_GREEN
-	return Color.GREEN
+	# r: 0..1
+	r = clamp(r, 0.0, 1.0)
+
+	# Schleimpilz-Palette (gesund -> sterbend)
+	# 1.0: helles, saftiges Gelb
+	# 0.6: goldgelb
+	# 0.35: ocker/orange-braun
+	# 0.15: trockenes Braun
+	# 0.0: dunkel, "fast weg"
+	var c_full  := Color(1.00, 0.95, 0.35)
+	var c_good  := Color(1.00, 0.78, 0.22)
+	var c_mid   := Color(0.86, 0.58, 0.24)
+	var c_low   := Color(0.48, 0.34, 0.22)
+	var c_empty := Color(0.22, 0.08, 0.08)
+
+	var out: Color
+
+	if r >= 0.6:
+		out = _smooth_lerp(c_good, c_full, inverse_lerp(0.6, 1.0, r))
+	elif r >= 0.35:
+		out = _smooth_lerp(c_mid, c_good, inverse_lerp(0.35, 0.6, r))
+	elif r >= 0.15:
+		out = _smooth_lerp(c_low, c_mid, inverse_lerp(0.15, 0.35, r))
+	else:
+		out = _smooth_lerp(c_empty, c_low, inverse_lerp(0.0, 0.15, r))
+
+	# Tiefe: tiefer = leicht dunkler, damit das Ding "körperlicher" wirkt
+	var depth_dark := clampf((depth - 1) * 0.06, 0.0, 0.28)
+	out = out.darkened(depth_dark)
+
+	# Ganz unten zusätzlich etwas entsättigen (trocken/krank)
+	var sick := clampf(inverse_lerp(0.45, 0.0, r), 0.0, 1.0)
+
+# Entsättigen via HSV-Properties (h/s/v)
+	var h := out.h
+	var s := out.s
+	var v := out.v
+
+	var desat_amount := 0.55
+	var out_desat := Color.from_hsv(h, s * (1.0 - desat_amount), v, out.a)
+
+	out = out.lerp(out_desat, sick * 0.65)
+
+
+
+	return out
+
+
+func _smooth_lerp(a: Color, b: Color, t: float) -> Color:
+	# Smoothstep für organischere Übergänge
+	t = clamp(t, 0.0, 1.0)
+	t = t * t * (3.0 - 2.0 * t)
+	return a.lerp(b, t)
 
 
 func _die() -> void:
@@ -133,7 +179,7 @@ func _die() -> void:
 	if is_instance_valid(_color_timer):
 		_color_timer.stop()
 
-	color_changed.emit(Color.WEB_MAROON)
+	color_changed.emit(Color(0.22, 0.08, 0.08))
 	segment_died.emit(self)
 
 	# Tween auf Node2D.modulate (nicht auf visual), damit du das Segment als Ganzes ausblendest.
