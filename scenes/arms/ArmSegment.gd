@@ -43,7 +43,6 @@ func _process(delta: float) -> void:
 	else:
 		_set_color(Color.GREEN)
 
-
 func _ready() -> void:
 	if depth == 0:  # Falls irgendwie vergessen wurde
 		depth = 1

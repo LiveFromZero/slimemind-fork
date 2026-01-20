@@ -15,7 +15,7 @@ var Max_Food_Arm_Segment
 var MaxFoodAmount
 var MaxFoodCount
 
-signal grow_arm(arm_node: ArmSegment, MaxFood : float)  # Signal, das den ausgewählten Arm mitgibt
+signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment : float)  # Signal, das den ausgewählten Arm mitgibt
 signal spawnFood(Food_Amount : float, Food_Count : int)
 
 func _spawn_arms(amount: int) -> void:
@@ -133,42 +133,44 @@ func _register_segment(seg: ArmSegment) -> void:
 		seg.segment_died.connect(handle_segment_died)
 
 # Wetter
-
 func slider_update_growthinterval() -> void:
-	var rate := BASE_Growth * temp_factor() * humidity_factor() * light_factor()
-	rate = max(rate, 0.0001) # nie 0, sonst hängt alles
-	grow_interval = 1.0 / rate
+	var tf := temp_fitness()      # 0..1
+	var hf := humidity_fitness()  # 0..1
+	var lf := light_fitness()     # 0..1
 
-func temp_factor() -> float:
+	# Kombi: Mittelwert statt Produkt-Killer
+	var combined := (tf + hf + lf) / 3.0  # 0..1
+
+	# Nie komplett tot: floor = Mindest-“Fitness”
+	var floor_min := 0.25
+	combined = lerp(floor_min, 1.0, combined)
+
+	# Intervall skaliert umgekehrt: weniger Fitness => längeres Intervall
+	# clamp schützt vor absurd klein/groß
+	var min_interval := 0.005
+	var max_interval := 0.5
+
+	var interval := BASE_Growth / combined
+	grow_interval = clampf(interval, min_interval, max_interval)
+
+func temp_fitness() -> float:
 	var t : float = temperatureInWorld
 	var optimum := 22.0
-	var sigma := 12.0 # Breite der Wohlfühlzone (größer = toleranter)
-
-	# Gauß-Kurve: 1.0 am Optimum, fällt zu beiden Seiten ab
+	var sigma := 12.0
 	var x := (t - optimum) / sigma
-	var f := exp(-0.5 * x * x)
+	return clampf(exp(-0.5 * x * x), 0.0, 1.0)
 
-	# Boden setzen, damit Wachstum nicht komplett stoppt
-	return lerp(0.05, 1.5, f)  # 0.05..1.5
-
-func humidity_factor() -> float:
+func humidity_fitness() -> float:
 	var h := clampf(humidityInWorld, 1.0, 100.0)
-
-	# Normieren 0..1
 	var x := (h - 1.0) / 99.0
+	return clampf(x * x * (3.0 - 2.0 * x), 0.0, 1.0)
 
-	# Smoothstep: langsam am Anfang, dann schnell, dann Sättigung
-	var f := x * x * (3.0 - 2.0 * x)
-
-	return lerp(0.1, 1.6, f)  # 0.1..1.6
-
-func light_factor() -> float:
+func light_fitness() -> float:
 	var l := clampf(sunlightamountInWorld, 1.0, 100.0)
 	var optimum := 15.0
 	var sigma := 18.0
 	var x := (l - optimum) / sigma
-	var f := exp(-0.5 * x * x)
-	return lerp(0.2, 1.4, f)
+	return clampf(exp(-0.5 * x * x), 0.0, 1.0)
 
 # Food
 

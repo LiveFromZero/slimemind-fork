@@ -61,7 +61,7 @@ script = ExtResource("9_2tpxt")
 script = ExtResource("9_jsdfw")
 food_scene = ExtResource("13_2tpxt")
 min_distance = 50.0
-spawn_size = Vector2(3000, 3000)
+spawn_size = Vector2(5000, 5000)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3
@@ -104,9 +104,9 @@ text = "Futtermenge"
 
 [node name="Futteranzahl" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-min_value = 1.0
-max_value = 15.0
-value = 8.0
+min_value = 15.0
+max_value = 200.0
+value = 15.0
 tick_count = 14
 
 [node name="Label3" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
