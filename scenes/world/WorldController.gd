@@ -5,20 +5,37 @@ class_name WorldController
 
 var arm_scene := load("res://scenes/arms/ArmSegment.tscn") as PackedScene
 var arm_segments: Array[ArmSegment] = []
-@export var grow_interval: float = 0.01    # Sekunden zwischen Wachstumsschüben
-var sunlightamountInWorld 
-var humidityInWorld 
-var temperatureInWorld 
+
+@export var grow_interval: float = 0.01 # Sekunden zwischen Wachstumsschüben
+
+var sunlightamountInWorld
+var humidityInWorld
+var temperatureInWorld
+
 var BASE_Growth := 0.01
 var Max_Food_Arm_Segment
 var MaxFoodAmount
 var MaxFoodCount
+
 var sim_speed: float = 1.0
 var grow_accum: float = 0.0
+
 const MAX_GROW_STEPS_PER_FRAME := 200
 
-signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment : float)  # Signal, das den ausgewählten Arm mitgibt
-signal spawnFood(Food_Amount : float, Food_Count : int)
+signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment: float) # Signal, das den ausgewählten Arm mitgibt
+signal spawnFood(Food_Amount: float, Food_Count: int)
+
+func _ready() -> void:
+	randomize()
+	read_defaults_from_UI()
+	slider_update_growthinterval() # <<< DAS fehlt dir
+
+	# Alle bereits existierenden Arme ins Tracking aufnehmen
+	for arm in arm_root.get_children():
+		var seg := arm as ArmSegment
+		if seg:
+			_register_segment(seg)
+			arm_segments.append(seg)
 
 func _physics_process(delta: float) -> void:
 	if grow_interval <= 0.0 or is_nan(grow_interval) or is_inf(grow_interval):
@@ -35,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	# optional: wenn wir capped haben, nicht ewig Rückstand ansammeln
 	if steps == MAX_GROW_STEPS_PER_FRAME:
 		grow_accum = minf(grow_accum, grow_interval)
+
 func set_sim_speed(v: float) -> void:
 	sim_speed = maxf(v, 0.0)
 
@@ -65,10 +83,10 @@ func _reposition_arms() -> void:
 	var count = arm_root.get_child_count()
 	if count == 0:
 		return
-	
+
 	for i in count:
 		var arm = arm_root.get_child(i)
-		var angle = TAU * i / count  # gleichmäßig verteilen
+		var angle = TAU * i / count # gleichmäßig verteilen
 
 		# Arm bleibt am Ursprung
 		arm.position = Vector2.ZERO
@@ -77,34 +95,23 @@ func _reposition_arms() -> void:
 		arm.rotation = angle
 
 func _on_ui_arms_count_changed(count: int) -> void:
-	
 	var current_count := arm_root.get_child_count()
+
 	if count > current_count:
 		_spawn_arms(count - current_count)
-		
 	elif count < current_count:
 		_remove_arms(current_count - count)
-	
+
 	_reposition_arms()
 
 func _on_growth_system_arm_has_grown_new_segment(arm: ArmSegment) -> void:
 	arm_segments.erase(arm)
 
-func _ready() -> void:
-	randomize()
-	read_defaults_from_UI()
-	slider_update_growthinterval() # <<< DAS fehlt dir
-	# Alle bereits existierenden Arme ins Tracking aufnehmen
-	for arm in arm_root.get_children():
-		var seg := arm as ArmSegment
-		if seg:
-			_register_segment(seg)
-			arm_segments.append(seg)
-
 func _on_ui_reset_simulation() -> void:
 	var allChildren = arm_root.get_children()
 	for child in allChildren:
 		child.queue_free()
+
 	arm_segments = []
 
 func handle_segment_died(dead_segment: ArmSegment) -> void:
@@ -113,8 +120,8 @@ func handle_segment_died(dead_segment: ArmSegment) -> void:
 func _on_arm_segment_segment_died(arm_that_died: ArmSegment) -> void:
 	if arm_segments.has(arm_that_died):
 		arm_segments.erase(arm_that_died)
-		
-func _on_arm_segment_eating(segment : ArmSegment) -> void:
+
+func _on_arm_segment_eating(segment: ArmSegment) -> void:
 	arm_segments.erase(segment)
 
 func _on_arm_segment_stopped_eating(segment: ArmSegment) -> void:
@@ -122,6 +129,7 @@ func _on_arm_segment_stopped_eating(segment: ArmSegment) -> void:
 		return
 	if arm_segments.has(segment):
 		return
+
 	arm_segments.append(segment)
 
 func _on_growth_system_new_segment_alive(segment: ArmSegment) -> void:
@@ -149,7 +157,7 @@ func slider_update_growthinterval() -> void:
 	var lf := light_fitness()     # 0..1
 
 	# Kombi: Mittelwert statt Produkt-Killer
-	var combined := (tf + hf + lf) / 3.0  # 0..1
+	var combined := (tf + hf + lf) / 3.0 # 0..1
 
 	# Nie komplett tot: floor = Mindest-“Fitness”
 	var floor_min := 0.08
@@ -164,14 +172,15 @@ func slider_update_growthinterval() -> void:
 	grow_interval = clampf(interval, min_interval, max_interval)
 
 func temp_fitness() -> float:
-	var t : float = temperatureInWorld
+	var t: float = temperatureInWorld
 	var optimum := 22.0
 	var sigma := 12.0
 	var x := (t - optimum) / sigma
 	return clampf(exp(-0.5 * x * x), 0.0, 1.0)
 
 func humidity_fitness() -> float:
-	var h := clampf(humidityInWorld, 1.0, 100.0)
+	var h := clampf(humidityInWorld, 1.0, 100.0
+	)
 	var x := (h - 1.0) / 99.0
 	return clampf(x * x * (3.0 - 2.0 * x), 0.0, 1.0)
 
@@ -183,7 +192,6 @@ func light_fitness() -> float:
 	return clampf(exp(-0.5 * x * x), 0.0, 1.0)
 
 # Food
-
 func _on_ui_spawn_food() -> void:
 	spawnFood.emit(MaxFoodAmount, MaxFoodCount)
 
@@ -191,14 +199,19 @@ func _on_ui_spawn_food() -> void:
 func read_defaults_from_UI() -> void:
 	var slider_humidity := get_node("../../Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit") as HSlider
 	humidityInWorld = slider_humidity.value
+
 	var slider_lifepoints := get_node("../../Ui/CanvasLayer2/VBoxContainer/Lebenspunkte") as HSlider
 	Max_Food_Arm_Segment = slider_lifepoints.value
+
 	var slider_sunlight := get_node("../../Ui/CanvasLayer2/VBoxContainer/Sonnenlicht") as HSlider
 	sunlightamountInWorld = slider_sunlight.value
+
 	var slider_temperature := get_node("../../Ui/CanvasLayer2/VBoxContainer/Temperatur") as HSlider
 	temperatureInWorld = slider_temperature.value
+
 	var slider_foodamount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futtergröße") as HSlider
 	MaxFoodAmount = slider_foodamount.value
+
 	var slider_foodcount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futteranzahl") as HSlider
 	MaxFoodCount = slider_foodcount.value
 
