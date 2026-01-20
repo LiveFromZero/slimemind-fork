@@ -58,6 +58,7 @@ func _die() -> void:
 	set_process(false)
 	segment_died.emit(self)
 	_set_color(Color("brown"))
+	self.queue_free()
 
 # Food
 
