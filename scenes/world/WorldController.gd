@@ -142,13 +142,13 @@ func slider_update_growthinterval() -> void:
 	var combined := (tf + hf + lf) / 3.0  # 0..1
 
 	# Nie komplett tot: floor = Mindest-“Fitness”
-	var floor_min := 0.25
+	var floor_min := 0.08
 	combined = lerp(floor_min, 1.0, combined)
 
 	# Intervall skaliert umgekehrt: weniger Fitness => längeres Intervall
 	# clamp schützt vor absurd klein/groß
 	var min_interval := 0.005
-	var max_interval := 0.5
+	var max_interval := 3.0
 
 	var interval := BASE_Growth / combined
 	grow_interval = clampf(interval, min_interval, max_interval)
