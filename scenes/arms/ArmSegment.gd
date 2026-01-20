@@ -16,7 +16,7 @@ var _base_color: Color
 
 const FOOD_TO_LIFE := 0.08 # Balancing-Wert
 const UP_SHARE := 1
-const SIB_SHARE := 0.2 # Anteil vom eigenen Life-Gewinn an Geschwister
+const SIB_SHARE := 0.8 # Anteil vom eigenen Life-Gewinn an Geschwister
 const EATING_COLOR := Color(1.0, 0.85, 0.3) # warm/gelb
 const FED_COLOR := Color(0.4, 1.0, 0.6)     # grünlich
 

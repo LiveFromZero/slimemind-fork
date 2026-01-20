@@ -5,8 +5,7 @@ class_name WorldController
 
 var arm_scene := load("res://scenes/arms/ArmSegment.tscn") as PackedScene
 var arm_segments: Array[ArmSegment] = []
-@export var grow_interval: float     # Sekunden zwischen Wachstumsschüben
-var grow_timer: float = 0.0
+@export var grow_interval: float = 0.01    # Sekunden zwischen Wachstumsschüben
 var sunlightamountInWorld 
 var humidityInWorld 
 var temperatureInWorld 
@@ -14,10 +13,30 @@ var BASE_Growth := 0.01
 var Max_Food_Arm_Segment
 var MaxFoodAmount
 var MaxFoodCount
-@onready var grow_timer_from_Timer: Timer = get_node("../../Growtimer") as Timer
+var sim_speed: float = 1.0
+var grow_accum: float = 0.0
+const MAX_GROW_STEPS_PER_FRAME := 200
 
 signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment : float)  # Signal, das den ausgewählten Arm mitgibt
 signal spawnFood(Food_Amount : float, Food_Count : int)
+
+func _physics_process(delta: float) -> void:
+	if grow_interval <= 0.0 or is_nan(grow_interval) or is_inf(grow_interval):
+		return
+
+	grow_accum += delta * sim_speed
+
+	var steps := 0
+	while grow_accum >= grow_interval and steps < MAX_GROW_STEPS_PER_FRAME:
+		grow_accum -= grow_interval
+		_on_grow_timer_timeout()
+		steps += 1
+
+	# optional: wenn wir capped haben, nicht ewig Rückstand ansammeln
+	if steps == MAX_GROW_STEPS_PER_FRAME:
+		grow_accum = minf(grow_accum, grow_interval)
+func set_sim_speed(v: float) -> void:
+	sim_speed = maxf(v, 0.0)
 
 func _on_grow_timer_timeout() -> void:
 	if arm_segments.is_empty():
@@ -74,6 +93,7 @@ func _on_growth_system_arm_has_grown_new_segment(arm: ArmSegment) -> void:
 func _ready() -> void:
 	randomize()
 	read_defaults_from_UI()
+	slider_update_growthinterval() # <<< DAS fehlt dir
 	# Alle bereits existierenden Arme ins Tracking aufnehmen
 	for arm in arm_root.get_children():
 		var seg := arm as ArmSegment
@@ -202,10 +222,3 @@ func _on_ui_update_food_amount(slider_foodamount: float) -> void:
 
 func _on_ui_update_food_count(slider_foodcount: float) -> void:
 	MaxFoodCount = slider_foodcount
-
-func _on_main_startbutton_pressed(pause_state: Variant) -> void:
-	grow_timer_from_Timer.wait_time = grow_interval
-	if pause_state == false:
-		grow_timer_from_Timer.start()
-	else :
-		grow_timer_from_Timer.stop()
