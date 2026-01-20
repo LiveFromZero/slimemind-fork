@@ -19,7 +19,7 @@ var arm_scene: PackedScene = load("res://scenes/arms/ArmSegment.tscn") as Packed
 var arm_segments: Array[ArmSegment] = []
 
 # --- Simulation ---
-@export var grow_interval: float = 0.01 # Sekunden zwischen Wachstumsschüben (Basis-Intervall)
+@export var grow_interval: float = 0.02 # Sekunden zwischen Wachstumsschüben (Basis-Intervall)
 var sim_speed: float = 1.0
 
 # Timer statt per-frame While-Schleife (respektiert Engine.time_scale)

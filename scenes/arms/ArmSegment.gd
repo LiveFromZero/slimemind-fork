@@ -1,100 +1,131 @@
 class_name ArmSegment
 extends Node2D
 
-@onready var visual: CanvasItem = $ColorRect2 # ggf. anpassen (Line2D, ColorRect, etc.)
+@onready var visual: CanvasItem = $ColorRect2
+
+@export var max_life_points: float = 10.0
+@export var depth: int = 1
+@export var color_update_interval: float = 0.15
 
 var predecessor: ArmSegment
 var children: Array[ArmSegment] = []
 
-@export var max_life_points: float
 var life_points: float
-var depth: int
-var base_damage := 0.2
-var damage_per_second: float
-
-var is_eating: bool = false
-var _base_color: Color
-var _current_target_color: Color = Color.GREEN
-
-# Wie oft die Farbe neu berechnet wird (kleiner = reaktiver, größer = billiger)
-@export var color_update_interval: float = 0.15
-
-const FOOD_TO_LIFE := 1.0 # Balancing-Wert
-const UP_SHARE := 1.0
-const SIB_SHARE := 1.0 # Anteil vom eigenen Life-Gewinn an Geschwister
-const EATING_COLOR := Color(1.0, 0.85, 0.3) # warm/gelb
-const FED_COLOR := Color(0.4, 1.0, 0.6)     # grünlich
+var is_eating := false
 
 signal color_changed(new_color: Color)
-signal segment_died(arm_that_died: ArmSegment)
-signal eating(arm_that_eats: ArmSegment) # started eating
-signal stopped_eating(arm_that_stops: ArmSegment)
+signal segment_died(segment: ArmSegment)
+signal eating(segment: ArmSegment)
+signal stopped_eating(segment: ArmSegment)
 
+const BASE_DAMAGE := 0.2
+const FOOD_TO_LIFE := 1.0
+const UP_SHARE := 1.0
+const SIB_SHARE := 1.0
+const EATING_COLOR := Color(1.0, 0.85, 0.3)
+
+var _damage_per_second: float
+var _health_color: Color = Color.GREEN
 var _color_timer: Timer
 var _is_dead := false
 
+
 func _ready() -> void:
-	if depth == 0: # Falls irgendwie vergessen wurde
-		depth = 1
-
-	damage_per_second = base_damage * depth
-	_base_color = visual.modulate
+	depth = max(depth, 1)
 	life_points = max_life_points
+	_damage_per_second = BASE_DAMAGE * depth
 
-	# Farb-Updates auslagern: Timer statt jedes Physik-Frame rechnen
 	_color_timer = Timer.new()
-	_color_timer.name = "ColorTimer"
 	_color_timer.one_shot = false
 	_color_timer.wait_time = max(0.03, color_update_interval)
-	_color_timer.ignore_time_scale = false # wichtig: Engine.time_scale soll wirken
 	_color_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	add_child(_color_timer)
 
-	_color_timer.timeout.connect(_update_color)
+	_color_timer.timeout.connect(_update_visual)
 	_color_timer.start()
 
-	# Initiale Farbe einmal setzen
-	_update_color(true)
+	_update_visual(true)
+
 
 func _physics_process(delta: float) -> void:
-	# Minimaler Hot-Path: nur Leben runter, clamp, ggf. sterben.
 	if _is_dead:
 		return
 
-	life_points -= damage_per_second * delta
+	life_points -= _damage_per_second * delta
 	if life_points <= 0.0:
 		life_points = 0.0
 		_die()
 
-func _update_color(force: bool = false) -> void:
-	# Farbe nur getaktet (oder forced), nicht pro Frame.
+
+func eat(food_amount: float) -> void:
 	if _is_dead:
 		return
 
-	if max_life_points <= 0.0:
+	# Minimaler "Essen"-Effekt: Segment wird voll, Kettenverteilung macht den Rest.
+	life_points = max_life_points
+	_update_visual(true)
+
+	if predecessor != null and UP_SHARE > 0.0:
+		predecessor.eat(food_amount * UP_SHARE)
+
+	if predecessor != null and SIB_SHARE > 0.0:
+		_feed_siblings(food_amount * FOOD_TO_LIFE * SIB_SHARE)
+
+
+func start_eating() -> void:
+	if _is_dead or is_eating:
+		return
+	is_eating = true
+	eating.emit(self)
+	_update_visual(true)
+
+
+func stop_eating() -> void:
+	if _is_dead or not is_eating:
+		return
+	is_eating = false
+	stopped_eating.emit(self)
+	_update_visual(true)
+
+
+func feed_tick() -> void:
+	if _is_dead:
+		return
+	_refresh_whole_arm_to_full()
+	_update_visual(true)
+
+
+func _update_visual(force: bool = false) -> void:
+	if _is_dead or max_life_points <= 0.0:
 		return
 
-	var life_ratio: float = life_points / max_life_points
+	var ratio := life_points / max_life_points
+	var target := _color_for_ratio(ratio)
 
-	var target: Color
-	if life_ratio <= 0.3:
-		target = Color.SANDY_BROWN
-	elif life_ratio <= 0.5:
-		target = Color.YELLOW
-	elif life_ratio <= 0.75:
-		target = Color.YELLOW_GREEN
-	else:
-		target = Color.GREEN
+	if force or target != _health_color:
+		_health_color = target
 
-	if force or target != _current_target_color:
-		_current_target_color = target
-		_set_color(target)
+	# Wenn das Segment gerade frisst, wird die Health-Farbe warm getönt.
+	# So bleibt die Info "gesund/krank" erhalten, plus "frisst gerade".
+	var final_color := _health_color
+	if is_eating:
+		final_color = _health_color.lerp(EATING_COLOR, 0.35)
 
-func _set_color(new_color: Color) -> void:
-	color_changed.emit(new_color)
+	visual.modulate = final_color
+	color_changed.emit(final_color)
+
+
+func _color_for_ratio(r: float) -> Color:
+	if r <= 0.3:
+		return Color.SANDY_BROWN
+	if r <= 0.5:
+		return Color.YELLOW
+	if r <= 0.75:
+		return Color.YELLOW_GREEN
+	return Color.GREEN
+
 
 func _die() -> void:
-	# Verhindere Mehrfach-Auslösung
 	if _is_dead:
 		return
 	_is_dead = true
@@ -103,102 +134,50 @@ func _die() -> void:
 	if is_instance_valid(_color_timer):
 		_color_timer.stop()
 
+	visual.modulate = Color.WEB_MAROON
+	color_changed.emit(Color.WEB_MAROON)
 	segment_died.emit(self)
-	_set_color(Color.WEB_MAROON)
 
+	# Tween auf Node2D.modulate (nicht auf visual), damit du das Segment als Ganzes ausblendest.
 	var tween := create_tween()
-	tween.tween_property(
-		self,
-		"modulate:a", # nur Alpha ändern
-		0.1,          # Ziel: komplett transparent
-		12.0          # Dauer in Sekunden
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-
+	tween.tween_property(self, "modulate:a", 0.1, 12.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	tween.finished.connect(queue_free)
 
-# Food
 
-func eat(food_amount: float) -> void:
-	var gained := food_amount * FOOD_TO_LIFE
-
-	# eigenes Segment
-	life_points = max_life_points
-
-	# Farbe sofort aktualisieren (damit es nicht erst beim Timer-Tick sichtbar wird)
-	_update_color(true)
-
-	# nach oben (Strang)
-	if predecessor != null:
-		predecessor.eat(food_amount * UP_SHARE)
-
-	# Geschwister-Ast mitversorgen
-	_feed_split_partner(gained * SIB_SHARE)
-
-func start_eating() -> void:
-	if is_eating:
-		return
-	is_eating = true
-	visual.modulate = _base_color.lerp(EATING_COLOR, 0.35)
-	eating.emit(self)
-
-	# Optional: Farbe sofort neu ausgeben
-	_update_color(true)
-
-func stop_eating() -> void:
-	if !is_eating:
-		return
-	is_eating = false
-	visual.modulate = _base_color
-	stopped_eating.emit(self)
-
-	_update_color(true)
-
-func feed_tick() -> void:
-	# Minimal: "arm gets energy and doesn't die"
-	# You said "complete arm", so we refresh the whole connected subtree.
-	_refresh_life_whole_arm()
-	_update_color(true)
-
-func _refresh_life_whole_arm() -> void:
+func _refresh_whole_arm_to_full() -> void:
+	# Läuft zum Root hoch (predecessor-Kette) und füllt dann den gesamten Subtree.
+	# Das ist bewusst O(n) über den Arm, aber nur bei "Feed-Events", nicht pro Frame.
 	var root := self
 	while root.predecessor != null:
 		root = root.predecessor
+	_fill_subtree(root)
 
-	# refresh root + all children
-	_refresh_subtree(root)
 
-func _refresh_subtree(seg: ArmSegment) -> void:
+func _fill_subtree(seg: ArmSegment) -> void:
 	seg.life_points = seg.max_life_points
 	for c in seg.children:
-		_refresh_subtree(c)
+		if c != null:
+			_fill_subtree(c)
 
-func _add_life(amount: float) -> void:
-	if amount <= 0.0:
-		return
-	life_points = min(max_life_points, life_points + amount)
 
-func _feed_split_partner(life_amount: float) -> void:
-	if life_amount <= 0.0:
-		return
-	if predecessor == null:
+func _feed_siblings(life_amount: float) -> void:
+	if life_amount <= 0.0 or predecessor == null:
 		return
 
-	# NICHT predecessor.get_children() (Node-Children) + casts: nutz deine echte children-Liste
+	# Wir verwenden die eigene children-Liste als "Arm-Graph" (nicht Node-Children),
+	# damit die Logik stabil bleibt, egal wie die Szene-Hierarchie aussieht.
 	for sibling in predecessor.children:
-		if sibling == null:
-			continue
-		if sibling == self:
+		if sibling == null or sibling == self:
 			continue
 		sibling._feed_descendants(life_amount, 2)
 
-func _feed_descendants(life_amount: float, depth_: int) -> void:
-	if life_amount <= 0.0 or depth_ <= 0:
+
+func _feed_descendants(life_amount: float, depth_left: int) -> void:
+	if life_amount <= 0.0 or depth_left <= 0 or _is_dead:
 		return
 
-	_add_life(life_amount)
+	life_points = min(max_life_points, life_points + life_amount)
 
-	for seg in children:
-		if seg == null:
-			continue
-		# pro Ebene weniger Energie
-		seg._feed_descendants(life_amount * 0.6, depth_ - 1)
+	for c in children:
+		if c != null:
+			c._feed_descendants(life_amount * 0.6, depth_left - 1)
