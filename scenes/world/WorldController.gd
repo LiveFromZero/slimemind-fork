@@ -3,6 +3,7 @@ class_name WorldController
 
 # --- Nodes ---
 @onready var arm_root: Node = $"../ArmRoot"
+@onready var food_root : Node = $"../../Food/FoodManager"
 
 # --- Scenes / Data ---
 var arm_scene: PackedScene = load("res://scenes/arms/ArmSegment.tscn") as PackedScene
@@ -234,7 +235,9 @@ func _on_ui_reset_simulation() -> void:
 	var all_children := arm_root.get_children()
 	for child in all_children:
 		child.queue_free()
-
+	var all_food_children := food_root.get_children()
+	for food_child in all_food_children:
+		food_child.queue_free()
 	arm_segments = []
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
