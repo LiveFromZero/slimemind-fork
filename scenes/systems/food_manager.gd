@@ -21,8 +21,6 @@ func _on_world_controller_spawn_food(food_amount: float, food_count: int, field_
 	spawn_size.x = spawn_size.x * field_size
 	spawn_size.y = spawn_size.y * field_size
 	
-	
-	
 	var placed_positions: Array[Vector2] = []
 
 	for n in range(food_count):

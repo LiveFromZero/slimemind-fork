@@ -14,6 +14,8 @@ signal spawn_food
 signal update_simulation_speed(slider_simulationspeed:float)
 signal update_fieldsize(slider_fieldsize:float)
 
+@onready var summaryUI = $CanvasLayer
+
 func _on_h_slider_value_changed(value: float) -> void:
 	arms_count_changed.emit(value)
 
@@ -73,3 +75,6 @@ func _on_feldgröße_value_changed(value: float) -> void:
 func label_updater(label:Label, value:float) -> String:
 	var finalText = label.name + ": " + str(value)
 	return finalText
+
+func summaryPopUp() -> void:
+	summaryUI.visible = true

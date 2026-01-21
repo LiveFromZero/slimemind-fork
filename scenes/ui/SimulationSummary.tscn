@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dp3cp4bw2tan1"]
+[gd_scene load_steps=5 format=3 uid="uid://dp3cp4bw2tan1"]
 
 [ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="1_7p2wb"]
+[ext_resource type="Script" uid="uid://c13lrgtnnllcb" path="res://scenes/ui/simulation_summary.gd" id="1_pf2u6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7p2wb"]
 font_size = 42
@@ -15,6 +16,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="SimulationSummary" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_pf2u6")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

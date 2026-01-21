@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=21 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="3_qkm1d"]
 [ext_resource type="Script" uid="uid://bastr0lbnque8" path="res://scenes/world/arm_root.gd" id="5_3km4f"]
 [ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="6_p5fgu"]
+[ext_resource type="Script" uid="uid://cxpj0jnveg5gt" path="res://scenes/world/worldstatistic.gd" id="7_u8lgh"]
 [ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="8_p5fgu"]
 [ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/Life_and_Death_System.gd" id="9_2tpxt"]
 [ext_resource type="Script" uid="uid://chw5l8qqevlrn" path="res://scenes/systems/food_manager.gd" id="9_jsdfw"]
@@ -14,11 +15,21 @@
 [ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="11_qkm1d"]
 [ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="12_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://bbh2ghiqgwxfm" path="res://scenes/world/Food_source.tscn" id="13_2tpxt"]
-[ext_resource type="PackedScene" uid="uid://dp3cp4bw2tan1" path="res://scenes/ui/SimulationSummary.tscn" id="15_tck0d"]
+[ext_resource type="Script" uid="uid://c13lrgtnnllcb" path="res://scenes/ui/simulation_summary.gd" id="16_u8lgh"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_p5fgu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3km4f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tck0d"]
+font_size = 42
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u8lgh"]
+font_size = 20
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -47,6 +58,9 @@ process_mode = 4
 visible = false
 position = Vector2(781, -275)
 
+[node name="WorldStatistik" type="Node2D" parent="World"]
+script = ExtResource("7_u8lgh")
+
 [node name="ArmGrowth" type="Node2D" parent="."]
 process_mode = 1
 
@@ -61,8 +75,8 @@ script = ExtResource("9_2tpxt")
 [node name="FoodManager" type="Node2D" parent="Food"]
 script = ExtResource("9_jsdfw")
 food_scene = ExtResource("13_2tpxt")
-min_distance = 50.0
-spawn_size = Vector2(9000, 7000)
+min_distance = 25.0
+spawn_size = Vector2(2000, 2000)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3
@@ -109,7 +123,7 @@ text = "Futteranzahl: "
 [node name="FutteranzahlSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = 15.0
-max_value = 200.0
+max_value = 350.0
 value = 15.0
 tick_count = 14
 
@@ -211,14 +225,69 @@ text = "Reset"
 [node name="CanvasLayer" type="CanvasLayer" parent="Ui"]
 visible = false
 
-[node name="SimulationSummary" parent="Ui/CanvasLayer" instance=ExtResource("15_tck0d")]
+[node name="SimulationSummary" type="Control" parent="Ui/CanvasLayer"]
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("16_u8lgh")
+
+[node name="TextureRect" type="TextureRect" parent="Ui/CanvasLayer/SimulationSummary"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_top = -300.0
+offset_right = 600.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_qkm1d")
+
+[node name="HFlowContainer" type="VBoxContainer" parent="Ui/CanvasLayer/SimulationSummary"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -300.0
+offset_right = 600.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ZusammenfassungL" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+text = "Zusammenfassung"
+label_settings = SubResource("LabelSettings_tck0d")
+horizontal_alignment = 1
+
+[node name="Dauer" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+text = "Dauer der Simulation: "
+label_settings = SubResource("LabelSettings_u8lgh")
+horizontal_alignment = 1
+
+[node name="FutterGegessen" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+
+[node name="FuttermengeGegessen" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+
+[node name="LängsterArm" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+layout_mode = 2
 
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="reset_game" from="World/WorldController" to="." method="_on_world_controller_reset_game"]
@@ -227,6 +296,7 @@ grow_vertical = 2
 [connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
 [connection signal="segment_died" from="World/ArmSegment" to="ArmGrowth/Life_and_Death_System" method="_on_arm_segment_segment_died"]
 [connection signal="stopped_eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_stopped_eating"]
+[connection signal="sendDataToSummary" from="World/WorldStatistik" to="Ui/CanvasLayer/SimulationSummary" method="_on_world_statistik_send_data_to_summary"]
 [connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
 [connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
 [connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
