@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=22 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
 [ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
 [ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="3_qkm1d"]
+[ext_resource type="Texture2D" uid="uid://cp0ac3yxgkkon" path="res://sprites/blob_core_pixelart.png" id="4_hjnkw"]
 [ext_resource type="Script" uid="uid://bastr0lbnque8" path="res://scenes/world/arm_root.gd" id="5_3km4f"]
 [ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="6_p5fgu"]
 [ext_resource type="Script" uid="uid://cxpj0jnveg5gt" path="res://scenes/world/worldstatistic.gd" id="7_u8lgh"]
@@ -43,12 +44,9 @@ script = ExtResource("3_qkm1d")
 
 [node name="Blob" type="Node2D" parent="World"]
 
-[node name="ColorRect" type="ColorRect" parent="World/Blob"]
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-color = Color(1, 0.9529412, 0.3529412, 1)
+[node name="Sprite2D" type="Sprite2D" parent="World/Blob"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_hjnkw")
 
 [node name="ArmRoot" parent="World" instance=ExtResource("3_ko0rf")]
 script = ExtResource("5_3km4f")
