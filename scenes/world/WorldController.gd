@@ -41,6 +41,7 @@ var FieldSize: float
 # --- Signals ---
 signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment: float)
 signal spawnFood(Food_Amount: float, Food_Count: int, Field_Size:float)
+signal reset_game
 
 # =============================================================================
 # Lifecycle
@@ -71,10 +72,6 @@ func _ready() -> void:
 	# Falls UI-Speed schon gesetzt ist
 	if ui_slider_simulationspeed:
 		set_sim_speed(ui_slider_simulationspeed.value)
-
-# Keine per-frame Simulation mehr nötig. Das ist Absicht.
-func _physics_process(_delta: float) -> void:
-	pass
 
 # =============================================================================
 # Simulation Control
@@ -120,14 +117,15 @@ func _on_grow_timer_timeout() -> void:
 		return
 
 	# Random Segment wählen
-	var idx := _rng.randi_range(0, arm_segments.size() - 1)
-	var arm: ArmSegment = arm_segments[idx]
-	if !is_instance_valid(arm):
+	for i in sim_speed:
+		var idx := _rng.randi_range(0, arm_segments.size() - 1)
+		var arm: ArmSegment = arm_segments[idx]
+		if !is_instance_valid(arm):
 		# Invalid rauswerfen, nächste tick macht weiter
-		arm_segments.remove_at(idx)
-		return
+			arm_segments.remove_at(idx)
+			return
 
-	grow_arm.emit(arm, Max_Food_Arm_Segment)
+		grow_arm.emit(arm, Max_Food_Arm_Segment)
 
 # =============================================================================
 # Arms Management
@@ -288,6 +286,7 @@ func _on_ui_reset_simulation() -> void:
 
 	arm_segments.clear()
 	reset_slider()
+	reset_game.emit()
 
 func reset_slider() -> void:
 	ui_slider_foodcount.value = 50
@@ -299,6 +298,7 @@ func reset_slider() -> void:
 	ui_slider_countarms.value = 0
 	ui_slider_simulationspeed.value = 1.0
 	ui_slider_fieldsize.value = 1
+	
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
 	Max_Food_Arm_Segment = slider_lifepoints * 10.0

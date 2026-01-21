@@ -15,4 +15,5 @@ func _on_ui_simulation_toggled() -> void:
 func _on_ui_update_simulation_speed(slider_simulationspeed: float) -> void:
 	Engine.time_scale = slider_simulationspeed
 
-	
+func _on_world_controller_reset_game() -> void:
+	_on_ui_simulation_toggled()

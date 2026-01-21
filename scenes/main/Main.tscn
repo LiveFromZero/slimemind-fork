@@ -94,16 +94,16 @@ expand_icon = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -143.0
+offset_left = -283.0
 offset_top = 89.0
 offset_right = -4.0
-offset_bottom = 298.0
+offset_bottom = 908.0
 grow_horizontal = 0
 alignment = 1
 
 [node name="Futteranzahl" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Futtermenge: "
+text = "Futteranzahl: "
 
 [node name="FutteranzahlSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -114,7 +114,7 @@ tick_count = 14
 
 [node name="Futtermenge" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Futtergröße"
+text = "Futtermenge: "
 
 [node name="FuttermengeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer" groups=["SliderUpdate"]]
 layout_mode = 2
@@ -124,7 +124,7 @@ value = 10000.0
 
 [node name="Feldgröße" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Feldgröße"
+text = "Feldgröße: "
 
 [node name="FeldgrößeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -139,7 +139,7 @@ text = "Food Spawnen"
 
 [node name="Widerstandsfähigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Widerstandsfähigkeit"
+text = "Widerstandsfähigkeit: "
 
 [node name="LebenspunkteSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -149,7 +149,7 @@ value = 30.0
 
 [node name="Sonnenlicht" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Sonnenmenge"
+text = "Sonnenlicht: "
 
 [node name="SonnenlichtSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -157,7 +157,7 @@ value = 15.0
 
 [node name="Temperatur" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Temperatur"
+text = "Temperatur: "
 
 [node name="TemperaturSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -166,7 +166,7 @@ value = 22.0
 
 [node name="Luftfeuchtigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Luftfeuchtigkeit"
+text = "Luftfeuchtigkeit: "
 
 [node name="LuftfeuchtigkeitSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -174,7 +174,7 @@ value = 70.0
 
 [node name="Startarme" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Starter-Arme"
+text = "Startarme"
 label_settings = SubResource("LabelSettings_3km4f")
 
 [node name="StartarmeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
@@ -186,7 +186,7 @@ ticks_position = 3
 
 [node name="Simulationsgeschwindigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Simulationsgeschwindigkeit"
+text = "Simulationsgeschwindigkeit: "
 
 [node name="SimulationSpeedSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -208,6 +208,7 @@ layout_mode = 2
 text = "Reset"
 
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
+[connection signal="reset_game" from="World/WorldController" to="." method="_on_world_controller_reset_game"]
 [connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
 [connection signal="eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_eating"]
 [connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
