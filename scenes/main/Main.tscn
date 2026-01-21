@@ -76,7 +76,7 @@ script = ExtResource("9_2tpxt")
 script = ExtResource("9_jsdfw")
 food_scene = ExtResource("13_2tpxt")
 min_distance = 25.0
-spawn_size = Vector2(2000, 2000)
+spawn_size = Vector2(4000, 2000)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3
