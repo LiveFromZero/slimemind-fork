@@ -13,6 +13,8 @@ class_name FoodManager
 @export var spawn_center: Vector2 = Vector2.ZERO
 @export var spawn_size: Vector2 = Vector2(1000, 600) # Breite/Höhe
 
+func _ready() -> void:
+	pass
 
 func _on_world_controller_spawn_food(food_amount: float, food_count: int) -> void:
 	if food_scene == null:
@@ -37,7 +39,6 @@ func _on_world_controller_spawn_food(food_amount: float, food_count: int) -> voi
 		add_child(food)
 
 		placed_positions.append(pos)
-
 
 func _pick_position(existing: Array[Vector2]) -> Variant:
 	for i in range(max_tries_per_food):
