@@ -36,17 +36,20 @@ outline_color = Color(0, 0, 0, 1)
 process_mode = 3
 script = ExtResource("1_3km4f")
 
+[node name="ArmGrowth" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="GrowthSystem" type="Node2D" parent="ArmGrowth"]
+script = ExtResource("8_p5fgu")
+
+[node name="Life_and_Death_System" type="Node2D" parent="ArmGrowth"]
+script = ExtResource("9_2tpxt")
+
 [node name="World" parent="." instance=ExtResource("2_sjxhf")]
 process_mode = 1
 
 [node name="WorldController" type="Node2D" parent="World"]
 script = ExtResource("3_qkm1d")
-
-[node name="Blob" type="Node2D" parent="World"]
-
-[node name="Sprite2D" type="Sprite2D" parent="World/Blob"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4_hjnkw")
 
 [node name="ArmRoot" parent="World" instance=ExtResource("3_ko0rf")]
 script = ExtResource("5_3km4f")
@@ -59,14 +62,11 @@ position = Vector2(781, -275)
 [node name="WorldStatistik" type="Node2D" parent="World"]
 script = ExtResource("7_u8lgh")
 
-[node name="ArmGrowth" type="Node2D" parent="."]
-process_mode = 1
+[node name="Blob" type="Node2D" parent="World"]
 
-[node name="GrowthSystem" type="Node2D" parent="ArmGrowth"]
-script = ExtResource("8_p5fgu")
-
-[node name="Life_and_Death_System" type="Node2D" parent="ArmGrowth"]
-script = ExtResource("9_2tpxt")
+[node name="Sprite2D" type="Sprite2D" parent="World/Blob"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_hjnkw")
 
 [node name="Food" type="Node2D" parent="."]
 
@@ -157,8 +157,8 @@ text = "Widerstandsfähigkeit: "
 [node name="LebenspunkteSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
-max_value = 60.0
-value = 30.0
+max_value = 75.0
+value = 50.0
 
 [node name="Sonnenlicht" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -287,16 +287,16 @@ layout_mode = 2
 [node name="LängsterArm" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 
+[connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
+[connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="reset_game" from="World/WorldController" to="." method="_on_world_controller_reset_game"]
 [connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
 [connection signal="eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_eating"]
-[connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
 [connection signal="segment_died" from="World/ArmSegment" to="ArmGrowth/Life_and_Death_System" method="_on_arm_segment_segment_died"]
+[connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
 [connection signal="stopped_eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_stopped_eating"]
 [connection signal="sendDataToSummary" from="World/WorldStatistik" to="Ui/CanvasLayer/SimulationSummary" method="_on_world_statistik_send_data_to_summary"]
-[connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
-[connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
 [connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
 [connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]

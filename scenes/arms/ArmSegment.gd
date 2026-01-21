@@ -1,7 +1,7 @@
 class_name ArmSegment
 extends Node2D
 
-@onready var visual: CanvasItem = $ColorRect2
+@onready var visual: CanvasItem = $Sprite2D
 
 @export var max_life_points: float = 10.0
 @export var depth: int = 1

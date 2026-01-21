@@ -61,6 +61,8 @@ func _on_luftfeuchtigkeit_value_changed(value: float) -> void:
 
 func _on_food_spawn_button_pressed() -> void:
 	spawn_food.emit()
+	var foodspawn_button = $CanvasLayer2/VBoxContainer/FoodSpawnButton
+	foodspawn_button.disabled = true
 
 func _on_simulation_speed_value_changed(value: float) -> void:
 	update_simulation_speed.emit(value)
