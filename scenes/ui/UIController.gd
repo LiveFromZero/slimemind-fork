@@ -28,27 +28,47 @@ func _on_menu_button_pressed() -> void:
 
 func _on_futteranzahl_value_changed(value: float) -> void:
 	update_food_count.emit(value)
+	var label = $CanvasLayer2/VBoxContainer/Futteranzahl
+	label.text = label_updater(label, value)
 
 func _on_futtergröße_value_changed(value: float) -> void:
 	update_food_amount.emit(value)
+	var label = $CanvasLayer2/VBoxContainer/Futtermenge
+	label.text = label_updater(label, value)
 
 func _on_robustheit_arme_lebenspunkte_value_changed(value: float) -> void:
 	update_life_points_for_arms.emit(value)
+	var label = $"CanvasLayer2/VBoxContainer/Widerstandsfähigkeit"
+	label.text = label_updater(label, value)
 
 func _on_sonnenlicht_value_changed(value: float) -> void:
 	update_lightamount.emit(value)
+	var label = $CanvasLayer2/VBoxContainer/Sonnenlicht
+	label.text = label_updater(label, value)
 
 func _on_temperatur_value_changed(value: float) -> void:
 	update_temperature.emit(value)
+	var label = $CanvasLayer2/VBoxContainer/Temperatur
+	label.text = label_updater(label, value)
 
 func _on_luftfeuchtigkeit_value_changed(value: float) -> void:
 	update_humidity.emit(value)
+	var label = $CanvasLayer2/VBoxContainer/Luftfeuchtigkeit
+	label.text = label_updater(label, value)
 
 func _on_food_spawn_button_pressed() -> void:
 	spawn_food.emit()
 
 func _on_simulation_speed_value_changed(value: float) -> void:
 	update_simulation_speed.emit(value)
+	var label = $CanvasLayer2/VBoxContainer/Simulationsgeschwindigkeit
+	label.text = label_updater(label, value)
 
 func _on_feldgröße_value_changed(value: float) -> void:
 	update_fieldsize.emit(value)
+	var label = $"CanvasLayer2/VBoxContainer/Feldgröße"
+	label.text = label_updater(label, value)
+
+func label_updater(label:Label, value:float) -> String:
+	var finalText = label.name + ": " + str(value)
+	return finalText

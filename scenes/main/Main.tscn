@@ -101,32 +101,32 @@ offset_bottom = 298.0
 grow_horizontal = 0
 alignment = 1
 
-[node name="Label2" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Futteranzahl" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Futtermenge"
+text = "Futtermenge: "
 
-[node name="Futteranzahl" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="FutteranzahlSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = 15.0
 max_value = 200.0
 value = 15.0
 tick_count = 14
 
-[node name="Label3" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Futtermenge" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Futtergröße"
 
-[node name="Futtergröße" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer" groups=["SliderUpdate"]]
+[node name="FuttermengeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer" groups=["SliderUpdate"]]
 layout_mode = 2
 min_value = 100.0
 max_value = 100000.0
 value = 10000.0
 
-[node name="FeldgrößeLabel" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Feldgröße" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Feldgröße"
 
-[node name="Feldgröße" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="FeldgrößeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = 0.2
 max_value = 5.0
@@ -137,58 +137,58 @@ value = 1.0
 layout_mode = 2
 text = "Food Spawnen"
 
-[node name="Label4" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Widerstandsfähigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Widerstandsfähigkeit"
 
-[node name="Lebenspunkte" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="LebenspunkteSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 60.0
 value = 30.0
 
-[node name="Label5" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Sonnenlicht" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Sonnenmenge"
 
-[node name="Sonnenlicht" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="SonnenlichtSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 value = 15.0
 
-[node name="Label6" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Temperatur" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Temperatur"
 
-[node name="Temperatur" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="TemperaturSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = -50.0
 value = 22.0
 
-[node name="Label7" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Luftfeuchtigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Luftfeuchtigkeit"
 
-[node name="Luftfeuchtigkeit" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="LuftfeuchtigkeitSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 value = 70.0
 
-[node name="Label" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Startarme" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Starter-Arme"
 label_settings = SubResource("LabelSettings_3km4f")
 
-[node name="HSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="StartarmeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 max_value = 4.0
 tick_count = 5
 ticks_on_borders = true
 ticks_position = 3
 
-[node name="SimulationSpeedLabel" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Simulationsgeschwindigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Simulationsgeschwindigkeit"
 
-[node name="SimulationSpeed" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="SimulationSpeedSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 5.0
@@ -228,15 +228,15 @@ text = "Reset"
 [connection signal="update_simulation_speed" from="Ui" to="." method="_on_ui_update_simulation_speed"]
 [connection signal="update_temperature" from="Ui" to="World/WorldController" method="_on_ui_update_temperature"]
 [connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futteranzahl" to="Ui" method="_on_futteranzahl_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futtergröße" to="Ui" method="_on_futtergröße_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Feldgröße" to="Ui" method="_on_feldgröße_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/FutteranzahlSlider" to="Ui" method="_on_futteranzahl_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/FuttermengeSlider" to="Ui" method="_on_futtergröße_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/FeldgrößeSlider" to="Ui" method="_on_feldgröße_value_changed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/FoodSpawnButton" to="Ui" method="_on_food_spawn_button_pressed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Lebenspunkte" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Sonnenlicht" to="Ui" method="_on_sonnenlicht_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Temperatur" to="Ui" method="_on_temperatur_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit" to="Ui" method="_on_luftfeuchtigkeit_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/HSlider" to="Ui" method="_on_h_slider_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/SimulationSpeed" to="Ui" method="_on_simulation_speed_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/LebenspunkteSlider" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/SonnenlichtSlider" to="Ui" method="_on_sonnenlicht_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/TemperaturSlider" to="Ui" method="_on_temperatur_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/LuftfeuchtigkeitSlider" to="Ui" method="_on_luftfeuchtigkeit_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/StartarmeSlider" to="Ui" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/SimulationSpeedSlider" to="Ui" method="_on_simulation_speed_value_changed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]

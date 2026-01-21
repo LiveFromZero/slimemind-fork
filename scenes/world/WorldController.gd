@@ -5,15 +5,15 @@ class_name WorldController
 @onready var arm_root: Node = $"../ArmRoot"
 @onready var food_root: Node = $"../../Food/FoodManager"
 
-@onready var ui_slider_humidity := get_node("../../Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit") as HSlider
-@onready var ui_slider_lifepoints := get_node("../../Ui/CanvasLayer2/VBoxContainer/Lebenspunkte") as HSlider
-@onready var ui_slider_sunlight := get_node("../../Ui/CanvasLayer2/VBoxContainer/Sonnenlicht") as HSlider
-@onready var ui_slider_temperature := get_node("../../Ui/CanvasLayer2/VBoxContainer/Temperatur") as HSlider
-@onready var ui_slider_foodamount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futtergröße") as HSlider
-@onready var ui_slider_foodcount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futteranzahl") as HSlider
-@onready var ui_slider_countarms := get_node("../../Ui/CanvasLayer2/VBoxContainer/HSlider") as HSlider
-@onready var ui_slider_simulationspeed := get_node("../../Ui/CanvasLayer2/VBoxContainer/SimulationSpeed") as HSlider
-@onready var ui_slider_fieldsize := get_node("../../Ui/CanvasLayer2/VBoxContainer/Feldgröße") as HSlider
+@onready var ui_slider_humidity := get_node("../../Ui/CanvasLayer2/VBoxContainer/LuftfeuchtigkeitSlider") as HSlider
+@onready var ui_slider_lifepoints := get_node("../../Ui/CanvasLayer2/VBoxContainer/LebenspunkteSlider") as HSlider
+@onready var ui_slider_sunlight := get_node("../../Ui/CanvasLayer2/VBoxContainer/SonnenlichtSlider") as HSlider
+@onready var ui_slider_temperature := get_node("../../Ui/CanvasLayer2/VBoxContainer/TemperaturSlider") as HSlider
+@onready var ui_slider_foodamount := get_node("../../Ui/CanvasLayer2/VBoxContainer/FuttermengeSlider") as HSlider
+@onready var ui_slider_foodcount := get_node("../../Ui/CanvasLayer2/VBoxContainer/FutteranzahlSlider") as HSlider
+@onready var ui_slider_countarms := get_node("../../Ui/CanvasLayer2/VBoxContainer/StartarmeSlider") as HSlider
+@onready var ui_slider_simulationspeed := get_node("../../Ui/CanvasLayer2/VBoxContainer/SimulationSpeedSlider") as HSlider
+@onready var ui_slider_fieldsize := get_node("../../Ui/CanvasLayer2/VBoxContainer/FeldgrößeSlider") as HSlider
 
 # --- Scenes / Data ---
 var arm_scene: PackedScene = load("res://scenes/arms/ArmSegment.tscn") as PackedScene
