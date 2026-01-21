@@ -19,6 +19,7 @@ func _on_h_slider_value_changed(value: float) -> void:
 
 func _on_button_pressed() -> void:
 	simulation_toggled.emit()
+	_on_menu_button_pressed()
 	
 func _on_reset_button_pressed() -> void:
 	reset_simulation.emit()
