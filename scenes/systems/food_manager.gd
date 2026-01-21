@@ -13,14 +13,14 @@ class_name FoodManager
 @export var spawn_center: Vector2 = Vector2.ZERO
 @export var spawn_size: Vector2 = Vector2(1000, 600) # Breite/Höhe
 
-func _ready() -> void:
-	pass
-
-func _on_world_controller_spawn_food(food_amount: float, food_count: int) -> void:
+func _on_world_controller_spawn_food(food_amount: float, food_count: int, field_size:float) -> void:
 	if food_scene == null:
 		push_error("FoodManager: food_scene ist nicht gesetzt.")
 		return
-
+	
+	spawn_size.x = spawn_size.x * field_size
+	spawn_size.y = spawn_size.y * field_size
+	
 	var placed_positions: Array[Vector2] = []
 
 	for n in range(food_count):

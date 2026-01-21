@@ -13,6 +13,7 @@ class_name WorldController
 @onready var ui_slider_foodcount := get_node("../../Ui/CanvasLayer2/VBoxContainer/Futteranzahl") as HSlider
 @onready var ui_slider_countarms := get_node("../../Ui/CanvasLayer2/VBoxContainer/HSlider") as HSlider
 @onready var ui_slider_simulationspeed := get_node("../../Ui/CanvasLayer2/VBoxContainer/SimulationSpeed") as HSlider
+@onready var ui_slider_fieldsize := get_node("../../Ui/CanvasLayer2/VBoxContainer/Feldgröße") as HSlider
 
 # --- Scenes / Data ---
 var arm_scene: PackedScene = load("res://scenes/arms/ArmSegment.tscn") as PackedScene
@@ -35,10 +36,11 @@ var BASE_Growth: float = 0.01
 var Max_Food_Arm_Segment: float
 var MaxFoodAmount: float
 var MaxFoodCount: int
+var FieldSize: float
 
 # --- Signals ---
 signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment: float)
-signal spawnFood(Food_Amount: float, Food_Count: int)
+signal spawnFood(Food_Amount: float, Food_Count: int, Field_Size:float)
 
 # =============================================================================
 # Lifecycle
@@ -264,7 +266,7 @@ func light_fitness() -> float:
 # Food
 # =============================================================================
 func _on_ui_spawn_food() -> void:
-	spawnFood.emit(MaxFoodAmount, MaxFoodCount)
+	spawnFood.emit(MaxFoodAmount, MaxFoodCount, FieldSize)
 
 # =============================================================================
 # UI Handlers
@@ -276,6 +278,7 @@ func read_defaults_from_UI() -> void:
 	temperatureInWorld = ui_slider_temperature.value
 	MaxFoodAmount = ui_slider_foodamount.value
 	MaxFoodCount = ui_slider_foodcount.value
+	FieldSize = ui_slider_fieldsize.value
 
 func _on_ui_reset_simulation() -> void:
 	for child in arm_root.get_children():
@@ -295,6 +298,7 @@ func reset_slider() -> void:
 	ui_slider_humidity.value = 70.0
 	ui_slider_countarms.value = 0
 	ui_slider_simulationspeed.value = 1.0
+	ui_slider_fieldsize.value = 1
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
 	Max_Food_Arm_Segment = slider_lifepoints * 10.0
@@ -316,3 +320,6 @@ func _on_ui_update_food_amount(slider_foodamount: float) -> void:
 
 func _on_ui_update_food_count(slider_foodcount: float) -> void:
 	MaxFoodCount = int(slider_foodcount)
+
+func _on_ui_update_fieldsize(slider_fieldsize: float) -> void:
+	FieldSize = slider_fieldsize

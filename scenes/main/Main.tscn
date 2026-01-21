@@ -122,6 +122,17 @@ min_value = 100.0
 max_value = 100000.0
 value = 10000.0
 
+[node name="FeldgrößeLabel" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Feldgröße"
+
+[node name="Feldgröße" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+min_value = 0.2
+max_value = 5.0
+step = 0.2
+value = 1.0
+
 [node name="FoodSpawnButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 text = "Food Spawnen"
@@ -196,7 +207,6 @@ color = Color(0.21, 0.21, 0.21, 1)
 layout_mode = 2
 text = "Reset"
 
-[connection signal="startbutton_pressed" from="." to="World/WorldController" method="_on_main_startbutton_pressed"]
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
 [connection signal="eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_eating"]
@@ -209,6 +219,7 @@ text = "Reset"
 [connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
 [connection signal="spawn_food" from="Ui" to="World/WorldController" method="_on_ui_spawn_food"]
+[connection signal="update_fieldsize" from="Ui" to="World/WorldController" method="_on_ui_update_fieldsize"]
 [connection signal="update_food_amount" from="Ui" to="World/WorldController" method="_on_ui_update_food_amount"]
 [connection signal="update_food_count" from="Ui" to="World/WorldController" method="_on_ui_update_food_count"]
 [connection signal="update_humidity" from="Ui" to="World/WorldController" method="_on_ui_update_humidity"]
@@ -219,6 +230,7 @@ text = "Reset"
 [connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futteranzahl" to="Ui" method="_on_futteranzahl_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futtergröße" to="Ui" method="_on_futtergröße_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Feldgröße" to="Ui" method="_on_feldgröße_value_changed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/FoodSpawnButton" to="Ui" method="_on_food_spawn_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Lebenspunkte" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Sonnenlicht" to="Ui" method="_on_sonnenlicht_value_changed"]
