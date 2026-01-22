@@ -1,10 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=27 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
 [ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
 [ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="3_qkm1d"]
-[ext_resource type="Texture2D" uid="uid://cp0ac3yxgkkon" path="res://sprites/blob_core_pixelart.png" id="4_hjnkw"]
 [ext_resource type="Script" uid="uid://bastr0lbnque8" path="res://scenes/world/arm_root.gd" id="5_3km4f"]
 [ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="6_p5fgu"]
 [ext_resource type="Script" uid="uid://cxpj0jnveg5gt" path="res://scenes/world/worldstatistic.gd" id="7_u8lgh"]
@@ -14,9 +13,46 @@
 [ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="11_p5fgu"]
 [ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="11_qkm1d"]
+[ext_resource type="Texture2D" uid="uid://bhdje1ovs5srk" path="res://sprites/8026857a-bfa3-4e64-9305-d0bf2ba40c68_removalai_preview.png" id="11_rikml"]
 [ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="12_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://bbh2ghiqgwxfm" path="res://scenes/world/Food_source.tscn" id="13_2tpxt"]
 [ext_resource type="Script" uid="uid://c13lrgtnnllcb" path="res://scenes/ui/simulation_summary.gd" id="16_u8lgh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc03v"]
+atlas = ExtResource("11_rikml")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grv7h"]
+atlas = ExtResource("11_rikml")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yub1f"]
+atlas = ExtResource("11_rikml")
+region = Rect2(0, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8523"]
+atlas = ExtResource("11_rikml")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_roob6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc03v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grv7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yub1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8523")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_p5fgu"]
 
@@ -64,10 +100,10 @@ script = ExtResource("7_u8lgh")
 
 [node name="Blob" type="Node2D" parent="World"]
 
-[node name="Sprite2D" type="Sprite2D" parent="World/Blob"]
-texture_filter = 1
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4_hjnkw")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Blob"]
+sprite_frames = SubResource("SpriteFrames_roob6")
+autoplay = "default"
+frame_progress = 0.8378998
 
 [node name="Food" type="Node2D" parent="."]
 
