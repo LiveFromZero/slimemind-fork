@@ -222,9 +222,8 @@ text = "Feldgröße: "
 
 [node name="FeldgrößeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-min_value = 0.2
+min_value = 1.0
 max_value = 10.0
-step = 0.2
 value = 7.0
 
 [node name="FoodSpawnButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
