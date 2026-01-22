@@ -83,7 +83,9 @@ func label_updater(label:Label, value:float) -> String:
 func summaryPopUp() -> void:
 	summaryUI.visible = true
 
-
 func _on_statistik_pressed() -> void:
 	summaryPopUp()
 	statistikPressed.emit()
+
+func _on_hide_ui_button_pressed() -> void:
+	summaryUI.visible = false

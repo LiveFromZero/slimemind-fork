@@ -282,6 +282,7 @@ layout_mode = 2
 
 [node name="Statistik" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
+text = "Statistik"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Ui"]
 visible = false
@@ -351,6 +352,18 @@ layout_mode = 2
 [node name="LängsterArm" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 
+[node name="AnzahlToterSegmente" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+text = "Anzahl toter Segmente: "
+
+[node name="HideUIButton" type="Button" parent="Ui/CanvasLayer/SimulationSummary"]
+layout_mode = 0
+offset_left = -108.0
+offset_top = 300.0
+offset_right = 116.0
+offset_bottom = 331.0
+text = "Schließe Zusammenfassung"
+
 [connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
 [connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
@@ -388,3 +401,4 @@ layout_mode = 2
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Statistik" to="Ui" method="_on_statistik_pressed"]
+[connection signal="pressed" from="Ui/CanvasLayer/SimulationSummary/HideUIButton" to="Ui" method="_on_hide_ui_button_pressed"]

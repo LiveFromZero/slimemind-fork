@@ -20,7 +20,7 @@ func set_defaults() -> void:
 	longestArm = 0
 	countDeadSegments = 0
 
-func add_count_of_dead_segment(segment:int) -> void:
+func add_count_of_dead_segment() -> void:
 	countDeadSegments = countDeadSegments +1
 
 
