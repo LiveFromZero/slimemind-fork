@@ -13,6 +13,7 @@ signal update_food_count(slider_foodcount:float)
 signal spawn_food
 signal update_simulation_speed(slider_simulationspeed:float)
 signal update_fieldsize(slider_fieldsize:float)
+signal statistikPressed
 
 @onready var summaryUI = $CanvasLayer
 
@@ -81,3 +82,8 @@ func label_updater(label:Label, value:float) -> String:
 
 func summaryPopUp() -> void:
 	summaryUI.visible = true
+
+
+func _on_statistik_pressed() -> void:
+	summaryPopUp()
+	statistikPressed.emit()

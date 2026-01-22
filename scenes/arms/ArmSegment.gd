@@ -158,8 +158,6 @@ func _color_for_ratio(r: float) -> Color:
 
 	out = out.lerp(out_desat, sick * 0.65)
 
-
-
 	return out
 
 
@@ -182,6 +180,7 @@ func _die() -> void:
 	color_changed.emit(Color(0.22, 0.08, 0.08))
 	segment_died.emit(self)
 	visual.stop()
+	get_tree().call_group("Statistik", "add_count_of_dead_segment")
 
 	# Tween auf Node2D.modulate (nicht auf visual), damit du das Segment als Ganzes ausblendest.
 	var tween := create_tween()

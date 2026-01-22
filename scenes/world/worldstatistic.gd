@@ -1,14 +1,16 @@
 extends Node2D
 class_name  WorldStatistic
 
-signal sendDataToSummary(_time:float, _foodEaten:int, _foodAmountEaten: float, _longestArm:int)
+signal sendDataToSummary(_time:float, _foodEaten:int, _foodAmountEaten: float, _longestArm:int, _countDeadSegments)
 
 var time : float
 var foodEaten : int
 var foodAmountEaten : float
 var longestArm : int
+var countDeadSegments : int
 
 func _ready() -> void:
+	add_to_group("Statistik")
 	set_defaults()
 
 func set_defaults() -> void:
@@ -16,14 +18,11 @@ func set_defaults() -> void:
 	foodEaten = 0
 	foodAmountEaten = 0
 	longestArm = 0
+	countDeadSegments = 0
 
-func calculateTime(sekunden:float) -> void:
-	var minuten = sekunden/60
-	time = minuten
-	sendDataToSummary.emit(time, foodEaten, foodAmountEaten, longestArm)
+func add_count_of_dead_segment(segment:int) -> void:
+	countDeadSegments = countDeadSegments +1
 
-func calculateFoodEaten(amount:int) -> void:
-	foodEaten = amount
 
-func calculateLongestArm() -> void:
-	pass
+func _on_ui_statistik_pressed() -> void:
+	sendDataToSummary.emit(time, foodEaten, foodAmountEaten, longestArm, countDeadSegments)

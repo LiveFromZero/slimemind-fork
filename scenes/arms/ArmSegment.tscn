@@ -41,7 +41,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"pulse",
-"speed": 4.0
+"speed": 3.0
 }]
 
 [node name="ArmSegment" type="Node2D"]
@@ -68,9 +68,7 @@ scale = Vector2(0.16627902, 0.092461795)
 sprite_frames = SubResource("SpriteFrames_tkl1w")
 animation = &"pulse"
 autoplay = "pulse"
-frame = 3
-frame_progress = 0.7119503
+frame_progress = 0.6619063
 script = ExtResource("5_gkl6x")
 
-[connection signal="color_changed" from="." to="Sprite2D" method="_on_arm_segment_color_changed"]
 [connection signal="color_changed" from="." to="AnimatedSprite2D" method="_on_arm_segment_color_changed"]
