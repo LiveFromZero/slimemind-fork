@@ -203,7 +203,7 @@ text = "Futteranzahl: "
 layout_mode = 2
 min_value = 15.0
 max_value = 350.0
-value = 300.0
+value = 100.0
 tick_count = 14
 
 [node name="Futtermenge" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]

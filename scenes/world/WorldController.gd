@@ -289,7 +289,7 @@ func _on_ui_reset_simulation() -> void:
 	reset_game.emit()
 
 func reset_slider() -> void:
-	ui_slider_foodcount.value = 300
+	ui_slider_foodcount.value = 100
 	ui_slider_foodamount.value = 10000.0
 	ui_slider_lifepoints.value = 50
 	ui_slider_sunlight.value = 15.0
