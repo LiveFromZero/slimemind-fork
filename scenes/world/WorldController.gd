@@ -298,7 +298,7 @@ func reset_slider() -> void:
 	ui_slider_countarms.value = 0
 	ui_slider_simulationspeed.value = 1.0
 	ui_slider_fieldsize.value = 3
-	
+
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
 	Max_Food_Arm_Segment = slider_lifepoints * 10.0
