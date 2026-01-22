@@ -86,7 +86,7 @@ outline_color = Color(0, 0, 0, 1)
 process_mode = 3
 script = ExtResource("1_3km4f")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Background" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.00024414063, -23)
 scale = Vector2(8.470052, 7.2597656)
 sprite_frames = SubResource("SpriteFrames_grv7h")
@@ -137,8 +137,14 @@ spawn_size = Vector2(4000, 2500)
 process_mode = 3
 physics_interpolation_mode = 2
 zoom = Vector2(0.15, 0.15)
+limit_left = -6450
+limit_top = -3650
+limit_right = 6450
+limit_bottom = 3650
+limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
+editor_draw_limits = true
 script = ExtResource("10_2tpxt")
 min_zoom = 0.15
 
@@ -166,6 +172,18 @@ grow_horizontal = 0
 button_group = SubResource("ButtonGroup_p5fgu")
 icon = ExtResource("11_qkm1d")
 expand_icon = true
+
+[node name="Panel" type="Panel" parent="Ui/CanvasLayer2"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -286.0
+offset_top = -370.0
+offset_bottom = 253.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Ui/CanvasLayer2"]
 anchors_preset = 1
@@ -377,6 +395,10 @@ offset_top = 303.0
 offset_right = 113.0
 offset_bottom = 334.0
 text = "Schließe Zusammenfassung"
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+ignore_time_scale = true
 
 [connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
 [connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]

@@ -23,6 +23,5 @@ func set_defaults() -> void:
 func add_count_of_dead_segment() -> void:
 	countDeadSegments = countDeadSegments +1
 
-
 func _on_ui_statistik_pressed() -> void:
 	sendDataToSummary.emit(time, foodEaten, foodAmountEaten, longestArm, countDeadSegments)

@@ -30,6 +30,7 @@ func _on_reset_button_pressed() -> void:
 
 func _on_menu_button_pressed() -> void:
 	$CanvasLayer2/VBoxContainer.visible = !$CanvasLayer2/VBoxContainer.visible
+	$CanvasLayer2/Panel.visible = !$CanvasLayer2/Panel.visible
 
 func _on_futteranzahl_value_changed(value: float) -> void:
 	update_food_count.emit(value)
