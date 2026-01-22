@@ -21,10 +21,11 @@ func _on_h_slider_value_changed(value: float) -> void:
 
 func _on_button_pressed() -> void:
 	simulation_toggled.emit()
-	_on_menu_button_pressed()
 	
 func _on_reset_button_pressed() -> void:
 	reset_simulation.emit()
+	var foodspawn_button = $CanvasLayer2/VBoxContainer/FoodSpawnButton
+	foodspawn_button.disabled = false
 
 func _on_menu_button_pressed() -> void:
 	$CanvasLayer2/VBoxContainer.visible = !$CanvasLayer2/VBoxContainer.visible

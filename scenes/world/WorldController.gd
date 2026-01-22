@@ -291,13 +291,13 @@ func _on_ui_reset_simulation() -> void:
 func reset_slider() -> void:
 	ui_slider_foodcount.value = 50
 	ui_slider_foodamount.value = 10000.0
-	ui_slider_lifepoints.value = 30
+	ui_slider_lifepoints.value = 50
 	ui_slider_sunlight.value = 15.0
 	ui_slider_temperature.value = 22.0
 	ui_slider_humidity.value = 70.0
 	ui_slider_countarms.value = 0
 	ui_slider_simulationspeed.value = 1.0
-	ui_slider_fieldsize.value = 1
+	ui_slider_fieldsize.value = 3
 	
 
 func _on_ui_update_life_points_for_arms(slider_lifepoints: float) -> void:
