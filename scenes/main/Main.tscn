@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=30 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
+[ext_resource type="Texture2D" uid="uid://y0oxlgtf7n1l" path="res://sprites/ChatGPT Image 22. Jan. 2026, 08_49_25.png" id="2_vc03v"]
 [ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
 [ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="3_qkm1d"]
 [ext_resource type="Script" uid="uid://bastr0lbnque8" path="res://scenes/world/arm_root.gd" id="5_3km4f"]
@@ -18,6 +19,17 @@
 [ext_resource type="PackedScene" uid="uid://bbh2ghiqgwxfm" path="res://scenes/world/Food_source.tscn" id="13_2tpxt"]
 [ext_resource type="Script" uid="uid://c13lrgtnnllcb" path="res://scenes/ui/simulation_summary.gd" id="16_u8lgh"]
 [ext_resource type="Texture2D" uid="uid://cs28f6jxo5rv6" path="res://sprites/blob_ui_background_transparent.png" id="18_rikml"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grv7h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vc03v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vc03v"]
 atlas = ExtResource("11_rikml")
@@ -72,6 +84,11 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Main" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_3km4f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.00024414063, -23)
+scale = Vector2(8.470052, 7.2597656)
+sprite_frames = SubResource("SpriteFrames_grv7h")
 
 [node name="ArmGrowth" type="Node2D" parent="."]
 process_mode = 1
@@ -180,9 +197,9 @@ text = "Feldgröße: "
 [node name="FeldgrößeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
 min_value = 0.2
-max_value = 5.0
+max_value = 2.4
 step = 0.2
-value = 3.0
+value = 2.4
 
 [node name="FoodSpawnButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
