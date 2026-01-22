@@ -131,7 +131,7 @@ script = ExtResource("12_grv7h")
 script = ExtResource("9_jsdfw")
 food_scene = ExtResource("13_2tpxt")
 min_distance = 25.0
-spawn_size = Vector2(4000, 2000)
+spawn_size = Vector2(4000, 2500)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_mode = 3
@@ -158,8 +158,10 @@ custom_minimum_size = Vector2(50, 100)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -50.0
-offset_bottom = 100.0
+offset_left = -108.0
+offset_top = 6.0
+offset_right = -11.0
+offset_bottom = 106.0
 grow_horizontal = 0
 button_group = SubResource("ButtonGroup_p5fgu")
 icon = ExtResource("11_qkm1d")
@@ -169,10 +171,10 @@ expand_icon = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -283.0
-offset_top = 89.0
-offset_right = -4.0
-offset_bottom = 908.0
+offset_left = -280.0
+offset_top = 128.0
+offset_right = -1.0
+offset_bottom = 825.0
 grow_horizontal = 0
 alignment = 1
 
@@ -350,23 +352,30 @@ horizontal_alignment = 1
 
 [node name="FutterGegessen" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
 layout_mode = 2
+text = "Futterquellen gegessen: "
+horizontal_alignment = 1
 
 [node name="FuttermengeGegessen" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
 layout_mode = 2
+text = "Futtermenge gegessen: "
+horizontal_alignment = 1
 
 [node name="LängsterArm" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
 layout_mode = 2
+text = "Längster Arm: "
+horizontal_alignment = 1
 
 [node name="AnzahlToterSegmente" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 text = "Anzahl toter Segmente: "
+horizontal_alignment = 1
 
 [node name="HideUIButton" type="Button" parent="Ui/CanvasLayer/SimulationSummary"]
 layout_mode = 0
-offset_left = -108.0
-offset_top = 300.0
-offset_right = 116.0
-offset_bottom = 331.0
+offset_left = -111.0
+offset_top = 303.0
+offset_right = 113.0
+offset_bottom = 334.0
 text = "Schließe Zusammenfassung"
 
 [connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
