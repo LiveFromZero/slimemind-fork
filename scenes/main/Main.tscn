@@ -148,6 +148,11 @@ script = ExtResource("12_2tpxt")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="Ui"]
 
+[node name="CloseProgrammButton" type="Button" parent="Ui/CanvasLayer2"]
+offset_right = 42.0
+offset_bottom = 31.0
+text = "Quit"
+
 [node name="MenuButton" type="MenuButton" parent="Ui/CanvasLayer2"]
 custom_minimum_size = Vector2(50, 100)
 anchors_preset = 1
@@ -387,6 +392,7 @@ text = "Schließe Zusammenfassung"
 [connection signal="update_lightamount" from="Ui" to="World/WorldController" method="_on_ui_update_lightamount"]
 [connection signal="update_simulation_speed" from="Ui" to="." method="_on_ui_update_simulation_speed"]
 [connection signal="update_temperature" from="Ui" to="World/WorldController" method="_on_ui_update_temperature"]
+[connection signal="pressed" from="Ui/CanvasLayer2/CloseProgrammButton" to="Ui" method="_on_close_programm_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/FutteranzahlSlider" to="Ui" method="_on_futteranzahl_value_changed"]
 [connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/FuttermengeSlider" to="Ui" method="_on_futtergröße_value_changed"]

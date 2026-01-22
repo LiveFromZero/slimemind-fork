@@ -89,3 +89,6 @@ func _on_statistik_pressed() -> void:
 
 func _on_hide_ui_button_pressed() -> void:
 	summaryUI.visible = false
+
+func _on_close_programm_button_pressed() -> void:
+	get_tree().quit()
