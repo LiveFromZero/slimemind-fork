@@ -1,7 +1,7 @@
 class_name ArmSegment
 extends Node2D
 
-@onready var visual: CanvasItem = $Sprite2D
+@onready var visual: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 
 @export var max_life_points: float = 10.0
 @export var depth: int = 1
@@ -181,6 +181,7 @@ func _die() -> void:
 
 	color_changed.emit(Color(0.22, 0.08, 0.08))
 	segment_died.emit(self)
+	visual.stop()
 
 	# Tween auf Node2D.modulate (nicht auf visual), damit du das Segment als Ganzes ausblendest.
 	var tween := create_tween()
@@ -214,7 +215,6 @@ func _feed_siblings(life_amount: float) -> void:
 		if sibling == null or sibling == self:
 			continue
 		sibling._feed_descendants(life_amount, 2)
-
 
 func _feed_descendants(life_amount: float, depth_left: int) -> void:
 	if life_amount <= 0.0 or depth_left <= 0 or _is_dead:

@@ -65,6 +65,7 @@ script = ExtResource("7_u8lgh")
 [node name="Blob" type="Node2D" parent="World"]
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Blob"]
+texture_filter = 1
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_hjnkw")
 
