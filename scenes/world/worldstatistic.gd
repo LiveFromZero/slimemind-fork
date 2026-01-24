@@ -18,6 +18,7 @@ func set_defaults() -> void:
 	time = "0"
 	foodEaten = 0
 	startTimeSecond = 0
+	foodEaten = 0
 	foodAmountEaten = 0
 	countDeadSegments = 0
 
@@ -28,6 +29,9 @@ func _on_ui_statistik_pressed() -> void:
 
 func add_count_of_dead_segment() -> void:
 	countDeadSegments = countDeadSegments +1
+
+func add_count_of_depleted_foodpiles() -> void:
+	foodEaten = foodEaten + 1
 
 func startTimer() -> void:
 	startTimeSecond = Time.get_ticks_msec()

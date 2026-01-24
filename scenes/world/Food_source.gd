@@ -36,6 +36,7 @@ func _process(delta: float) -> void:
 				c.stop_eating()
 		_consumers.clear()
 		queue_free()
+		get_tree().call_group("Statistik", "add_count_of_depleted_foodpiles")
 		return
 
 	_consumers = _consumers.filter(func(c): return is_instance_valid(c))
