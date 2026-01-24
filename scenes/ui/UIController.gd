@@ -34,6 +34,7 @@ func _on_reset_button_pressed() -> void:
 	var foodspawn_button = $Control_UI/VBoxContainer/FoodSpawnButton
 	foodspawn_button.disabled = false
 	startButton.disabled = false
+	arm_slider.editable = true
 	get_tree().call_group("Statistik", "set_defaults")
 
 func _on_menu_button_pressed() -> void:

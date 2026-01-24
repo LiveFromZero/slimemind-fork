@@ -120,6 +120,7 @@ position = Vector2(781, -275)
 [node name="Blob" type="Node2D" parent="World"]
 
 [node name="BlobAnimationSprite" type="AnimatedSprite2D" parent="World/Blob"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_roob6")
 autoplay = "default"
 frame_progress = 0.39976028

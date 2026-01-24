@@ -101,3 +101,103 @@ func test_UIweatherSlider(sliderValueSun:float, sliderValueTemp:float, sliderVal
 	await get_tree().create_timer(1).timeout
 	var segmentsArray = segments.get_children()
 	assert_int(segmentsArray.size()).is_greater(StartarmeSlider.value)
+
+func test_StartArme(countOfArms:float, test_parameters := [
+	[StartarmeSlider.value],
+	[StartarmeSlider.min_value],
+	[StartarmeSlider.max_value],
+]):
+	
+	# initiate
+	var segments = runnerWorld.find_child("ArmRoot")
+	var segmentsArray
+	var isPausedBefore : bool
+	var isPausedAfter : bool
+	var segmentsArraysize : float
+	
+	# run
+	StartarmeSlider.value_changed.emit(countOfArms)
+	
+	isPausedBefore = segments.get_tree().paused
+	segmentsArraysize = segments.get_children().size()
+	assert_float(segmentsArraysize).is_equal(countOfArms)
+	
+	StartButton.pressed.emit()
+	isPausedAfter = segments.get_tree().paused
+	await get_tree().create_timer(1).timeout
+	segmentsArray = segments.get_children()
+	#compare
+	assert_bool(isPausedBefore).is_equal(true)
+	assert_bool(isPausedAfter).is_equal(false)
+	assert_int(segmentsArray.size()).is_greater(StartarmeSlider.value)
+
+func test_UIReset(countOfArms:float, test_parameters := [
+	[StartarmeSlider.value],
+	[StartarmeSlider.min_value],
+	[StartarmeSlider.max_value],
+]):
+	#initiate
+	var segments = runnerWorld.find_child("ArmRoot")
+	var segmentsArray
+	var isPausedBefore : bool
+	var isPausedAfter : bool
+	var segmentsArraysize : float
+	
+	# run
+	StartarmeSlider.value_changed.emit(countOfArms)
+	
+	isPausedBefore = segments.get_tree().paused
+	segmentsArraysize = segments.get_children().size()
+	assert_float(segmentsArraysize).is_equal(countOfArms)
+	
+	StartButton.pressed.emit()
+	isPausedAfter = segments.get_tree().paused
+	await get_tree().create_timer(1).timeout
+	segmentsArray = segments.get_children()
+	#compare
+	assert_bool(isPausedBefore).is_equal(true)
+	assert_bool(isPausedAfter).is_equal(false)
+	assert_int(segmentsArray.size()).is_greater(StartarmeSlider.value)
+	
+	ResetButton.pressed.emit()
+	await get_tree().process_frame
+	
+	StartarmeSlider.value_changed.emit(countOfArms)
+	
+	isPausedBefore = segments.get_tree().paused
+	segmentsArraysize = segments.get_children().size()
+	assert_float(segmentsArraysize).is_equal(countOfArms)
+	
+	StartButton.pressed.emit()
+	isPausedAfter = segments.get_tree().paused
+	await get_tree().create_timer(1).timeout
+	segmentsArray = segments.get_children()
+	#compare
+	assert_bool(isPausedBefore).is_equal(true)
+	assert_bool(isPausedAfter).is_equal(false)
+	assert_int(segmentsArray.size()).is_greater(StartarmeSlider.value)
+	
+
+func test_UIAvailableAfterReset():
+	
+	SpawnFoodButton.pressed.emit()
+	
+	StartButton.pressed.emit()
+	await get_tree().process_frame
+	
+	ResetButton.pressed.emit()
+	await get_tree().process_frame
+	
+	assert_bool(FutteranzahlSlider.editable).is_equal(true)
+	assert_bool(FuttermengeSlider.editable).is_equal(true)
+	assert_bool(FeldgroesseSlider.editable).is_equal(true)
+	assert_bool(SpawnFoodButton.disabled).is_equal(false)
+	assert_bool(LebenspunkteSlider.editable).is_equal(true)
+	assert_bool(SonnenlichtSlider.editable).is_equal(true)
+	assert_bool(TemperaturSlider.editable).is_equal(true)
+	assert_bool(LuftfeuchtigkeitSlider.editable).is_equal(true)
+	assert_bool(StartarmeSlider.editable).is_equal(true)
+	assert_bool(SimulationSpeedSlider.editable).is_equal(true)
+	assert_bool(StartButton.disabled).is_equal(false)
+	assert_bool(ResetButton.disabled).is_equal(false)
+	assert_bool(StatButton.disabled).is_equal(false)
