@@ -31,6 +31,7 @@ func _on_reset_button_pressed() -> void:
 	var foodspawn_button = $CanvasLayer2/VBoxContainer/FoodSpawnButton
 	foodspawn_button.disabled = false
 	startButton.disabled = false
+	get_tree().call_group("Statistik", "set_defaults")
 
 func _on_menu_button_pressed() -> void:
 	$CanvasLayer2/VBoxContainer.visible = !$CanvasLayer2/VBoxContainer.visible
