@@ -13,13 +13,14 @@ config_version=5
 config/name="SlimeMind"
 run/main_scene="uid://e5eb72coh0xu"
 config/features=PackedStringArray("4.5", "Forward Plus")
+run/max_fps=60
 config/icon="res://assets/sprites/icon.svg"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=4
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [global_group]

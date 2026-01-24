@@ -37,6 +37,7 @@ var Max_Food_Arm_Segment: float
 var MaxFoodAmount: int
 var MaxFoodCount: int
 var FieldSize: float
+var ArmCount : int
 
 # --- Signals ---
 signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment: float)
@@ -49,6 +50,8 @@ signal reset_game
 func _ready() -> void:
 	_rng.randomize()
 	read_defaults_from_UI()
+	_spawn_arms(ArmCount)
+	_reposition_arms()
 	slider_update_growthinterval() # setzt grow_interval
 
 	# Wachstumstimer anlegen (billiger als pro Frame while/catch-up)
@@ -278,6 +281,7 @@ func read_defaults_from_UI() -> void:
 	MaxFoodAmount = ui_slider_foodamount.value
 	MaxFoodCount = ui_slider_foodcount.value
 	FieldSize = ui_slider_fieldsize.value
+	ArmCount = ui_slider_countarms.value
 	
 
 func _on_ui_reset_simulation() -> void:
