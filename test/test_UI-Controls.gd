@@ -31,7 +31,7 @@ func before_test() -> void:
 	ResetButton = runnerWorld.find_child("ResetButton")
 	StatButton = runnerWorld.find_child("Statistik")
 
-func test_UIFutterquellen(foodAmount:float, fieldSize:float, test_parameters := [
+func test_UIFutterquellen(foodCount:float, fieldSize:float, test_parameters := [
 	[FutteranzahlSlider.min_value, FeldgroesseSlider.min_value],
 	[FutteranzahlSlider.max_value, FeldgroesseSlider.min_value],
 	[FutteranzahlSlider.min_value, FeldgroesseSlider.max_value],
@@ -42,16 +42,29 @@ func test_UIFutterquellen(foodAmount:float, fieldSize:float, test_parameters := 
 	var foodSpawned : float
 	
 	# run
-	FutteranzahlSlider.value_changed.emit(foodAmount)
+	FutteranzahlSlider.value_changed.emit(foodCount)
 	FeldgroesseSlider.value_changed.emit(fieldSize)
 	SpawnFoodButton.pressed.emit()
 	foodSpawned = foodRoot.get_child_count(true)
 	
 	#compare
-	assert_float(foodSpawned).is_equal(foodAmount)
+	assert_float(foodSpawned).is_equal(foodCount)
 
-func test_UIFuttergroesse():
-	pass
+func test_UIFuttergroesse(foodAmount:float, test_parameters := [
+	[FuttermengeSlider.min_value]
+]):
+	#initiate
+	var foodRoot : Node2D = runnerWorld.find_child("FoodManager")
+	var foodSpawned : Array
+	
+	# run
+	FuttermengeSlider.value_changed.emit(foodAmount)
+	SpawnFoodButton.pressed.emit()
+	
+	foodSpawned = foodRoot.get_children()
+	# compare
+	for food:FoodSource in foodSpawned:
+		assert_float(food.total_nutrients).is_between(FuttermengeSlider.min_value, FuttermengeSlider.max_value)
 
 func test_StartButtonStartsSim():
 	# initiate
