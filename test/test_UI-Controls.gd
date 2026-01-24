@@ -31,6 +31,25 @@ func before_test() -> void:
 	ResetButton = runnerWorld.find_child("ResetButton")
 	StatButton = runnerWorld.find_child("Statistik")
 
+func test_StartButtonStartsSim():
+	# initiate
+	var segments = runnerWorld.find_child("ArmRoot")
+	var segmentsArray
+	var isPausedBefore : bool
+	var isPausedAfter : bool
+	
+	# run
+	isPausedBefore = segments.get_tree().paused
+	StartButton.pressed.emit()
+	isPausedAfter = segments.get_tree().paused
+	await get_tree().create_timer(1).timeout
+	segmentsArray = segments.get_children()
+	#compare
+	assert_bool(isPausedBefore).is_equal(true)
+	assert_bool(isPausedAfter).is_equal(false)
+	assert_int(segmentsArray.size()).is_greater(StartarmeSlider.value)
+
+
 func test_UIFutterquellen(foodCount:float, fieldSize:float, test_parameters := [
 	[FutteranzahlSlider.min_value, FeldgroesseSlider.min_value],
 	[FutteranzahlSlider.max_value, FeldgroesseSlider.min_value],
@@ -51,7 +70,8 @@ func test_UIFutterquellen(foodCount:float, fieldSize:float, test_parameters := [
 	assert_float(foodSpawned).is_equal(foodCount)
 
 func test_UIFuttergroesse(foodAmount:float, test_parameters := [
-	[FuttermengeSlider.min_value]
+	[FuttermengeSlider.min_value],
+	[FuttermengeSlider.max_value]
 ]):
 	#initiate
 	var foodRoot : Node2D = runnerWorld.find_child("FoodManager")
@@ -63,16 +83,21 @@ func test_UIFuttergroesse(foodAmount:float, test_parameters := [
 	
 	foodSpawned = foodRoot.get_children()
 	# compare
+	assert_array(foodSpawned).is_not_empty()
 	for food:FoodSource in foodSpawned:
 		assert_float(food.total_nutrients).is_between(FuttermengeSlider.min_value, FuttermengeSlider.max_value)
 
-func test_StartButtonStartsSim():
-	# initiate
-	var segments = runnerWorld.find_child("ArmRoot")
-	var segmentsArray = segments.get_children()
+func test_UIweatherSlider(sliderValueSun:float, sliderValueTemp:float, sliderValueHydro:float, test_parameters:=[
+	[SonnenlichtSlider.value, TemperaturSlider.value, LuftfeuchtigkeitSlider.value],
+	[SonnenlichtSlider.min_value, TemperaturSlider.min_value, LuftfeuchtigkeitSlider.min_value],
+	[SonnenlichtSlider.max_value, TemperaturSlider.max_value, LuftfeuchtigkeitSlider.max_value]
+]):
+	SonnenlichtSlider.value_changed.emit(sliderValueSun)
+	TemperaturSlider.value_changed.emit(sliderValueTemp)
+	LuftfeuchtigkeitSlider.value_changed.emit(sliderValueHydro)
 	
-	# run
 	StartButton.pressed.emit()
-	
-	#compare
-	assert_array(segmentsArray).is_not_empty()
+	var segments = runnerWorld.find_child("ArmRoot")
+	await get_tree().create_timer(1).timeout
+	var segmentsArray = segments.get_children()
+	assert_int(segmentsArray.size()).is_greater(StartarmeSlider.value)

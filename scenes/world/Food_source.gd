@@ -8,9 +8,9 @@ class_name FoodSource
 @export var nutrients_scale_reference: float = 10000.0
 
 # Wie stark Größenunterschiede sichtbar werden
-@export var scale_power: float = 0.5 # 0.5 = sqrt -> Fläche ~ Nährstoffe (ganz brauchbar)
+@export var scale_power: float = 1 # 0.5 = sqrt -> Fläche ~ Nährstoffe (ganz brauchbar)
 @export var min_visual_scale: float = 0.3
-@export var max_visual_scale: float = 3.0
+@export var max_visual_scale: float = 10.0
 
 var current_nutrients: float
 var _consumers: Array[ArmSegment] = []
