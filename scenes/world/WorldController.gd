@@ -50,8 +50,7 @@ signal reset_game
 func _ready() -> void:
 	_rng.randomize()
 	read_defaults_from_UI()
-	_spawn_arms(ArmCount)
-	_reposition_arms()
+	_on_ui_arms_count_changed(ArmCount)
 	slider_update_growthinterval() # setzt grow_interval
 
 	# Wachstumstimer anlegen (billiger als pro Frame while/catch-up)
@@ -121,7 +120,7 @@ func _on_grow_timer_timeout() -> void:
 		return
 	
 	# Random Segment wählen
-	for i in sim_speed:
+	for i in range(int(sim_speed)):
 		var idx := _rng.randi_range(0, arm_segments.size() - 1)
 		var arm: ArmSegment = arm_segments[idx]
 		if !is_instance_valid(arm):
@@ -285,13 +284,38 @@ func read_defaults_from_UI() -> void:
 	
 
 func _on_ui_reset_simulation() -> void:
+	# wenn irgendwo pausiert wird: während Reset kurz unpausen
+	var was_paused := get_tree().paused
+	get_tree().paused = false
+
+	# Timer anhalten, damit während Reset nix tickt
+	if is_instance_valid(_grow_timer):
+		_grow_timer.stop()
+
+	# Alles weg, sofort
 	for child in arm_root.get_children():
-		child.queue_free()
+		child.free()
 	for food_child in food_root.get_children():
-		food_child.queue_free()
+		food_child.free()
 
 	arm_segments.clear()
+	
+	ui_slider_countarms.value = 0.0
 	reset_slider()
+	read_defaults_from_UI()
+
+	# NICHT _on_ui_arms_count_changed, sondern exakt neu bauen
+	ArmCount = 4
+	#_spawn_arms(int(ArmCount))
+	_reposition_arms()
+	slider_update_growthinterval()
+
+
+	# Timer wieder starten
+	_update_grow_timer()
+
+	get_tree().paused = was_paused
+
 	reset_game.emit()
 
 func reset_slider() -> void:
@@ -301,7 +325,7 @@ func reset_slider() -> void:
 	ui_slider_sunlight.value = 15.0
 	ui_slider_temperature.value = 22.0
 	ui_slider_humidity.value = 70.0
-	ui_slider_countarms.value = 0
+	ui_slider_countarms.value = 4.0
 	ui_slider_simulationspeed.value = 1.0
 	ui_slider_fieldsize.value = 7.0
 

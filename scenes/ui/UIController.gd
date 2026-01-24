@@ -18,7 +18,7 @@ signal statistikPressed
 @onready var summaryUI = $Summary_UI
 @onready var startButton = $Control_UI/VBoxContainer/Button
 
-func _on_h_slider_value_changed(value: float) -> void:
+func _on_startarme_slider_value_changed(value: float) -> void:
 	arms_count_changed.emit(value)
 
 func _on_button_pressed() -> void:

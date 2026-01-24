@@ -439,6 +439,7 @@ text = "Schließe Zusammenfassung"
 [connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/SonnenlichtSlider" to="Ui" method="_on_sonnenlicht_value_changed"]
 [connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/TemperaturSlider" to="Ui" method="_on_temperatur_value_changed"]
 [connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/LuftfeuchtigkeitSlider" to="Ui" method="_on_luftfeuchtigkeit_value_changed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/StartarmeSlider" to="Ui" method="_on_startarme_slider_value_changed"]
 [connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/SimulationSpeedSlider" to="Ui" method="_on_simulation_speed_value_changed"]
 [connection signal="pressed" from="Ui/Control_UI/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="pressed" from="Ui/Control_UI/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]
