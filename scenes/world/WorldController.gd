@@ -305,8 +305,6 @@ func _on_ui_reset_simulation() -> void:
 	read_defaults_from_UI()
 
 	# NICHT _on_ui_arms_count_changed, sondern exakt neu bauen
-	ArmCount = 4
-	#_spawn_arms(int(ArmCount))
 	_reposition_arms()
 	slider_update_growthinterval()
 

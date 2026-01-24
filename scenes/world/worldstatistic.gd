@@ -39,6 +39,7 @@ func simulation_over() -> void:
 	endTimeSecond = Time.get_ticks_msec()
 	calculateTime()
 	sendDataToSummary.emit(time, foodEaten, foodAmountEaten, countDeadSegments)
+	await get_tree().create_timer(15).timeout
 	simulation_over_signal.emit()
 
 func all_non_feeding_segments_are_dead() -> void:

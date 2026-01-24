@@ -17,6 +17,7 @@ signal statistikPressed
 
 @onready var summaryUI = $Summary_UI
 @onready var startButton = $Control_UI/VBoxContainer/Button
+@onready var arm_slider = $Control_UI/VBoxContainer/StartarmeSlider
 
 func _on_startarme_slider_value_changed(value: float) -> void:
 	arms_count_changed.emit(value)
@@ -24,7 +25,9 @@ func _on_startarme_slider_value_changed(value: float) -> void:
 func _on_button_pressed() -> void:
 	simulation_toggled.emit()
 	get_tree().call_group("Statistik", "startTimer")
+	arm_slider.editable = false
 	startButton.disabled = true
+	
 
 func _on_reset_button_pressed() -> void:
 	reset_simulation.emit()
