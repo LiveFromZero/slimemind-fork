@@ -9,8 +9,8 @@ class_name FoodSource
 
 # Wie stark Größenunterschiede sichtbar werden
 @export var scale_power: float = 0.5 # 0.5 = sqrt -> Fläche ~ Nährstoffe (ganz brauchbar)
-@export var min_visual_scale: float = 0.6
-@export var max_visual_scale: float = 1.8
+@export var min_visual_scale: float = 0.3
+@export var max_visual_scale: float = 3.0
 
 var current_nutrients: float
 var _consumers: Array[ArmSegment] = []
@@ -54,6 +54,7 @@ func _process(delta: float) -> void:
 
 		var drained := minf(drain_per_consumer, current_nutrients)
 		current_nutrients -= drained
+		get_tree().call_group("Statistik", "add_count_of_fooadmount", drained)
 		consumer.eat(drained)
 
 func _on_area_entered(area: Area2D) -> void:

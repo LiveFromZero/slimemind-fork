@@ -34,7 +34,7 @@ var temperatureInWorld: float
 
 var BASE_Growth: float = 0.01
 var Max_Food_Arm_Segment: float
-var MaxFoodAmount: float
+var MaxFoodAmount: int
 var MaxFoodCount: int
 var FieldSize: float
 
@@ -291,7 +291,7 @@ func _on_ui_reset_simulation() -> void:
 
 func reset_slider() -> void:
 	ui_slider_foodcount.value = 100
-	ui_slider_foodamount.value = 10000.0
+	ui_slider_foodamount.value = 10000
 	ui_slider_lifepoints.value = 50
 	ui_slider_sunlight.value = 15.0
 	ui_slider_temperature.value = 22.0
@@ -316,10 +316,10 @@ func _on_ui_update_humidity(slider_humidity_updated_from_ui: float) -> void:
 	humidityInWorld = slider_humidity_updated_from_ui
 	slider_update_growthinterval()
 
-func _on_ui_update_food_amount(slider_foodamount: float) -> void:
-	MaxFoodAmount = slider_foodamount
+func _on_ui_update_food_amount(slider_foodamount: int) -> void:
+	MaxFoodAmount = int(slider_foodamount)
 
-func _on_ui_update_food_count(slider_foodcount: float) -> void:
+func _on_ui_update_food_count(slider_foodcount: int) -> void:
 	MaxFoodCount = int(slider_foodcount)
 
 func _on_ui_update_fieldsize(slider_fieldsize: float) -> void:

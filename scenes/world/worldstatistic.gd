@@ -1,11 +1,11 @@
 extends Node2D
 class_name  WorldStatistic
 
-signal sendDataToSummary(_time:String, _foodEaten:int, _foodAmountEaten: float, _countDeadSegments:int)
+signal sendDataToSummary(_time:String, _foodEaten:int, _foodAmountEaten: int, _countDeadSegments:int)
 
 var time : String
 var foodEaten : int
-var foodAmountEaten : float
+var foodAmountEaten : int
 var countDeadSegments : int
 var startTimeSecond : int
 var endTimeSecond : int
@@ -32,6 +32,9 @@ func add_count_of_dead_segment() -> void:
 
 func add_count_of_depleted_foodpiles() -> void:
 	foodEaten = foodEaten + 1
+
+func add_count_of_fooadmount(amount:int) -> void:
+	foodAmountEaten = foodAmountEaten + amount
 
 func startTimer() -> void:
 	startTimeSecond = Time.get_ticks_msec()

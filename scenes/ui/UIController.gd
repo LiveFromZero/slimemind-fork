@@ -8,8 +8,8 @@ signal update_life_points_for_arms(slider_lifepoints:float)
 signal update_lightamount(slider_lightamount:float)
 signal update_temperature(slider_temperature:float)
 signal update_humidity(slider_humidity:float)
-signal update_food_amount(slider_foodamount:float)
-signal update_food_count(slider_foodcount:float)
+signal update_food_amount(slider_foodamount:int)
+signal update_food_count(slider_foodcount:int)
 signal spawn_food
 signal update_simulation_speed(slider_simulationspeed:float)
 signal update_fieldsize(slider_fieldsize:float)
@@ -43,6 +43,7 @@ func _on_futteranzahl_value_changed(value: float) -> void:
 	label.text = label_updater(label, value)
 
 func _on_futtergröße_value_changed(value: float) -> void:
+	value = int(value)
 	update_food_amount.emit(value)
 	var label = $"CanvasLayer2/VBoxContainer/Größe einer Futterquelle"
 	label.text = label_updater(label, value)
