@@ -277,6 +277,7 @@ func read_defaults_from_UI() -> void:
 	MaxFoodAmount = ui_slider_foodamount.value
 	MaxFoodCount = ui_slider_foodcount.value
 	FieldSize = ui_slider_fieldsize.value
+	
 
 func _on_ui_reset_simulation() -> void:
 	for child in arm_root.get_children():

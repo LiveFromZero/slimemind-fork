@@ -7,8 +7,8 @@ class_name SimulationSummary
 @onready var LängsterArm_label = $"HFlowContainer/LängsterArm"
 @onready var countDeadSegmentsLabel = $HFlowContainer/AnzahlToterSegmente
 
-func _on_world_statistik_send_data_to_summary(_time: float, _foodEaten: int, _foodAmountEaten: float, _longestArm: int, _countDeadSegments:int) -> void:
-	Dauer_label.text = "Dauer der Simulation: " + str(_time)
+func _on_world_statistik_send_data_to_summary(_time: String, _foodEaten: int, _foodAmountEaten: float, _longestArm: int, _countDeadSegments:int) -> void:
+	Dauer_label.text = "Dauer der Simulation: " + _time
 	FutterGegessen_label.text = "Anzahl an Futterquellen, die vollständig gefressen wurden: " + str(_foodEaten)
 	FuttermengeGegessen_label = "Futtermenge gegessen: " +  str(_foodAmountEaten)
 	LängsterArm_label.text = "längster Arm: " + str(_longestArm) # potenziell redundant

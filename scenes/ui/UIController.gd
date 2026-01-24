@@ -16,17 +16,21 @@ signal update_fieldsize(slider_fieldsize:float)
 signal statistikPressed
 
 @onready var summaryUI = $CanvasLayer
+@onready var startButton = $CanvasLayer2/VBoxContainer/Button
 
 func _on_h_slider_value_changed(value: float) -> void:
 	arms_count_changed.emit(value)
 
 func _on_button_pressed() -> void:
 	simulation_toggled.emit()
-	
+	get_tree().call_group("Statistik", "startTimer")
+	startButton.disabled = true
+
 func _on_reset_button_pressed() -> void:
 	reset_simulation.emit()
 	var foodspawn_button = $CanvasLayer2/VBoxContainer/FoodSpawnButton
 	foodspawn_button.disabled = false
+	startButton.disabled = false
 
 func _on_menu_button_pressed() -> void:
 	$CanvasLayer2/VBoxContainer.visible = !$CanvasLayer2/VBoxContainer.visible
