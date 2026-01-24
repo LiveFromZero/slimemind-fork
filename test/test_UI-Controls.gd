@@ -1,6 +1,7 @@
 extends GdUnitTestSuite
 
 var runnerWorld: GdUnitSceneRunner
+var _SummaryUI : CanvasLayer
 var StartButton : Button
 var FutteranzahlSlider : HSlider
 var FuttermengeSlider : HSlider
@@ -17,6 +18,7 @@ var StatButton : Button
 
 func before_test() -> void:
 	runnerWorld = scene_runner("res://test/test_main.tscn")
+	_SummaryUI = runnerWorld.find_child("Summary_UI")
 	StartButton = runnerWorld.find_child("Button")
 	FutteranzahlSlider = runnerWorld.find_child("FutteranzahlSlider")
 	FuttermengeSlider = runnerWorld.find_child("FuttermengeSlider")
@@ -39,6 +41,7 @@ func test_StartButtonStartsSim():
 	var isPausedAfter : bool
 	
 	# run
+	UIAvailable()
 	isPausedBefore = segments.get_tree().paused
 	StartButton.pressed.emit()
 	isPausedAfter = segments.get_tree().paused
@@ -162,6 +165,8 @@ func test_UIReset(countOfArms:float, test_parameters := [
 	ResetButton.pressed.emit()
 	await get_tree().process_frame
 	
+	UIAvailable()
+	
 	StartarmeSlider.value_changed.emit(countOfArms)
 	
 	isPausedBefore = segments.get_tree().paused
@@ -178,15 +183,25 @@ func test_UIReset(countOfArms:float, test_parameters := [
 	assert_int(segmentsArray.size()).is_greater(StartarmeSlider.value)
 	
 
-func test_UIAvailableAfterReset():
-	
-	SpawnFoodButton.pressed.emit()
-	
-	StartButton.pressed.emit()
+func test_SummaryPopUpOnClick():
+	#run
+	StatButton.pressed.emit()
 	await get_tree().process_frame
 	
-	ResetButton.pressed.emit()
-	await get_tree().process_frame
+	#compare
+	assert_bool(_SummaryUI.visible).is_equal(true)
+
+func test_AutomaticPopUpOnSimOver():
+	#initiate
+	var _WorldStatistics = runnerWorld.find_child("WorldStatistik") as WorldStatistic
+	
+	#run
+	_WorldStatistics.simulation_over_signal.emit()
+	
+	# compare
+	assert_bool(_SummaryUI.visible).is_equal(true)
+
+func UIAvailable():
 	
 	assert_bool(FutteranzahlSlider.editable).is_equal(true)
 	assert_bool(FuttermengeSlider.editable).is_equal(true)
