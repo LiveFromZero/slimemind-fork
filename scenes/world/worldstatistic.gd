@@ -17,7 +17,8 @@ func _ready() -> void:
 func set_defaults() -> void:
 	time = "0"
 	foodEaten = 0
-	foodAmountEaten = 0.0
+	startTimeSecond = 0
+	foodAmountEaten = 0
 	countDeadSegments = 0
 
 func _on_ui_statistik_pressed() -> void:
@@ -32,6 +33,10 @@ func startTimer() -> void:
 	startTimeSecond = Time.get_ticks_msec()
 
 func calculateTime() -> void:
+	if startTimeSecond == 0:
+		time= "00:00"
+		return
+	
 	var total_ms: int = max(0, endTimeSecond - startTimeSecond)
 
 	var total_seconds: int = total_ms / 1000

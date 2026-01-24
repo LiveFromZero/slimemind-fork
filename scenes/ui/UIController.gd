@@ -38,12 +38,12 @@ func _on_menu_button_pressed() -> void:
 
 func _on_futteranzahl_value_changed(value: float) -> void:
 	update_food_count.emit(value)
-	var label = $CanvasLayer2/VBoxContainer/Futteranzahl
+	var label = $"CanvasLayer2/VBoxContainer/Anzahl Futterquellen"
 	label.text = label_updater(label, value)
 
 func _on_futtergröße_value_changed(value: float) -> void:
 	update_food_amount.emit(value)
-	var label = $CanvasLayer2/VBoxContainer/Futtermenge
+	var label = $"CanvasLayer2/VBoxContainer/Größe einer Futterquelle"
 	label.text = label_updater(label, value)
 
 func _on_robustheit_arme_lebenspunkte_value_changed(value: float) -> void:

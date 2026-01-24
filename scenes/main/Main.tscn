@@ -192,9 +192,9 @@ offset_bottom = 825.0
 grow_horizontal = 0
 alignment = 1
 
-[node name="Futteranzahl" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Anzahl Futterquellen" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Futteranzahl: "
+text = "Anzahl Futterquellen: "
 
 [node name="FutteranzahlSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
@@ -203,9 +203,9 @@ max_value = 350.0
 value = 100.0
 tick_count = 14
 
-[node name="Futtermenge" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Größe einer Futterquelle" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
-text = "Futtermenge: "
+text = "Größe einer Futterquelle: "
 
 [node name="FuttermengeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
