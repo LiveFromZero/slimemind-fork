@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dg6b383uu57gw"]
+[gd_scene load_steps=20 format=3 uid="uid://dg6b383uu57gw"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_n4bun"]
 [ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="3_owxry"]
@@ -13,10 +13,22 @@
 [ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="16_71mfc"]
 [ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="17_tih84"]
 [ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="18_oswmv"]
+[ext_resource type="Script" uid="uid://c13lrgtnnllcb" path="res://scenes/ui/simulation_summary.gd" id="19_2pr8r"]
+[ext_resource type="Texture2D" uid="uid://cs28f6jxo5rv6" path="res://sprites/blob_ui_background_transparent.png" id="20_q5h75"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_p5fgu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3km4f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ykip"]
+font_size = 42
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_awafn"]
+font_size = 20
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -224,6 +236,88 @@ layout_mode = 2
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Statistik"
+
+[node name="Summary_UI" type="CanvasLayer" parent="Ui"]
+visible = false
+
+[node name="SimulationSummary" type="Control" parent="Ui/Summary_UI"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("19_2pr8r")
+
+[node name="TextureRect" type="TextureRect" parent="Ui/Summary_UI/SimulationSummary"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -942.0
+offset_top = -521.0
+offset_right = 942.0
+offset_bottom = 520.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_q5h75")
+
+[node name="HFlowContainer" type="VBoxContainer" parent="Ui/Summary_UI/SimulationSummary"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -628.0
+offset_top = -304.0
+offset_right = 572.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ZusammenfassungL" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+text = "Zusammenfassung"
+label_settings = SubResource("LabelSettings_1ykip")
+horizontal_alignment = 1
+
+[node name="Dauer" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+text = "Dauer der Simulation: "
+label_settings = SubResource("LabelSettings_awafn")
+horizontal_alignment = 1
+
+[node name="FutterGegessen" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+text = "Futterquellen gegessen: "
+horizontal_alignment = 1
+
+[node name="FuttermengeGegessen" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+text = "Futtermenge gegessen: "
+horizontal_alignment = 1
+
+[node name="AnzahlToterSegmente" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
+layout_mode = 2
+text = "Anzahl toter Segmente: "
+horizontal_alignment = 1
+
+[node name="HideUIButton" type="Button" parent="Ui/Summary_UI/SimulationSummary"]
+layout_mode = 0
+offset_left = -111.0
+offset_top = 303.0
+offset_right = 113.0
+offset_bottom = 334.0
+text = "Schließe Zusammenfassung"
 
 [connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
 [connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
