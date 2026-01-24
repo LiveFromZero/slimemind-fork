@@ -154,20 +154,29 @@ script = ExtResource("12_2tpxt")
 [node name="CanvasLayer2" type="CanvasLayer" parent="Ui"]
 
 [node name="CloseProgrammButton" type="Button" parent="Ui/CanvasLayer2"]
-offset_right = 42.0
-offset_bottom = 31.0
-text = "Quit"
+modulate = Color(1, 0, 0, 1)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -52.0
+offset_top = 11.0
+offset_right = -16.0
+offset_bottom = 42.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+text = "X"
 
 [node name="MenuButton" type="MenuButton" parent="Ui/CanvasLayer2"]
 custom_minimum_size = Vector2(50, 100)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -108.0
-offset_top = 6.0
-offset_right = -11.0
-offset_bottom = 106.0
+offset_left = -194.0
+offset_top = 55.0
+offset_right = -97.0
+offset_bottom = 155.0
 grow_horizontal = 0
+mouse_default_cursor_shape = 2
 button_group = SubResource("ButtonGroup_p5fgu")
 icon = ExtResource("11_qkm1d")
 expand_icon = true
@@ -228,6 +237,7 @@ value = 7.0
 
 [node name="FoodSpawnButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Food Spawnen"
 
 [node name="Widerstandsfähigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
@@ -289,6 +299,7 @@ value = 1.0
 
 [node name="Button" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Start"
 
 [node name="ColorRect" type="ColorRect" parent="Ui/CanvasLayer2/VBoxContainer"]
@@ -298,6 +309,7 @@ color = Color(0.21, 0.21, 0.21, 1)
 
 [node name="ResetButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Reset"
 
 [node name="Statistik2" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
@@ -305,6 +317,7 @@ layout_mode = 2
 
 [node name="Statistik" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Statistik"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Ui"]
