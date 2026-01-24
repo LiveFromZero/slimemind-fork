@@ -103,6 +103,9 @@ script = ExtResource("9_2tpxt")
 [node name="World" parent="." instance=ExtResource("2_sjxhf")]
 process_mode = 1
 
+[node name="WorldStatistik" type="Node2D" parent="World" groups=["Statistik"]]
+script = ExtResource("7_u8lgh")
+
 [node name="WorldController" type="Node2D" parent="World"]
 script = ExtResource("3_qkm1d")
 
@@ -304,9 +307,6 @@ layout_mode = 2
 layout_mode = 2
 text = "Statistik"
 
-[node name="WorldStatistik" type="Node2D" parent="Ui/CanvasLayer2" groups=["Statistik"]]
-script = ExtResource("7_u8lgh")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="Ui"]
 visible = false
 
@@ -391,6 +391,9 @@ text = "Schließe Zusammenfassung"
 
 [connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
 [connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
+[connection signal="sendDataToSummary" from="World/WorldStatistik" to="Ui/CanvasLayer/SimulationSummary" method="_on_world_statistik_send_data_to_summary"]
+[connection signal="simulation_over_signal" from="World/WorldStatistik" to="." method="_on_world_statistik_simulation_over_signal"]
+[connection signal="simulation_over_signal" from="World/WorldStatistik" to="Ui" method="_on_world_statistik_simulation_over_signal"]
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="reset_game" from="World/WorldController" to="." method="_on_world_controller_reset_game"]
 [connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
@@ -402,7 +405,7 @@ text = "Schließe Zusammenfassung"
 [connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
 [connection signal="spawn_food" from="Ui" to="World/WorldController" method="_on_ui_spawn_food"]
-[connection signal="statistikPressed" from="Ui" to="Ui/CanvasLayer2/WorldStatistik" method="_on_ui_statistik_pressed"]
+[connection signal="statistikPressed" from="Ui" to="World/WorldStatistik" method="_on_ui_statistik_pressed"]
 [connection signal="update_fieldsize" from="Ui" to="World/WorldController" method="_on_ui_update_fieldsize"]
 [connection signal="update_food_amount" from="Ui" to="World/WorldController" method="_on_ui_update_food_amount"]
 [connection signal="update_food_count" from="Ui" to="World/WorldController" method="_on_ui_update_food_count"]
@@ -426,5 +429,4 @@ text = "Schließe Zusammenfassung"
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Statistik" to="Ui" method="_on_statistik_pressed"]
-[connection signal="sendDataToSummary" from="Ui/CanvasLayer2/WorldStatistik" to="Ui/CanvasLayer/SimulationSummary" method="_on_world_statistik_send_data_to_summary"]
 [connection signal="pressed" from="Ui/CanvasLayer/SimulationSummary/HideUIButton" to="Ui" method="_on_hide_ui_button_pressed"]

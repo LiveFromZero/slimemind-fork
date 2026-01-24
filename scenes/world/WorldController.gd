@@ -114,8 +114,9 @@ func _update_grow_timer() -> void:
 func _on_grow_timer_timeout() -> void:
 	# Achtung: Das läuft jetzt "taktbasiert", nicht mehr in Catch-up-Spikes pro Frame.
 	if arm_segments.is_empty():
+		get_tree().call_group("Statistik", "all_non_feeding_segments_are_dead")
 		return
-
+	
 	# Random Segment wählen
 	for i in sim_speed:
 		var idx := _rng.randi_range(0, arm_segments.size() - 1)
