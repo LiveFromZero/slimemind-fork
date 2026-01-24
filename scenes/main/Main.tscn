@@ -114,9 +114,6 @@ process_mode = 4
 visible = false
 position = Vector2(781, -275)
 
-[node name="WorldStatistik" type="Node2D" parent="World" groups=["Statistik"]]
-script = ExtResource("7_u8lgh")
-
 [node name="Blob" type="Node2D" parent="World"]
 
 [node name="BlobAnimationSprite" type="AnimatedSprite2D" parent="World/Blob"]
@@ -307,6 +304,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Statistik"
 
+[node name="WorldStatistik" type="Node2D" parent="Ui/CanvasLayer2" groups=["Statistik"]]
+script = ExtResource("7_u8lgh")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="Ui"]
 visible = false
 
@@ -376,11 +376,6 @@ layout_mode = 2
 text = "Futtermenge gegessen: "
 horizontal_alignment = 1
 
-[node name="LängsterArm" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
-layout_mode = 2
-text = "Längster Arm: "
-horizontal_alignment = 1
-
 [node name="AnzahlToterSegmente" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 text = "Anzahl toter Segmente: "
@@ -403,12 +398,11 @@ text = "Schließe Zusammenfassung"
 [connection signal="segment_died" from="World/ArmSegment" to="ArmGrowth/Life_and_Death_System" method="_on_arm_segment_segment_died"]
 [connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
 [connection signal="stopped_eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_stopped_eating"]
-[connection signal="sendDataToSummary" from="World/WorldStatistik" to="Ui/CanvasLayer/SimulationSummary" method="_on_world_statistik_send_data_to_summary"]
 [connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
 [connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
 [connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
 [connection signal="spawn_food" from="Ui" to="World/WorldController" method="_on_ui_spawn_food"]
-[connection signal="statistikPressed" from="Ui" to="World/WorldStatistik" method="_on_ui_statistik_pressed"]
+[connection signal="statistikPressed" from="Ui" to="Ui/CanvasLayer2/WorldStatistik" method="_on_ui_statistik_pressed"]
 [connection signal="update_fieldsize" from="Ui" to="World/WorldController" method="_on_ui_update_fieldsize"]
 [connection signal="update_food_amount" from="Ui" to="World/WorldController" method="_on_ui_update_food_amount"]
 [connection signal="update_food_count" from="Ui" to="World/WorldController" method="_on_ui_update_food_count"]
@@ -432,4 +426,5 @@ text = "Schließe Zusammenfassung"
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Statistik" to="Ui" method="_on_statistik_pressed"]
+[connection signal="sendDataToSummary" from="Ui/CanvasLayer2/WorldStatistik" to="Ui/CanvasLayer/SimulationSummary" method="_on_world_statistik_send_data_to_summary"]
 [connection signal="pressed" from="Ui/CanvasLayer/SimulationSummary/HideUIButton" to="Ui" method="_on_hide_ui_button_pressed"]
