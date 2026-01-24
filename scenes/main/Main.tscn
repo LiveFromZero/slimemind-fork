@@ -151,9 +151,9 @@ min_zoom = 0.15
 process_mode = 3
 script = ExtResource("12_2tpxt")
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="Ui"]
+[node name="Control_UI" type="CanvasLayer" parent="Ui"]
 
-[node name="CloseProgrammButton" type="Button" parent="Ui/CanvasLayer2"]
+[node name="CloseProgrammButton" type="Button" parent="Ui/Control_UI"]
 modulate = Color(1, 0, 0, 1)
 anchors_preset = 1
 anchor_left = 1.0
@@ -166,7 +166,7 @@ grow_horizontal = 0
 mouse_default_cursor_shape = 2
 text = "X"
 
-[node name="MenuButton" type="MenuButton" parent="Ui/CanvasLayer2"]
+[node name="MenuButton" type="MenuButton" parent="Ui/Control_UI"]
 custom_minimum_size = Vector2(50, 100)
 anchors_preset = 1
 anchor_left = 1.0
@@ -181,7 +181,7 @@ button_group = SubResource("ButtonGroup_p5fgu")
 icon = ExtResource("11_qkm1d")
 expand_icon = true
 
-[node name="Panel" type="Panel" parent="Ui/CanvasLayer2"]
+[node name="Panel" type="Panel" parent="Ui/Control_UI"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -193,7 +193,7 @@ offset_bottom = 253.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Ui/CanvasLayer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/Control_UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -204,126 +204,126 @@ offset_bottom = 825.0
 grow_horizontal = 0
 alignment = 1
 
-[node name="Anzahl Futterquellen" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Anzahl Futterquellen" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Anzahl Futterquellen: "
 
-[node name="FutteranzahlSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="FutteranzahlSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 min_value = 15.0
 max_value = 350.0
 value = 100.0
 tick_count = 14
 
-[node name="Größe einer Futterquelle" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Größe einer Futterquelle" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Größe einer Futterquelle: "
 
-[node name="FuttermengeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="FuttermengeSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 min_value = 100.0
 max_value = 100000.0
 value = 10000.0
 
-[node name="Feldgröße" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Feldgröße" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Feldgröße: "
 
-[node name="FeldgrößeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="FeldgrößeSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 10.0
 value = 7.0
 
-[node name="FoodSpawnButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="FoodSpawnButton" type="Button" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Food Spawnen"
 
-[node name="Widerstandsfähigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Widerstandsfähigkeit" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Widerstandsfähigkeit: "
 
-[node name="LebenspunkteSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="LebenspunkteSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 75.0
 value = 50.0
 
-[node name="Sonnenlicht" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Sonnenlicht" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Sonnenlicht: "
 
-[node name="SonnenlichtSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="SonnenlichtSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 value = 15.0
 
-[node name="Temperatur" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Temperatur" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Temperatur: "
 
-[node name="TemperaturSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="TemperaturSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 min_value = -50.0
 value = 22.0
 
-[node name="Luftfeuchtigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Luftfeuchtigkeit" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Luftfeuchtigkeit: "
 
-[node name="LuftfeuchtigkeitSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="LuftfeuchtigkeitSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 value = 70.0
 
-[node name="Startarme" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Startarme" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Startarme"
 label_settings = SubResource("LabelSettings_3km4f")
 
-[node name="StartarmeSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="StartarmeSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 max_value = 4.0
 tick_count = 5
 ticks_on_borders = true
 ticks_position = 3
 
-[node name="Simulationsgeschwindigkeit" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Simulationsgeschwindigkeit" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 text = "Simulationsgeschwindigkeit: "
 
-[node name="SimulationSpeedSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="SimulationSpeedSlider" type="HSlider" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 5.0
 value = 1.0
 
-[node name="Button" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Button" type="Button" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Start"
 
-[node name="ColorRect" type="ColorRect" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="Ui/Control_UI/VBoxContainer"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 color = Color(0.21, 0.21, 0.21, 1)
 
-[node name="ResetButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="ResetButton" type="Button" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Reset"
 
-[node name="Statistik2" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Statistik2" type="Label" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 
-[node name="Statistik" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
+[node name="Statistik" type="Button" parent="Ui/Control_UI/VBoxContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Statistik"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Ui"]
+[node name="Summary_UI" type="CanvasLayer" parent="Ui"]
 visible = false
 
-[node name="SimulationSummary" type="Control" parent="Ui/CanvasLayer"]
+[node name="SimulationSummary" type="Control" parent="Ui/Summary_UI"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -338,7 +338,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_u8lgh")
 
-[node name="TextureRect" type="TextureRect" parent="Ui/CanvasLayer/SimulationSummary"]
+[node name="TextureRect" type="TextureRect" parent="Ui/Summary_UI/SimulationSummary"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -352,7 +352,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("18_rikml")
 
-[node name="HFlowContainer" type="VBoxContainer" parent="Ui/CanvasLayer/SimulationSummary"]
+[node name="HFlowContainer" type="VBoxContainer" parent="Ui/Summary_UI/SimulationSummary"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -367,34 +367,34 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="ZusammenfassungL" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+[node name="ZusammenfassungL" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 text = "Zusammenfassung"
 label_settings = SubResource("LabelSettings_tck0d")
 horizontal_alignment = 1
 
-[node name="Dauer" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+[node name="Dauer" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 text = "Dauer der Simulation: "
 label_settings = SubResource("LabelSettings_u8lgh")
 horizontal_alignment = 1
 
-[node name="FutterGegessen" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+[node name="FutterGegessen" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 text = "Futterquellen gegessen: "
 horizontal_alignment = 1
 
-[node name="FuttermengeGegessen" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+[node name="FuttermengeGegessen" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 text = "Futtermenge gegessen: "
 horizontal_alignment = 1
 
-[node name="AnzahlToterSegmente" type="Label" parent="Ui/CanvasLayer/SimulationSummary/HFlowContainer"]
+[node name="AnzahlToterSegmente" type="Label" parent="Ui/Summary_UI/SimulationSummary/HFlowContainer"]
 layout_mode = 2
 text = "Anzahl toter Segmente: "
 horizontal_alignment = 1
 
-[node name="HideUIButton" type="Button" parent="Ui/CanvasLayer/SimulationSummary"]
+[node name="HideUIButton" type="Button" parent="Ui/Summary_UI/SimulationSummary"]
 layout_mode = 0
 offset_left = -111.0
 offset_top = 303.0
@@ -404,7 +404,7 @@ text = "Schließe Zusammenfassung"
 
 [connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
 [connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
-[connection signal="sendDataToSummary" from="World/WorldStatistik" to="Ui/CanvasLayer/SimulationSummary" method="_on_world_statistik_send_data_to_summary"]
+[connection signal="sendDataToSummary" from="World/WorldStatistik" to="Ui/Summary_UI/SimulationSummary" method="_on_world_statistik_send_data_to_summary"]
 [connection signal="simulation_over_signal" from="World/WorldStatistik" to="." method="_on_world_statistik_simulation_over_signal"]
 [connection signal="simulation_over_signal" from="World/WorldStatistik" to="Ui" method="_on_world_statistik_simulation_over_signal"]
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
@@ -427,19 +427,19 @@ text = "Schließe Zusammenfassung"
 [connection signal="update_lightamount" from="Ui" to="World/WorldController" method="_on_ui_update_lightamount"]
 [connection signal="update_simulation_speed" from="Ui" to="." method="_on_ui_update_simulation_speed"]
 [connection signal="update_temperature" from="Ui" to="World/WorldController" method="_on_ui_update_temperature"]
-[connection signal="pressed" from="Ui/CanvasLayer2/CloseProgrammButton" to="Ui" method="_on_close_programm_button_pressed"]
-[connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/FutteranzahlSlider" to="Ui" method="_on_futteranzahl_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/FuttermengeSlider" to="Ui" method="_on_futtergröße_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/FeldgrößeSlider" to="Ui" method="_on_feldgröße_value_changed"]
-[connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/FoodSpawnButton" to="Ui" method="_on_food_spawn_button_pressed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/LebenspunkteSlider" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/SonnenlichtSlider" to="Ui" method="_on_sonnenlicht_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/TemperaturSlider" to="Ui" method="_on_temperatur_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/LuftfeuchtigkeitSlider" to="Ui" method="_on_luftfeuchtigkeit_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/StartarmeSlider" to="Ui" method="_on_h_slider_value_changed"]
-[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/SimulationSpeedSlider" to="Ui" method="_on_simulation_speed_value_changed"]
-[connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
-[connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]
-[connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Statistik" to="Ui" method="_on_statistik_pressed"]
-[connection signal="pressed" from="Ui/CanvasLayer/SimulationSummary/HideUIButton" to="Ui" method="_on_hide_ui_button_pressed"]
+[connection signal="pressed" from="Ui/Control_UI/CloseProgrammButton" to="Ui" method="_on_close_programm_button_pressed"]
+[connection signal="pressed" from="Ui/Control_UI/MenuButton" to="Ui" method="_on_menu_button_pressed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/FutteranzahlSlider" to="Ui" method="_on_futteranzahl_value_changed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/FuttermengeSlider" to="Ui" method="_on_futtergröße_value_changed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/FeldgrößeSlider" to="Ui" method="_on_feldgröße_value_changed"]
+[connection signal="pressed" from="Ui/Control_UI/VBoxContainer/FoodSpawnButton" to="Ui" method="_on_food_spawn_button_pressed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/LebenspunkteSlider" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/SonnenlichtSlider" to="Ui" method="_on_sonnenlicht_value_changed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/TemperaturSlider" to="Ui" method="_on_temperatur_value_changed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/LuftfeuchtigkeitSlider" to="Ui" method="_on_luftfeuchtigkeit_value_changed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/StartarmeSlider" to="Ui" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/SimulationSpeedSlider" to="Ui" method="_on_simulation_speed_value_changed"]
+[connection signal="pressed" from="Ui/Control_UI/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
+[connection signal="pressed" from="Ui/Control_UI/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Ui/Control_UI/VBoxContainer/Statistik" to="Ui" method="_on_statistik_pressed"]
+[connection signal="pressed" from="Ui/Summary_UI/SimulationSummary/HideUIButton" to="Ui" method="_on_hide_ui_button_pressed"]
