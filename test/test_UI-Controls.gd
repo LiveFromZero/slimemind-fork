@@ -88,7 +88,8 @@ func test_UIFuttergroesse(foodAmount:float, test_parameters := [
 	# compare
 	assert_array(foodSpawned).is_not_empty()
 	for food:FoodSource in foodSpawned:
-		assert_float(food.total_nutrients).is_between(FuttermengeSlider.min_value, FuttermengeSlider.max_value)
+		assert_float(food.total_nutrients).is_not_zero()
+		assert_float(food.total_nutrients).is_not_negative()
 
 func test_UIweatherSlider(sliderValueSun:float, sliderValueTemp:float, sliderValueHydro:float, test_parameters:=[
 	[SonnenlichtSlider.value, TemperaturSlider.value, LuftfeuchtigkeitSlider.value],

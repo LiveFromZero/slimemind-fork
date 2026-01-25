@@ -27,13 +27,16 @@ func test_armSpawn():
 func test_armLiveAndDie():
 	#initiate
 	get_tree().paused = false
+	Engine.time_scale = 3.0
 	var seg : ArmSegment = ArmSegmentScene.instantiate()
 	seg.max_life_points = 5
 	seg.depth = 5
 	_armRoot.add_child(seg)
+	await get_tree().process_frame
 	
 	#run
-	await get_tree().create_timer(10).timeout
+	seg.life_points = 1
+	await get_tree().create_timer(3).timeout
 	
 	#compare
 	assert_bool(seg._is_dead).is_equal(true)

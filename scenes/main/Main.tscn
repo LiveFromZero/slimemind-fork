@@ -1,17 +1,25 @@
-[gd_scene load_steps=31 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=38 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
 [ext_resource type="Texture2D" uid="uid://y0oxlgtf7n1l" path="res://sprites/ChatGPT Image 22. Jan. 2026, 08_49_25.png" id="2_vc03v"]
+[ext_resource type="Script" uid="uid://b2refh85i865m" path="res://scenes/main/world_background.gd" id="2_yub1f"]
 [ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
 [ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="3_qkm1d"]
+[ext_resource type="Texture2D" uid="uid://csqbgjxljeath" path="res://sprites/Fruhling_Nacht.png" id="4_u7tt4"]
 [ext_resource type="Script" uid="uid://bastr0lbnque8" path="res://scenes/world/arm_root.gd" id="5_3km4f"]
+[ext_resource type="Texture2D" uid="uid://b63ee68ms1mf3" path="res://sprites/Sommer_Tag.png" id="5_ilqpp"]
+[ext_resource type="Texture2D" uid="uid://dwypndtsjkdld" path="res://sprites/Sommer_Nacht.png" id="6_ftc2p"]
 [ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="6_p5fgu"]
+[ext_resource type="Texture2D" uid="uid://bw38n7hi3ciu8" path="res://sprites/Herbst_Tag.png" id="7_04n4k"]
 [ext_resource type="Script" uid="uid://cxpj0jnveg5gt" path="res://scenes/world/worldstatistic.gd" id="7_u8lgh"]
+[ext_resource type="Texture2D" uid="uid://d27g73dgt0ehw" path="res://sprites/Herbst_Nacht.png" id="8_8dhb5"]
 [ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="8_p5fgu"]
 [ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/Life_and_Death_System.gd" id="9_2tpxt"]
+[ext_resource type="Texture2D" uid="uid://ddnlgq2n336ks" path="res://sprites/Winter_Tag.png" id="9_ew7m7"]
 [ext_resource type="Script" uid="uid://chw5l8qqevlrn" path="res://scenes/systems/food_manager.gd" id="9_jsdfw"]
 [ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
+[ext_resource type="Texture2D" uid="uid://c8nywgxqecud0" path="res://sprites/Winter_Nacht.png" id="10_fg4ko"]
 [ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="11_p5fgu"]
 [ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="11_qkm1d"]
 [ext_resource type="Texture2D" uid="uid://bhdje1ovs5srk" path="res://sprites/8026857a-bfa3-4e64-9305-d0bf2ba40c68_removalai_preview.png" id="11_rikml"]
@@ -20,17 +28,6 @@
 [ext_resource type="PackedScene" uid="uid://bbh2ghiqgwxfm" path="res://scenes/world/Food_source.tscn" id="13_2tpxt"]
 [ext_resource type="Script" uid="uid://c13lrgtnnllcb" path="res://scenes/ui/simulation_summary.gd" id="16_u8lgh"]
 [ext_resource type="Texture2D" uid="uid://cs28f6jxo5rv6" path="res://sprites/blob_ui_background_transparent.png" id="18_rikml"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_grv7h"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_vc03v")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vc03v"]
 atlas = ExtResource("11_rikml")
@@ -86,10 +83,25 @@ outline_color = Color(0, 0, 0, 1)
 process_mode = 3
 script = ExtResource("1_3km4f")
 
-[node name="Background" type="AnimatedSprite2D" parent="."]
+[node name="WorldBackground" type="Node2D" parent="."]
+script = ExtResource("2_yub1f")
+tex_fruehling_tag = ExtResource("2_vc03v")
+tex_fruehling_nacht = ExtResource("4_u7tt4")
+tex_sommer_tag = ExtResource("5_ilqpp")
+tex_sommer_nacht = ExtResource("6_ftc2p")
+tex_herbst_tag = ExtResource("7_04n4k")
+tex_herbst_nacht = ExtResource("8_8dhb5")
+tex_winter_tag = ExtResource("9_ew7m7")
+tex_winter_nacht = ExtResource("10_fg4ko")
+
+[node name="BgA" type="Sprite2D" parent="WorldBackground"]
 position = Vector2(0.00024414063, -23)
 scale = Vector2(8.470052, 7.2597656)
-sprite_frames = SubResource("SpriteFrames_grv7h")
+texture = ExtResource("2_vc03v")
+
+[node name="BgB" type="Sprite2D" parent="WorldBackground"]
+position = Vector2(0.00024414063, -23)
+scale = Vector2(8.470052, 7.2597656)
 
 [node name="ArmGrowth" type="Node2D" parent="."]
 process_mode = 1
@@ -120,7 +132,6 @@ position = Vector2(781, -275)
 [node name="Blob" type="Node2D" parent="World"]
 
 [node name="BlobAnimationSprite" type="AnimatedSprite2D" parent="World/Blob"]
-visible = false
 sprite_frames = SubResource("SpriteFrames_roob6")
 autoplay = "default"
 frame_progress = 0.39976028
@@ -426,10 +437,13 @@ text = "Schließe Zusammenfassung"
 [connection signal="update_food_amount" from="Ui" to="World/WorldController" method="_on_ui_update_food_amount"]
 [connection signal="update_food_count" from="Ui" to="World/WorldController" method="_on_ui_update_food_count"]
 [connection signal="update_humidity" from="Ui" to="World/WorldController" method="_on_ui_update_humidity"]
+[connection signal="update_humidity" from="Ui" to="WorldBackground" method="setHumidity"]
 [connection signal="update_life_points_for_arms" from="Ui" to="World/WorldController" method="_on_ui_update_life_points_for_arms"]
 [connection signal="update_lightamount" from="Ui" to="World/WorldController" method="_on_ui_update_lightamount"]
+[connection signal="update_lightamount" from="Ui" to="WorldBackground" method="setSun"]
 [connection signal="update_simulation_speed" from="Ui" to="." method="_on_ui_update_simulation_speed"]
 [connection signal="update_temperature" from="Ui" to="World/WorldController" method="_on_ui_update_temperature"]
+[connection signal="update_temperature" from="Ui" to="WorldBackground" method="setTemp"]
 [connection signal="pressed" from="Ui/Control_UI/CloseProgrammButton" to="Ui" method="_on_close_programm_button_pressed"]
 [connection signal="pressed" from="Ui/Control_UI/MenuButton" to="Ui" method="_on_menu_button_pressed"]
 [connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/FutteranzahlSlider" to="Ui" method="_on_futteranzahl_value_changed"]
