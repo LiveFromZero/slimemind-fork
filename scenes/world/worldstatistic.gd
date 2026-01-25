@@ -48,18 +48,20 @@ func all_non_feeding_segments_are_dead() -> void:
 	isSimulationOver()
 
 func all_feeding_segments_are_dead() -> void:
-	var allFoodPiles = $"../../Food/FoodManager".get_children(true)
-	print(allFoodPiles)
-	if allFoodPiles.is_empty():
-		_all_feeding_segments_are_dead = true
-	else:
-		for onepile : FoodSource in allFoodPiles:
-			if onepile._consumers.size() == 0:
-				_all_feeding_segments_are_dead = true
-			else: 
-				_all_feeding_segments_are_dead = false
-				_all_non_feeding_segments_are_dead = false
-				break
+	var allFoodPiles = $"../../Food/FoodManager".get_children()
+
+	_all_feeding_segments_are_dead = true
+
+	for child in allFoodPiles:
+		if not child is FoodSource:
+			continue
+
+		if child._consumers.size() > 0:
+			_all_feeding_segments_are_dead = false
+			_all_non_feeding_segments_are_dead = false
+			break
+
+
 
 func isSimulationOver() -> void:
 	if _all_feeding_segments_are_dead && _all_non_feeding_segments_are_dead:
