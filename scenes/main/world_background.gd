@@ -4,8 +4,8 @@ extends Node2D
 
 # Temperatur-Grenzen (tunen nach Geschmack)
 @export var winter_max: float = 0.0
-@export var spring_max: float = 18.0
-@export var summer_max: float = 30.0
+@export var spring_max: float = 20.0
+@export var summer_max: float = 40.0
 # > summer_max => Herbst
 
 # Sonne Tag/Nacht
@@ -22,8 +22,8 @@ extends Node2D
 @export var tex_winter_tag: Texture2D
 @export var tex_winter_nacht: Texture2D
 
-var _temp: float = 0.0
-var _sun: float = 50.0
+var _temp: float = 22.0
+var _sun: float = 15.0
 var _humidity: float = 50.0
 
 @onready var _a: Sprite2D = $BgA
