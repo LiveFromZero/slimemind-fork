@@ -7,6 +7,10 @@ extends Node2D
 @export var spring_max: float = 20.0
 @export var summer_max: float = 40.0
 # > summer_max => Herbst
+@export var humidity_start: float = 40.0
+@export var humidity_full: float = 100.0
+@export var humidity_max_alpha: float = 0.4
+
 
 # Sonne Tag/Nacht
 @export var night_max: float = 40.0
@@ -24,10 +28,12 @@ extends Node2D
 
 var _temp: float = 22.0
 var _sun: float = 15.0
-var _humidity: float = 50.0
+var _humidity: float = 70.0
 
 @onready var _a: Sprite2D = $BgA
 @onready var _b: Sprite2D = $BgB
+@onready var _humidity_overlay: Sprite2D = $HumidityOverlay
+
 
 var _active: Sprite2D
 var _inactive: Sprite2D
@@ -40,6 +46,11 @@ func _ready() -> void:
 	_a.modulate.a = 1.0
 	_b.modulate.a = 0.0
 	_apply_background(true)
+	_update_humidity_visual()
+
+func _process(delta: float) -> void:
+	_humidity_overlay.position.x += delta * 5.0
+
 
 func setTemp(temp: float) -> void:
 	_temp = temp
@@ -51,7 +62,16 @@ func setSun(sun: float) -> void:
 
 func setHumidity(humidity: float) -> void:
 	_humidity = humidity
-	# Optional: später Fog/Rain hier steuern.
+	_update_humidity_visual()
+
+func _update_humidity_visual() -> void:
+	if _humidity <= humidity_start:
+		_humidity_overlay.modulate.a = 0.0
+		return
+
+	var t := inverse_lerp(humidity_start, humidity_full, _humidity)
+	_humidity_overlay.modulate.a = clamp(t, 0.0, 1.0) * humidity_max_alpha
+
 
 func _apply_background(immediate: bool) -> void:
 	var key := _desired_key()

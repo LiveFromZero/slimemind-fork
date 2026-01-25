@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://e5eb72coh0xu"]
+[gd_scene load_steps=39 format=3 uid="uid://e5eb72coh0xu"]
 
 [ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
 [ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://chw5l8qqevlrn" path="res://scenes/systems/food_manager.gd" id="9_jsdfw"]
 [ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
 [ext_resource type="Texture2D" uid="uid://c8nywgxqecud0" path="res://sprites/Winter_Nacht.png" id="10_fg4ko"]
+[ext_resource type="Texture2D" uid="uid://b71ffigxjtx2s" path="res://sprites/—Pngtree—realistic advection fog effect element_11201520.png" id="11_ilqpp"]
 [ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="11_p5fgu"]
 [ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="11_qkm1d"]
 [ext_resource type="Texture2D" uid="uid://bhdje1ovs5srk" path="res://sprites/8026857a-bfa3-4e64-9305-d0bf2ba40c68_removalai_preview.png" id="11_rikml"]
@@ -102,6 +103,13 @@ texture = ExtResource("2_vc03v")
 [node name="BgB" type="Sprite2D" parent="WorldBackground"]
 position = Vector2(0.00024414063, -23)
 scale = Vector2(8.470052, 7.2597656)
+
+[node name="HumidityOverlay" type="Sprite2D" parent="WorldBackground"]
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+position = Vector2(-7.499634, -1873.7501)
+scale = Vector2(9.46198, 10.074536)
+texture = ExtResource("11_ilqpp")
 
 [node name="ArmGrowth" type="Node2D" parent="."]
 process_mode = 1
