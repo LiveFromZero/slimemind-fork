@@ -22,27 +22,28 @@ var spawn_size: Vector2
 
 # --- Exponentialverteiltes Auto-Spawn-Intervall (Wartezeit) ---
 @export var auto_spawn_enabled: bool = false
-@export var exp_mean_interval: float = 120.0 # Sekunden (Erwartungswert)
-@export var exp_min_interval: float = 60.0
-@export var exp_max_interval: float = 480.0
+@export var exp_mean_interval: float = 10.0 # Sekunden (Erwartungswert)
+@export var exp_min_interval: float = 1.0
+@export var exp_max_interval: float = 15.0
 
-var _spawn_timer: Timer
-var _last_food_amount: float = 0.0
-var _last_food_count: int = 0
-var _last_field_size: float = 1.0
+var food_spawn_timer: Timer
+var _last_food_amount: float = 10000.0
+var _last_food_count: int = 15
+var _last_field_size: float = 7.0
+var default_food_count: int = 15
 
 
 func _ready() -> void:
-	_spawn_timer = Timer.new()
-	_spawn_timer.one_shot = true
-	add_child(_spawn_timer)
-	_spawn_timer.timeout.connect(_on_spawn_timer_timeout)
+	food_spawn_timer = Timer.new()
+	food_spawn_timer.one_shot = true
+	add_child(food_spawn_timer)
+	food_spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 
 
 func _on_world_controller_spawn_food(food_amount: float, food_count: int, field_size: float) -> void:
 	# Werte merken, damit Auto-Spawn später dasselbe Setup benutzen kann
 	_last_food_amount = food_amount
-	_last_food_count = food_count
+	_last_food_count = default_food_count
 	_last_field_size = field_size
 
 	_spawn_food_batch(food_amount, food_count, field_size)
@@ -63,13 +64,13 @@ func _on_spawn_timer_timeout() -> void:
 
 
 func _schedule_next_spawn() -> void:
-	if not is_instance_valid(_spawn_timer):
+	if not is_instance_valid(food_spawn_timer):
 		return
 
 	var dt := _sample_exponential_interval(exp_mean_interval)
 	dt = clampf(dt, exp_min_interval, exp_max_interval)
 
-	_spawn_timer.start(dt)
+	food_spawn_timer.start(dt)
 
 
 func _sample_exponential_interval(mean: float) -> float:
