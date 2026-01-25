@@ -107,8 +107,8 @@ scale = Vector2(8.470052, 7.2597656)
 [node name="HumidityOverlay" type="Sprite2D" parent="WorldBackground"]
 modulate = Color(1, 1, 1, 0)
 z_index = 1
-position = Vector2(-7.499634, -1873.7501)
-scale = Vector2(9.46198, 10.074536)
+position = Vector2(54.50061, -916.0011)
+scale = Vector2(9.686979, 8.529628)
 texture = ExtResource("11_ilqpp")
 
 [node name="ArmGrowth" type="Node2D" parent="."]
@@ -444,14 +444,14 @@ text = "Schließe Zusammenfassung"
 [connection signal="update_fieldsize" from="Ui" to="World/WorldController" method="_on_ui_update_fieldsize"]
 [connection signal="update_food_amount" from="Ui" to="World/WorldController" method="_on_ui_update_food_amount"]
 [connection signal="update_food_count" from="Ui" to="World/WorldController" method="_on_ui_update_food_count"]
-[connection signal="update_humidity" from="Ui" to="World/WorldController" method="_on_ui_update_humidity"]
 [connection signal="update_humidity" from="Ui" to="WorldBackground" method="setHumidity"]
+[connection signal="update_humidity" from="Ui" to="World/WorldController" method="_on_ui_update_humidity"]
 [connection signal="update_life_points_for_arms" from="Ui" to="World/WorldController" method="_on_ui_update_life_points_for_arms"]
-[connection signal="update_lightamount" from="Ui" to="World/WorldController" method="_on_ui_update_lightamount"]
 [connection signal="update_lightamount" from="Ui" to="WorldBackground" method="setSun"]
+[connection signal="update_lightamount" from="Ui" to="World/WorldController" method="_on_ui_update_lightamount"]
 [connection signal="update_simulation_speed" from="Ui" to="." method="_on_ui_update_simulation_speed"]
-[connection signal="update_temperature" from="Ui" to="World/WorldController" method="_on_ui_update_temperature"]
 [connection signal="update_temperature" from="Ui" to="WorldBackground" method="setTemp"]
+[connection signal="update_temperature" from="Ui" to="World/WorldController" method="_on_ui_update_temperature"]
 [connection signal="pressed" from="Ui/Control_UI/CloseProgrammButton" to="Ui" method="_on_close_programm_button_pressed"]
 [connection signal="pressed" from="Ui/Control_UI/MenuButton" to="Ui" method="_on_menu_button_pressed"]
 [connection signal="value_changed" from="Ui/Control_UI/VBoxContainer/FutteranzahlSlider" to="Ui" method="_on_futteranzahl_value_changed"]
