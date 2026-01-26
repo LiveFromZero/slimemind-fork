@@ -86,7 +86,9 @@ func calculateTime() -> void:
 	
 	var total_ms: int = max(0, endTimeSecond - startTimeSecond)
 
+	@warning_ignore("integer_division")
 	var total_seconds: int = total_ms / 1000
+	@warning_ignore("integer_division")
 	var minutes: int = total_seconds / 60
 	var seconds: int = total_seconds % 60
 
