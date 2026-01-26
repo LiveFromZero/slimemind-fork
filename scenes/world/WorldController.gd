@@ -43,6 +43,7 @@ var ArmCount : int
 signal grow_arm(arm_node: ArmSegment, MaxFoodArmSegment: float)
 signal spawnFood(Food_Amount: float, Food_Count: int, Field_Size:float)
 signal reset_game
+signal updateFoodTimerSignal
 
 # =============================================================================
 # Lifecycle
@@ -308,13 +309,16 @@ func _on_ui_reset_simulation() -> void:
 	_reposition_arms()
 	slider_update_growthinterval()
 
-
 	# Timer wieder starten
 	_update_grow_timer()
+	updateFoodTimer()
 
 	get_tree().paused = was_paused
 
 	reset_game.emit()
+
+func updateFoodTimer() -> void:
+	updateFoodTimerSignal.emit()
 
 func reset_slider() -> void:
 	ui_slider_foodcount.value = 100

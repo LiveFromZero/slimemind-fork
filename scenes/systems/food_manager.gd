@@ -22,23 +22,24 @@ var spawn_size: Vector2
 
 # --- Exponentialverteiltes Auto-Spawn-Intervall (Wartezeit) ---
 @export var auto_spawn_enabled: bool = false
-@export var exp_mean_interval: float = 10.0 # Sekunden (Erwartungswert)
-@export var exp_min_interval: float = 1.0
-@export var exp_max_interval: float = 15.0
+@export var exp_mean_interval: float = 20.0 # Sekunden (Erwartungswert)
+@export var exp_min_interval: float = 5.0
+@export var exp_max_interval: float = 30.0
 
 var food_spawn_timer: Timer
 var _last_food_amount: float = 10000.0
 var _last_food_count: int = 15
 var _last_field_size: float = 7.0
-var default_food_count: int = 15
-
+var default_food_count: int = 1 # Die Menge an erschaffenen Futterhaufen pro Timer-Ablauf
 
 func _ready() -> void:
+	initialiseFoodTimer()
+	
+func initialiseFoodTimer() -> void:
 	food_spawn_timer = Timer.new()
 	food_spawn_timer.one_shot = true
 	add_child(food_spawn_timer)
 	food_spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-
 
 func _on_world_controller_spawn_food(food_amount: float, food_count: int, field_size: float) -> void:
 	# Werte merken, damit Auto-Spawn später dasselbe Setup benutzen kann
@@ -50,7 +51,6 @@ func _on_world_controller_spawn_food(food_amount: float, food_count: int, field_
 
 	if auto_spawn_enabled:
 		_schedule_next_spawn()
-
 
 func _on_spawn_timer_timeout() -> void:
 	# Wenn nie per UI/WorldController initialisiert wurde, spawnen wir nicht ins Nichts.
@@ -157,3 +157,6 @@ func _pick_position(existing: Array[Vector2], local_min_distance: float) -> Vari
 
 func _get_spawn_rect_local() -> Rect2:
 	return Rect2(spawn_center - spawn_size * 0.5, spawn_size)
+
+func _on_world_controller_update_food_timer_signal() -> void:
+	initialiseFoodTimer()

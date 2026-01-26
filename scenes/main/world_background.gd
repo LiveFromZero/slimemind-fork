@@ -48,10 +48,6 @@ func _ready() -> void:
 	_apply_background(true)
 	_update_humidity_visual()
 
-func _process(delta: float) -> void:
-	_humidity_overlay.position.x += delta * 5.0
-
-
 func setTemp(temp: float) -> void:
 	_temp = temp
 	_apply_background(false)

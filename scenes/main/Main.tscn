@@ -433,6 +433,7 @@ text = "Schließe Zusammenfassung"
 [connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
 [connection signal="reset_game" from="World/WorldController" to="." method="_on_world_controller_reset_game"]
 [connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
+[connection signal="updateFoodTimerSignal" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_update_food_timer_signal"]
 [connection signal="eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_eating"]
 [connection signal="segment_died" from="World/ArmSegment" to="ArmGrowth/Life_and_Death_System" method="_on_arm_segment_segment_died"]
 [connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
