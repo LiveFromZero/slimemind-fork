@@ -3,9 +3,6 @@ class_name FoodManager
 
 @export var food_scene: PackedScene
 
-# Spawn-Feld (lokal zum FoodManager). Einfach im Inspector einstellen.
-@export var spawn_rect := Rect2(Vector2(-500, -300), Vector2(1000, 600))
-
 @export var min_distance: float = 32.0
 @export var max_tries_per_food: int = 30
 
@@ -22,15 +19,15 @@ var spawn_size: Vector2
 
 # --- Exponentialverteiltes Auto-Spawn-Intervall (Wartezeit) ---
 @export var auto_spawn_enabled: bool = false
-@export var exp_mean_interval: float = 20.0 # Sekunden (Erwartungswert)
-@export var exp_min_interval: float = 5.0
-@export var exp_max_interval: float = 30.0
+@export var target_average_spawn_interval: float = 20.0 # Sekunden (Erwartungswert)
+@export var min_spawn_interval: float = 5.0
+@export var max_spawn_interval: float = 30.0
 
 var food_spawn_timer: Timer
 var _last_food_amount: float = 10000.0
 var _last_food_count: int = 15
 var _last_field_size: float = 7.0
-var default_food_count: int = 1 # Die Menge an erschaffenen Futterhaufen pro Timer-Ablauf
+var default_food_count: int = 15 # Die Menge an erschaffenen Futterhaufen pro Timer-Ablauf
 
 func _ready() -> void:
 	initialiseFoodTimer()
@@ -50,7 +47,7 @@ func _on_world_controller_spawn_food(food_amount: float, food_count: int, field_
 	_spawn_food_batch(food_amount, food_count, field_size)
 
 	if auto_spawn_enabled:
-		_schedule_next_spawn()
+		schedule_next_food_spawn()
 
 func _on_spawn_timer_timeout() -> void:
 	# Wenn nie per UI/WorldController initialisiert wurde, spawnen wir nicht ins Nichts.
@@ -60,26 +57,28 @@ func _on_spawn_timer_timeout() -> void:
 	_spawn_food_batch(_last_food_amount, _last_food_count, _last_field_size)
 
 	if auto_spawn_enabled:
-		_schedule_next_spawn()
+		schedule_next_food_spawn()
 
 
-func _schedule_next_spawn() -> void:
+func schedule_next_food_spawn() -> void:
 	if not is_instance_valid(food_spawn_timer):
 		return
 
-	var dt := _sample_exponential_interval(exp_mean_interval)
-	dt = clampf(dt, exp_min_interval, exp_max_interval)
+	var next_spawn_delay := _sample_exponential_interval(target_average_spawn_interval)
+	next_spawn_delay = clampf(next_spawn_delay, min_spawn_interval, max_spawn_interval)
 
-	food_spawn_timer.start(dt)
+	food_spawn_timer.start(next_spawn_delay)
 
 
-func _sample_exponential_interval(mean: float) -> float:
-	# Exponentialverteilung für Wartezeiten:
-	# T = -ln(U) * mean, mit U ∈ (0,1)
-	var m := maxf(0.0001, mean)
-	var u := randf()
-	u = maxf(u, 0.000001) # log(0) vermeiden
-	return -log(u) * m
+func _sample_exponential_interval(target_average_interval: float) -> float:
+	# Erzeugt ein zufälliges Zeitintervall mit gegebenem Durchschnitt
+	# Formel: T = -ln(U) * target_average_interval
+
+	var safe_average := maxf(0.0001, target_average_interval)
+	var uniform_random := randf()
+	var safe_random := maxf(uniform_random, 0.000001)
+
+	return -log(safe_random) * safe_average
 
 
 func _spawn_food_batch(food_amount: float, food_count: int, field_size: float) -> void:
@@ -118,39 +117,57 @@ func _spawn_food_batch(food_amount: float, food_count: int, field_size: float) -
 		placed_positions.append(pos)
 
 
-func _sample_food_amount(mean_amount: float) -> float:
-	var mean := maxf(1.0, mean_amount)
-	var sigma := maxf(1.0, mean * bell_sigma_fraction)
+func _sample_food_amount(target_food_amount: float) -> float:
+	var base_food_amount := maxf(1.0, target_food_amount)
+	var random_spread_amount := maxf(1.0, base_food_amount * bell_sigma_fraction)
 
 	# Godot 4: Normalverteilung
-	var v := randfn(mean, sigma)
+	var generated_food_amount := randfn(base_food_amount, random_spread_amount)
 
 	# Clamp gegen Quatschwerte
-	v = clampf(v, mean * min_food_multiplier, mean * max_food_multiplier)
-	return v
+	generated_food_amount = clampf(
+		generated_food_amount,
+		base_food_amount * min_food_multiplier,
+		base_food_amount * max_food_multiplier
+	)
+	return generated_food_amount
+
+func _distance_scale_from_amount(object_amount: float, reference_amount: float) -> float:
+	# Wenn object_amount = 4x reference_amount
+	# -> Abstandsskala ≈ sqrt(4) = 2  (also etwa doppelt so viel Abstand)
+
+	var safe_reference_amount := maxf(1.0, reference_amount)
+
+	var relative_size_factor := maxf(0.0, object_amount / safe_reference_amount)
+	var distance_scale := pow(relative_size_factor, 0.5)
+
+	return clampf(distance_scale, 0.8, 1.6)
 
 
-func _distance_scale_from_amount(amount: float, ref: float) -> float:
-	# wenn amount = 4x ref -> scale ~ sqrt(4)=2 -> Abstand etwa doppelt
-	var r := maxf(1.0, ref)
-	return clampf(pow(maxf(0.0, amount / r), 0.5), 0.8, 1.6)
+func _pick_position(existing_positions: Array[Vector2], minimum_distance: float) -> Variant:
+	for attempt_index in range(max_tries_per_food):
+		var local_spawn_area := _get_spawn_rect_local()
 
+		var random_x := randf_range(
+			local_spawn_area.position.x,
+			local_spawn_area.position.x + local_spawn_area.size.x
+		)
 
-func _pick_position(existing: Array[Vector2], local_min_distance: float) -> Variant:
-	for i in range(max_tries_per_food):
-		var r := _get_spawn_rect_local()
-		var x := randf_range(r.position.x, r.position.x + r.size.x)
-		var y := randf_range(r.position.y, r.position.y + r.size.y)
-		var candidate := to_global(Vector2(x, y))
+		var random_y := randf_range(
+			local_spawn_area.position.y,
+			local_spawn_area.position.y + local_spawn_area.size.y
+		)
 
-		var ok := true
-		for p in existing:
-			if p.distance_to(candidate) < local_min_distance:
-				ok = false
+		var candidate_position := to_global(Vector2(random_x, random_y))
+
+		var is_position_valid := true
+		for placed_position in existing_positions:
+			if placed_position.distance_to(candidate_position) < minimum_distance:
+				is_position_valid = false
 				break
 
-		if ok:
-			return candidate
+		if is_position_valid:
+			return candidate_position
 
 	return null
 
