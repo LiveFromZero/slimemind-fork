@@ -11,6 +11,29 @@ config_version=5
 [application]
 
 config/name="SlimeMind"
-run/main_scene="uid://b1pq12byr341f"
+run/main_scene="uid://e5eb72coh0xu"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+run/max_fps=60
+config/icon="res://assets/sprites/icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
+[gdunit4]
+
+settings/common/update_notification_enabled=false
+settings/test/test_discovery=true
+settings/test/flaky_check_enable=true
+ui/toolbar/run_overall=true
+
+[global_group]
+
+Statistik=""

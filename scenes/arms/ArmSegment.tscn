@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgpwphoc0xh44"]
+
+[ext_resource type="Script" uid="uid://b36bifoww0c7b" path="res://scenes/arms/ArmSegment.gd" id="1_wrtiu"]
+[ext_resource type="Texture2D" uid="uid://vkvx1sx1drvy" path="res://sprites/6eb988b7-7ba0-4005-a359-5a8a1280d84e_removalai_preview.png" id="3_e8ifw"]
+[ext_resource type="Texture2D" uid="uid://cffodpue41mdp" path="res://sprites/0ee9de6b-29d5-452e-81ba-fc5aec3ff8ff_removalai_preview.png" id="4_pt5ww"]
+[ext_resource type="Script" uid="uid://bdm81fwqwxjp6" path="res://scenes/arms/animated_sprite_2d.gd" id="5_gkl6x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrtiu"]
+size = Vector2(5, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkl6x"]
+atlas = ExtResource("4_pt5ww")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xow2b"]
+atlas = ExtResource("4_pt5ww")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjs7h"]
+atlas = ExtResource("4_pt5ww")
+region = Rect2(0, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4lpf"]
+atlas = ExtResource("4_pt5ww")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tkl1w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkl6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xow2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjs7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4lpf")
+}],
+"loop": true,
+"name": &"pulse",
+"speed": 3.0
+}]
+
+[node name="ArmSegment" type="Node2D"]
+script = ExtResource("1_wrtiu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(4, 15)
+rotation = -1.5707964
+scale = Vector2(0.10119905, 0.065042004)
+texture = ExtResource("3_e8ifw")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.5, 15)
+shape = SubResource("RectangleShape2D_wrtiu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(6.264213, 16)
+rotation = -1.5707964
+scale = Vector2(0.16627902, 0.092461795)
+sprite_frames = SubResource("SpriteFrames_tkl1w")
+animation = &"pulse"
+autoplay = "pulse"
+frame_progress = 0.47166848
+script = ExtResource("5_gkl6x")
+
+[connection signal="color_changed" from="." to="AnimatedSprite2D" method="_on_arm_segment_color_changed"]

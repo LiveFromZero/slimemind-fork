@@ -1,0 +1,227 @@
+[gd_scene load_steps=17 format=3 uid="uid://e5eb72coh0xu"]
+
+[ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_3km4f"]
+[ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
+[ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
+[ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="3_qkm1d"]
+[ext_resource type="Script" uid="uid://bastr0lbnque8" path="res://scenes/world/arm_root.gd" id="5_3km4f"]
+[ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="6_p5fgu"]
+[ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="8_p5fgu"]
+[ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/Life_and_Death_System.gd" id="9_2tpxt"]
+[ext_resource type="Script" uid="uid://chw5l8qqevlrn" path="res://scenes/systems/food_manager.gd" id="9_jsdfw"]
+[ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
+[ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="11_p5fgu"]
+[ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="11_qkm1d"]
+[ext_resource type="Script" uid="uid://bqm3dsxtmyjrs" path="res://scenes/ui/UIController.gd" id="12_2tpxt"]
+[ext_resource type="PackedScene" uid="uid://bbh2ghiqgwxfm" path="res://scenes/world/Food_source.tscn" id="13_2tpxt"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_p5fgu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3km4f"]
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_3km4f")
+
+[node name="World" parent="." instance=ExtResource("2_sjxhf")]
+process_mode = 1
+
+[node name="WorldController" type="Node2D" parent="World"]
+script = ExtResource("3_qkm1d")
+
+[node name="Blob" type="Node2D" parent="World"]
+
+[node name="ColorRect" type="ColorRect" parent="World/Blob"]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.58883995, 0.84, 0.18480001, 1)
+
+[node name="ArmRoot" parent="World" instance=ExtResource("3_ko0rf")]
+script = ExtResource("5_3km4f")
+
+[node name="ArmSegment" parent="World" instance=ExtResource("6_p5fgu")]
+process_mode = 4
+visible = false
+position = Vector2(781, -275)
+
+[node name="ArmGrowth" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="GrowthSystem" type="Node2D" parent="ArmGrowth"]
+script = ExtResource("8_p5fgu")
+
+[node name="Life_and_Death_System" type="Node2D" parent="ArmGrowth"]
+script = ExtResource("9_2tpxt")
+
+[node name="Food" type="Node2D" parent="."]
+
+[node name="FoodManager" type="Node2D" parent="Food"]
+script = ExtResource("9_jsdfw")
+food_scene = ExtResource("13_2tpxt")
+min_distance = 50.0
+spawn_size = Vector2(5000, 5000)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+script = ExtResource("10_2tpxt")
+
+[node name="Ui" parent="." instance=ExtResource("11_p5fgu")]
+process_mode = 3
+script = ExtResource("12_2tpxt")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="Ui"]
+
+[node name="MenuButton" type="MenuButton" parent="Ui/CanvasLayer2"]
+custom_minimum_size = Vector2(50, 100)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 100.0
+grow_horizontal = 0
+button_group = SubResource("ButtonGroup_p5fgu")
+icon = ExtResource("11_qkm1d")
+expand_icon = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/CanvasLayer2"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -143.0
+offset_top = 89.0
+offset_right = -4.0
+offset_bottom = 298.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="Label2" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Futtermenge"
+
+[node name="Futteranzahl" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+min_value = 15.0
+max_value = 200.0
+value = 15.0
+tick_count = 14
+
+[node name="Label3" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Futtergröße"
+
+[node name="Futtergröße" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer" groups=["SliderUpdate"]]
+layout_mode = 2
+min_value = 100.0
+max_value = 100000.0
+value = 10000.0
+
+[node name="FoodSpawnButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Food Spawnen"
+
+[node name="Label4" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Widerstandsfähigkeit"
+
+[node name="Lebenspunkte" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+value = 50.0
+
+[node name="Label5" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Sonnenmenge"
+
+[node name="Sonnenlicht" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+value = 15.0
+
+[node name="Label6" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Temperatur"
+
+[node name="Temperatur" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+min_value = -50.0
+value = 22.0
+
+[node name="Label7" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Luftfeuchtigkeit"
+
+[node name="Luftfeuchtigkeit" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+value = 70.0
+
+[node name="Label" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Starter-Arme"
+label_settings = SubResource("LabelSettings_3km4f")
+
+[node name="HSlider" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+max_value = 8.0
+tick_count = 9
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="SimulationSpeedLabel" type="Label" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Simulationsgeschwindigkeit"
+
+[node name="SimulationSpeed" type="HSlider" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+min_value = 0.2
+max_value = 10.0
+step = 0.2
+value = 1.0
+
+[node name="Button" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Start/Stop"
+
+[node name="ColorRect" type="ColorRect" parent="Ui/CanvasLayer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0.21, 0.21, 0.21, 1)
+
+[node name="ResetButton" type="Button" parent="Ui/CanvasLayer2/VBoxContainer"]
+layout_mode = 2
+text = "Reset"
+
+[connection signal="startbutton_pressed" from="." to="World/WorldController" method="_on_main_startbutton_pressed"]
+[connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
+[connection signal="spawnFood" from="World/WorldController" to="Food/FoodManager" method="_on_world_controller_spawn_food"]
+[connection signal="eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_eating"]
+[connection signal="segment_died" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_segment_died"]
+[connection signal="segment_died" from="World/ArmSegment" to="ArmGrowth/Life_and_Death_System" method="_on_arm_segment_segment_died"]
+[connection signal="stopped_eating" from="World/ArmSegment" to="World/WorldController" method="_on_arm_segment_stopped_eating"]
+[connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
+[connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
+[connection signal="arms_count_changed" from="Ui" to="World/WorldController" method="_on_ui_arms_count_changed"]
+[connection signal="reset_simulation" from="Ui" to="World/WorldController" method="_on_ui_reset_simulation"]
+[connection signal="simulation_toggled" from="Ui" to="." method="_on_ui_simulation_toggled"]
+[connection signal="spawn_food" from="Ui" to="World/WorldController" method="_on_ui_spawn_food"]
+[connection signal="update_food_amount" from="Ui" to="World/WorldController" method="_on_ui_update_food_amount"]
+[connection signal="update_food_count" from="Ui" to="World/WorldController" method="_on_ui_update_food_count"]
+[connection signal="update_humidity" from="Ui" to="World/WorldController" method="_on_ui_update_humidity"]
+[connection signal="update_life_points_for_arms" from="Ui" to="World/WorldController" method="_on_ui_update_life_points_for_arms"]
+[connection signal="update_lightamount" from="Ui" to="World/WorldController" method="_on_ui_update_lightamount"]
+[connection signal="update_simulation_speed" from="Ui" to="." method="_on_ui_update_simulation_speed"]
+[connection signal="update_temperature" from="Ui" to="World/WorldController" method="_on_ui_update_temperature"]
+[connection signal="pressed" from="Ui/CanvasLayer2/MenuButton" to="Ui" method="_on_menu_button_pressed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futteranzahl" to="Ui" method="_on_futteranzahl_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Futtergröße" to="Ui" method="_on_futtergröße_value_changed"]
+[connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/FoodSpawnButton" to="Ui" method="_on_food_spawn_button_pressed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Lebenspunkte" to="Ui" method="_on_robustheit_arme_lebenspunkte_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Sonnenlicht" to="Ui" method="_on_sonnenlicht_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Temperatur" to="Ui" method="_on_temperatur_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/Luftfeuchtigkeit" to="Ui" method="_on_luftfeuchtigkeit_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/HSlider" to="Ui" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Ui/CanvasLayer2/VBoxContainer/SimulationSpeed" to="Ui" method="_on_simulation_speed_value_changed"]
+[connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/Button" to="Ui" method="_on_button_pressed"]
+[connection signal="pressed" from="Ui/CanvasLayer2/VBoxContainer/ResetButton" to="Ui" method="_on_reset_button_pressed"]

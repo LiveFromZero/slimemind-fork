@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://e5eb72coh0xu"]
+
+[ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_1rhdn"]
+[ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="2_sjxhf"]
+[ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="3_ko0rf"]
+[ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="4_ostsq"]
+[ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="5_3km4f"]
+[ext_resource type="PackedScene" uid="uid://cgpwphoc0xh44" path="res://scenes/arms/ArmSegment.tscn" id="5_qkm1d"]
+[ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/PathfindingSystem.gd" id="6_qkm1d"]
+[ext_resource type="PackedScene" uid="uid://bwui3xiyn727a" path="res://scenes/ui/UI.tscn" id="7_3km4f"]
+[ext_resource type="Script" uid="uid://dp4yttmcqsea5" path="res://scenes/camera/CameraRig.gd" id="10_2tpxt"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_1rhdn")
+
+[node name="World" parent="." instance=ExtResource("2_sjxhf")]
+
+[node name="WorldController" type="Node2D" parent="World"]
+script = ExtResource("4_ostsq")
+
+[node name="Blob" type="Node2D" parent="World"]
+
+[node name="ColorRect" type="ColorRect" parent="World/Blob"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ArmRoot" parent="World" instance=ExtResource("3_ko0rf")]
+
+[node name="ArmSegment" parent="World/ArmRoot" instance=ExtResource("5_qkm1d")]
+position = Vector2(-124, -52)
+
+[node name="ArmGrowth" type="Node2D" parent="."]
+
+[node name="GrowthSystem" type="Node2D" parent="ArmGrowth"]
+script = ExtResource("5_3km4f")
+
+[node name="PathfindingSystem" type="Node2D" parent="ArmGrowth"]
+script = ExtResource("6_qkm1d")
+
+[node name="Ui" parent="." instance=ExtResource("7_3km4f")]
+script = null
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+script = ExtResource("10_2tpxt")

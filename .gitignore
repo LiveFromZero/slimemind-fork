@@ -1,3 +1,18 @@
-# Godot 4+ specific ignores
+# Godot 4+ (Standard)
 .godot/
-/android/
+.nomedia
+
+# Godot (weit verbreitet)
+.import/
+export.cfg
+export_credentials.cfg
+*.tmp
+
+# GDUnit4 Reports (Default ist res://reports/)
+reports/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp3cp4bw2tan1"]
+
+[ext_resource type="Texture2D" uid="uid://cathembwxrk67" path="res://assets/sprites/icon.svg" id="1_7p2wb"]
+[ext_resource type="Script" uid="uid://c13lrgtnnllcb" path="res://scenes/ui/simulation_summary.gd" id="1_pf2u6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7p2wb"]
+font_size = 42
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pf2u6"]
+font_size = 20
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[node name="SimulationSummary" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_pf2u6")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_top = -300.0
+offset_right = 600.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7p2wb")
+
+[node name="HFlowContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -300.0
+offset_right = 600.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ZusammenfassungL" type="Label" parent="HFlowContainer"]
+layout_mode = 2
+text = "Zusammenfassung"
+label_settings = SubResource("LabelSettings_7p2wb")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="HFlowContainer"]
+layout_mode = 2
+text = "Dauer der Simulation: "
+label_settings = SubResource("LabelSettings_pf2u6")
+horizontal_alignment = 1

@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn2ywyb8ljtu8"]
+
+[ext_resource type="Script" uid="uid://bb2rn8vqrtgvw" path="res://scenes/main/Main.gd" id="1_7ua24"]
+[ext_resource type="Script" uid="uid://ce4r8wnuhabdp" path="res://scenes/systems/GrowthSystem.gd" id="2_0xhhb"]
+[ext_resource type="Script" uid="uid://d1ttsg07wibc6" path="res://scenes/systems/Life_and_Death_System.gd" id="3_rku4e"]
+[ext_resource type="PackedScene" uid="uid://qg7lvik2bxea" path="res://scenes/world/World.tscn" id="4_25sjy"]
+[ext_resource type="Script" uid="uid://b33kexfvm250v" path="res://scenes/world/WorldController.gd" id="6_k1eiw"]
+[ext_resource type="PackedScene" uid="uid://h61xedcwmhfc" path="res://scenes/world/ArmRoot.tscn" id="7_6s34b"]
+[ext_resource type="Script" uid="uid://bastr0lbnque8" path="res://scenes/world/arm_root.gd" id="8_5tpx1"]
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_7ua24")
+
+[node name="ArmGrowth" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="GrowthSystem" type="Node2D" parent="ArmGrowth"]
+script = ExtResource("2_0xhhb")
+
+[node name="Life_and_Death_System" type="Node2D" parent="ArmGrowth"]
+script = ExtResource("3_rku4e")
+
+[node name="World" parent="." instance=ExtResource("4_25sjy")]
+process_mode = 1
+
+[node name="WorldController" type="Node2D" parent="World"]
+script = ExtResource("6_k1eiw")
+
+[node name="ArmRoot" parent="World" instance=ExtResource("7_6s34b")]
+script = ExtResource("8_5tpx1")
+
+[connection signal="arm_has_grown_new_segment" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_arm_has_grown_new_segment"]
+[connection signal="new_segment_alive" from="ArmGrowth/GrowthSystem" to="World/WorldController" method="_on_growth_system_new_segment_alive"]
+[connection signal="grow_arm" from="World/WorldController" to="ArmGrowth/GrowthSystem" method="_on_world_controller_grow_arm"]
+[connection signal="reset_game" from="World/WorldController" to="." method="_on_world_controller_reset_game"]
